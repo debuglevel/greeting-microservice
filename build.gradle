@@ -88,3 +88,7 @@ test {
         html.enabled = true
     }
 }
+
+// create a "stage" task for heroku which simply executes "build"
+task stage(dependsOn: ['clean', 'build'])
+build.mustRunAfter clean
