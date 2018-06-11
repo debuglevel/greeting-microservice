@@ -11,3 +11,27 @@ script:
       
 notifications:
   email: false
+
+# if releases are deployed on every commit (not only on tags, deploy.on.tags=false), a tag is needed nevertheless.
+# this creates a custom tag containing a timestamp, as Travis CI would tag it like "untagged-RANDOMHEX"
+before_deploy:
+  - git config --local user.name "Marc Kohaupt (Travis CI)"
+  - git config --local user.email "debuglevel@gmail.com"
+  - git tag "$(date +'%Y-%m-%d_%H-%M-%S')_$(git log --format=%h -1)"
+  
+deploy:
+  - provider: releases
+    api_key:
+      secure: txPqR2Wj96buxGxm0bUIYhE0/p8R740pOunvHOs6i4E1DtS0D4rJARTM3MSRgeda7rhDMsjEdog9DOhBXT/COmhv9XN7KR/WvjhAJFmfdHoqvSBPPTmW9BbZQirpYxb0VrWbtygHAO9bAYJPN+XNm0mST22p+Pdv1LyZvGnQJK04SV+ItKh0G3aQKg3Q4I5o79a0eyRgY6WmyadPsM26W+cgQ8ah6GpSzmZkdbByC030/QG3JhPjvp0ku1B6klBiLSSzpA7BjjiTrNpvLNbXBFyDtD8ehrg77zPpnaOmChqwgYvIEaqe7mwz4sHYCc6f/ce6sHFFfCeUbbZqCe58tAmZKglljt7ZyzT/+8MuYuSm8/QS2IB/8kDrYuTDYvIIXPHlVjsWUhI5zpKfxhbhvTy/PO7WhVVPUQxjuMd4k/6b5ixCoSsJ/weYhZ8h21QNQH41HLaQ8VSMkE30c1razFCh+0IOzGGESDjTJ5eisdFKKg670ZolCZMQHtZ/avO39c3S06QiUTnCrELiGuPc/COTJR9On5B4p63S3eYWnfu2ak0+u31W72QmY3Bo+g7SIw/FkSOOBIPuI5XwlvM5HUU/6NBnDGhGRLl+bZhaevfrgzNwvo7yM9/X+/kHDh4hHPHpIcJRxfNgXwFZVlkX1VQctBIZtm6KIsh8xSar/1k=
+    file_glob: true
+    file: "**/build/libs/*-all.jar"
+    skip_cleanup: true
+    # only deploy on certain conditions: https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
+    on:
+      # only deploy commits of "master" branch
+      branch: master
+      # true: only deploy release if commit is not tagged
+      # false: only deploy release if commit is tagged
+      # if "tags" condition is present, the "branch" condition is ignored
+      # if "tags" condition is not present, "branch" condition is considered
+      #tags: false
