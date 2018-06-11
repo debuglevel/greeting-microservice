@@ -1,0 +1,25 @@
+stages:
+  - build
+
+# No explicit test stage is needed, as "gradle build" does already run the "test" task
+#test:
+#  stage: build
+#  image: alpine:3.7
+#  script:
+#    - ...
+
+build:
+  stage: build
+  image: gradle:4.8-jdk8-alpine
+  script:
+    - gradle build
+  artifacts:
+    paths:
+      # use only shadowed jars
+      - "build/libs/*-all.jar"
+      - "build/distributions/*shadow*.tar"
+
+      # reports (e.g. about failed tests)
+      - "build/reports"
+
+

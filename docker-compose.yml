@@ -1,0 +1,7 @@
+version: '3'
+services:
+  rest:
+    build: .
+    image: greeting-microservice
+    ports:
+     - "8080:80"
