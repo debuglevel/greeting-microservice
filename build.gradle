@@ -62,10 +62,6 @@ dependencies {
 
     // JSON
     compile 'com.google.code.gson:gson:2.8.4'
-
-    // libphonenumber
-    compile 'com.googlecode.libphonenumber:libphonenumber:8.9.6'
-    compile 'com.googlecode.libphonenumber:geocoder:2.95'
 }
 
 // jar configuration is still needed (despite of application plugin) to add Manifest to traditional jar
