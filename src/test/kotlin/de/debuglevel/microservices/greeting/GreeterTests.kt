@@ -1,6 +1,5 @@
 package de.debuglevel.microservices.greeting
 
-import com.google.i18n.phonenumbers.NumberParseException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.TestInstance
