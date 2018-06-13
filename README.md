@@ -23,6 +23,7 @@ This is an example how to create a microservice.
   * deploy on GitHub Releases
   * deploy on Heroku
 * Heroku
-* Docker
+  * Procfile
+* Docker (Linux Container)
   * Dockerfile
   * docker-compose.yml

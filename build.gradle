@@ -85,6 +85,6 @@ test {
     }
 }
 
-// create a "stage" task for heroku which simply executes "build"
+// for Heroku: create a "stage" task which simply executes "build"
 task stage(dependsOn: ['clean', 'build'])
 build.mustRunAfter clean
