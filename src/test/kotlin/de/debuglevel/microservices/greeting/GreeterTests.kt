@@ -13,17 +13,30 @@ class GreeterTests {
     @ParameterizedTest
     @MethodSource("validNameProvider")
     fun `greet valid names`(testData: NameTestData) {
-        assertThat(Greeter.greet(testData.value).greeting).isEqualTo(testData.expected)
+        // Arrange
+
+        // Act
+        val greeting = Greeter.greet(testData.value).greeting
+
+        //Assert
+        assertThat(greeting).isEqualTo(testData.expected)
     }
 
     fun validNameProvider() = Stream.of(
             NameTestData(value = "Mozart", expected = "Hello, Mozart!"),
-            NameTestData(value = "Amadeus", expected = "Hello, Amadeus!")
+            NameTestData(value = "Amadeus", expected = "Hello, Amadeus!"),
+            NameTestData(value = "Hänschen", expected = "Hello, Hänschen!"),
+            NameTestData(value = "Max Mustermann", expected = "Hello, Max Mustermann!")
     )
 
     @ParameterizedTest
     @MethodSource("invalidNameProvider")
     fun `format invalid names`(testData: NameTestData) {
+        // Arrange
+
+        // Act
+
+        // Assert
         assertThatExceptionOfType(Greeter.GreetingException::class.java).isThrownBy({ Greeter.greet(testData.value) })
     }
 

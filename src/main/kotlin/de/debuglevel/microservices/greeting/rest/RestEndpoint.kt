@@ -36,10 +36,10 @@ class RestEndpoint {
                             .create()
                             .toJson(greeting)
                 } catch (e: Greeter.GreetingException) {
-                    logger.info("Name '$name' could not be greeted", e)
+                    logger.info("Name '$name' could not be greeted: ", e.message)
                     response.type("application/json")
                     response.status(400)
-                    "{\"message\":\"name '$name' could not be greeted: $e\"}"
+                    "{\"message\":\"name '$name' could not be greeted: ${e.message}\"}"
                 }
             }
         }
