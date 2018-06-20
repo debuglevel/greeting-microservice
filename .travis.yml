@@ -30,8 +30,8 @@ deploy:
     on:
       # only deploy commits of "master" branch
       branch: master
-      # true: only deploy release if commit is not tagged
-      # false: only deploy release if commit is tagged
+      # true: only deploy release if commit is tagged
+      # false: only deploy release if commit is not tagged
       # if "tags" condition is present, the "branch" condition is ignored
       # if "tags" condition is not present, "branch" condition is considered
       #tags: false
