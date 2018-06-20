@@ -2,7 +2,7 @@ package de.debuglevel.microservices.greeting.rest
 
 import com.google.gson.GsonBuilder
 import de.debuglevel.microservices.greeting.Greeter
-import de.debuglevel.microservices.spark.configuredPort
+import de.debuglevel.microservices.utils.spark.configuredPort
 import mu.KotlinLogging
 import spark.Spark.path
 import spark.kotlin.get
