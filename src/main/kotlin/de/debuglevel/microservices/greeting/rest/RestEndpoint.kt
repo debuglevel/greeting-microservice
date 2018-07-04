@@ -22,7 +22,7 @@ class RestEndpoint {
     fun start(args: Array<String>) {
         logger.info("Starting...")
         configuredPort()
-        status()
+        status(this::class.java)
 
         path("/greet") {
             get("/:name") {
