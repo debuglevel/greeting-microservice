@@ -48,6 +48,32 @@ class RestEndpointTests {
 
         @ParameterizedTest
         @MethodSource("validNameProvider")
+        fun `server sends correct greeting on api version 2 and default`(testData: NameTestData) {
+            // Arrange
+
+            // Act
+            val responseApiDefault = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val responseApiV2 = ApiTestUtils.request("GET", "/v2/greet/${testData.value}", null)
+
+            // Assert
+            assertThat(responseApiDefault?.body).contains(testData.expected)
+            assertThat(responseApiV2?.body).contains(testData.expected)
+        }
+
+        @ParameterizedTest
+        @MethodSource("validNameProviderApiV1")
+        fun `server sends correct greeting on api version 1`(testData: NameTestData) {
+            // Arrange
+
+            // Act
+            val responseApiV1 = ApiTestUtils.request("GET", "/v1/greet/${testData.value}", null)
+
+            // Assert
+            assertThat(responseApiV1?.body).contains(testData.expected)
+        }
+
+        @ParameterizedTest
+        @MethodSource("validNameProvider")
         fun `server sends status code 200`(testData: NameTestData) {
             // Arrange
 
@@ -89,6 +115,14 @@ class RestEndpointTests {
                 // TODO: Umlauts do not work when executed as gradle task in Windows
 //                NameTestData(value = "H%C3%A4nschen", expected = "Hello, Hänschen!"),
                 NameTestData(value = "Max%20Mustermann", expected = "Hello, Max Mustermann!")
+        )
+
+        fun validNameProviderApiV1() = Stream.of(
+                NameTestData(value = "Mozart", expected = "Hello from API v1, Mozart!"),
+                NameTestData(value = "Amadeus", expected = "Hello from API v1, Amadeus!"),
+                // TODO: Umlauts do not work when executed as gradle task in Windows
+//                NameTestData(value = "H%C3%A4nschen", expected = "Hello, Hänschen!"),
+                NameTestData(value = "Max%20Mustermann", expected = "Hello from API v1, Max Mustermann!")
         )
     }
 

@@ -62,7 +62,7 @@ dependencies {
 
     // Spark (REST Server)
     compile 'com.sparkjava:spark-kotlin:1.0.0-alpha'
-    compile 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.19'
+    compile 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.20'
 
     // JSON
     compile 'com.google.code.gson:gson:2.8.4'
