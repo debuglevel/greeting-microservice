@@ -5,7 +5,7 @@ services:
 
 before_script:
   - TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
-  - COMMIT=${CI_COMMIT_SHA:0:8}
+  - SHORT_COMMIT_HASH=${CI_COMMIT_SHA:0:8}
   
 stages:
   - build
@@ -17,6 +17,7 @@ stages:
 #  script:
 #    - ...
 
+# build with gradle and generate artifacts
 build:
   stage: build
   image: gradle:4.8-jdk8-alpine
@@ -31,27 +32,40 @@ build:
       # reports (e.g. about failed tests)
       - "build/reports"
 
+# build docker image and push it to GitLab's docker registry with various tags
 build-docker-master:
   stage: build
   script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY 
     
     # build image, tag it as "debuglevel/greeting-microservice:master-2018-07-12_20-51-42_97dd42c" and push it
-    - echo docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$COMMIT" .
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$COMMIT" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$COMMIT"
+    - echo docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH" .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH"
     
-    # tag image also as "debuglevel/greeting-microservice" and push it
-    - docker tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$COMMIT" "$CI_REGISTRY_IMAGE"
+    # tag image also as "debuglevel/greeting-microservice:master" and push it
+    - docker tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH" "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    
+    # tag image also as "debuglevel/greeting-microservice" and push it (this is not done on branches)
+    - docker tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH" "$CI_REGISTRY_IMAGE"
     - docker push "$CI_REGISTRY_IMAGE"
   only:
     - master
 
+# also build docker images on branches but do not tag it as "debuglevel/greeting-microservice" (which would be "debuglevel/greeting-microservice:latest")
 build-docker-branches:
   stage: build
   script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY 
+    
+    # build image, tag it as "debuglevel/greeting-microservice:master-2018-07-12_20-51-42_97dd42c" and push it
+    - echo docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH" .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH"
+    
+    # tag image also as "debuglevel/greeting-microservice:master" and push it
+    - docker tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$TIMESTAMP-$SHORT_COMMIT_HASH" "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
