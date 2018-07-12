@@ -21,4 +21,3 @@ build:
 
       # reports (e.g. about failed tests)
       - "build/reports"
-
