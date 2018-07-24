@@ -49,7 +49,7 @@ build-docker-master:
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
     
     # tag image also as "debuglevel/greeting-microservice:master" and push it
-    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$BRANCH_OR_TAG"
+    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
     
     # tag image also as "debuglevel/greeting-microservice" and push it (this is not done on branches)
