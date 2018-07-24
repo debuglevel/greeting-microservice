@@ -4,7 +4,7 @@ services:
   - docker:dind
 
 before_script:
-  - COMMIT_TIMESTAMP=$(git show -s --format=%cd --date=format:'%Y%m%d-%H%M%S')
+  - COMMIT_TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
   - COMMIT_HASH_SHORT=${CI_COMMIT_SHA:0:8}
   - COMMIT_BRANCH_OR_TAG=$CI_COMMIT_REF_SLUG
   - REGISTRY_USER=$CI_REGISTRY_USER
