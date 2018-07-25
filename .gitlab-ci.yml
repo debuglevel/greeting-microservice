@@ -19,6 +19,7 @@ before_script:
   
 stages:
   - build
+  - release
 
 # No explicit test stage is needed, as "gradle build" does already run the "test" task
 #test:
@@ -48,34 +49,29 @@ build-docker-master:
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     
-    # build image, tag it as "debuglevel/greeting-microservice:master-2018-07-12_20-51-42_97dd42c" and push it
-    - echo docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" .
+    # build image, tag it as "debuglevel/greeting-microservice:branch-2018-07-12_20-51-42_97dd42c" and push it
     - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" .
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
-    
-    # tag image also as "debuglevel/greeting-microservice:master" and push it
+
+release-docker:
+  stage: release
+  script:
+    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
+        
+    # tag image also as "debuglevel/greeting-microservice:branch" and push it
+    - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
     - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
-    
-    # tag image also as "debuglevel/greeting-microservice" and push it (this is not done on branches)
-    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE"
-    - docker push "$REGISTRY_IMAGE"
-  only:
-    - master
 
-# also build docker images on branches but do not tag it as "debuglevel/greeting-microservice" (which would be "debuglevel/greeting-microservice:latest")
-build-docker-branches:
-  stage: build
+# build docker image and push it to GitLab's docker registry with various tags
+release-docker-master:
+  stage: release
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     
-    # build image, tag it as "debuglevel/greeting-microservice:mybranch-2018-07-12_20-51-42_97dd42c" and push it
-    - echo docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" .
-    - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" .
-    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
-    
-    # tag image also as "debuglevel/greeting-microservice:mybranch" and push it
-    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
-    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
-  except:
+    # tag image also as "debuglevel/greeting-microservice" and push it (this is not done on branches)
+    - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
+    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE"
+    - docker push "$REGISTRY_IMAGE"
+  only:
     - master
