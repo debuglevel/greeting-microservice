@@ -1,5 +1,3 @@
-image: docker:latest
-
 services:
   - name: docker:dind
     command: ["/bin/sh", "-c", "[[ -z $CERTIFICATE_URL ]] && ( dockerd-entrypoint.sh || exit ) || ( wget $CERTIFICATE_URL -O /usr/local/share/ca-certificates/cert.crt && update-ca-certificates && dockerd-entrypoint.sh || exit )"]
@@ -28,7 +26,7 @@ stages:
 #  script:
 #    - ...
 
-# build with gradle and generate artifacts
+# traditional build with gradle and generate artifacts
 build:
   stage: build
   image: gradle:4.8-jdk8-alpine
@@ -43,33 +41,32 @@ build:
       # reports (e.g. about failed tests)
       - "build/reports"
 
-# build docker image and push it to GitLab's docker registry with various tags
+## Build & Push Docker Images ##
+# build docker image and push it to the registry as "debuglevel/greeting-microservice:branch-97dd42c"
 build-docker-master:
   stage: build
+  image: docker:latest
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
-    
-    # build image, tag it as "debuglevel/greeting-microservice:branch-97dd42c" and push it
     - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" .
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
+# release branch docker image by pushing it to the registry as "debuglevel/greeting-microservice:branch"
 release-docker:
   stage: release
+  image: docker:latest
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
-    
-    # tag image also as "debuglevel/greeting-microservice:branch" and push it
     - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
     - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
 
-# build docker image and push it to GitLab's docker registry with various tags
+# release master docker image by pushing it to the registry as "debuglevel/greeting-microservice"
 release-docker-master:
   stage: release
+  image: docker:latest
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
-    
-    # tag image also as "debuglevel/greeting-microservice" and push it (this is not done on branches)
     - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
     - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE"
     - docker push "$REGISTRY_IMAGE"
