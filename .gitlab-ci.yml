@@ -2,8 +2,6 @@ image: docker:latest
 
 services:
   - docker:dind
-## uncomment this to activate injection of self-signed certificates
-## (from https://gitlab.com/gitlab-org/gitlab-runner/issues/1350)
     command: ["/bin/sh", "-c", "[[ -z $CERTIFICATE_URL ]] && ( dockerd-entrypoint.sh || exit ) || ( wget $CERTIFICATE_URL -O /usr/local/share/ca-certificates/cert.crt && update-ca-certificates && dockerd-entrypoint.sh || exit )"]
 
 variables:
