@@ -7,9 +7,9 @@ before_script:
   - COMMIT_TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
   - COMMIT_HASH_SHORT=${CI_COMMIT_SHA:0:8}
   - COMMIT_BRANCH_OR_TAG=$CI_COMMIT_REF_SLUG
+  - REGISTRY_HOST=$CI_REGISTRY
   - REGISTRY_USER=$CI_REGISTRY_USER
   - REGISTRY_PASSWORD=$CI_REGISTRY_PASSWORD
-  - REGISTRY=$CI_REGISTRY
   - REGISTRY_IMAGE=$CI_REGISTRY_IMAGE
   
 stages:
@@ -41,7 +41,7 @@ build:
 build-docker-master:
   stage: build
   script:
-    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY 
+    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     
     # build image, tag it as "debuglevel/greeting-microservice:master-2018-07-12_20-51-42_97dd42c" and push it
     - echo docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" .
@@ -62,7 +62,7 @@ build-docker-master:
 build-docker-branches:
   stage: build
   script:
-    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY 
+    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     
     # build image, tag it as "debuglevel/greeting-microservice:mybranch-2018-07-12_20-51-42_97dd42c" and push it
     - echo docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" .
