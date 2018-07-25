@@ -9,7 +9,7 @@ variables:
 #  - CERTIFICATE_URL=http://my_server/my_corp.crt
 
 before_script:
-  - COMMIT_TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
+  - JOB_TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
   - COMMIT_HASH_SHORT=${CI_COMMIT_SHA:0:8}
   - COMMIT_BRANCH_OR_TAG=$CI_COMMIT_REF_SLUG
   - REGISTRY_HOST=$CI_REGISTRY
@@ -49,18 +49,18 @@ build-docker-master:
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     
-    # build image, tag it as "debuglevel/greeting-microservice:branch-2018-07-12_20-51-42_97dd42c" and push it
-    - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" .
-    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
+    # build image, tag it as "debuglevel/greeting-microservice:branch-97dd42c" and push it
+    - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" .
+    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
 release-docker:
   stage: release
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
-        
+    
     # tag image also as "debuglevel/greeting-microservice:branch" and push it
-    - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
-    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
+    - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
+    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
 
 # build docker image and push it to GitLab's docker registry with various tags
@@ -70,8 +70,8 @@ release-docker-master:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     
     # tag image also as "debuglevel/greeting-microservice" and push it (this is not done on branches)
-    - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT"
-    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_TIMESTAMP-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE"
+    - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
+    - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE"
     - docker push "$REGISTRY_IMAGE"
   only:
     - master
