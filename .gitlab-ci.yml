@@ -1,7 +1,7 @@
 image: docker:latest
 
 services:
-  - docker:dind
+  - name: docker:dind
     command: ["/bin/sh", "-c", "[[ -z $CERTIFICATE_URL ]] && ( dockerd-entrypoint.sh || exit ) || ( wget $CERTIFICATE_URL -O /usr/local/share/ca-certificates/cert.crt && update-ca-certificates && dockerd-entrypoint.sh || exit )"]
 
 variables:
