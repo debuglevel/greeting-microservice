@@ -49,7 +49,7 @@ build-docker-master:
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" .
-    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
+    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
 # release branch docker image by pushing it to the registry as "debuglevel/greeting-microservice:branch"
 release-docker:
@@ -59,7 +59,7 @@ release-docker:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
     - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
-    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
+    - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
 
 # release master docker image by pushing it to the registry as "debuglevel/greeting-microservice"
 release-docker-master:
@@ -69,6 +69,6 @@ release-docker-master:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST 
     - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
     - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE"
-    - docker push "$REGISTRY_IMAGE"
+    - docker push "$REGISTRY_IMAGE" && echo "== Pushed docker image $REGISTRY_IMAGE"
   only:
     - master
