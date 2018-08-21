@@ -4,7 +4,7 @@ services:
 
 variables:
 ## uncomment this to inject a self-signed certificate into the docker:dind service
-#  - CERTIFICATE_URL=http://my_server/my_corp.crt
+#  CERTIFICATE_URL: http://my_server/my_corp.crt
 
 before_script:
   - JOB_TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
