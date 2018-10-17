@@ -1,3 +1,4 @@
+## Building stage
 FROM openjdk:8-jdk-alpine AS builder
 WORKDIR /src/
 
@@ -11,7 +12,7 @@ RUN ./gradlew --version
 COPY . /src/
 RUN ./gradlew build
 
-
+## Final image
 FROM openjdk:8-jre-alpine
 RUN mkdir /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
