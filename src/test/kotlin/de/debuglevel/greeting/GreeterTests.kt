@@ -1,4 +1,4 @@
-package de.debuglevel.microservices.greeting
+package de.debuglevel.greeting
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType

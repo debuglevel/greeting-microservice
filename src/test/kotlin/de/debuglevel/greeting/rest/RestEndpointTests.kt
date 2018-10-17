@@ -1,4 +1,4 @@
-package de.debuglevel.microservices.greeting.rest
+package de.debuglevel.greeting.rest
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested

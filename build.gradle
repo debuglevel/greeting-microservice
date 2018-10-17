@@ -29,12 +29,12 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-group 'de.debuglevel.microservices.greeting'
+group 'de.debuglevel.greeting'
 version '0.0.1-SNAPSHOT'
 
 // application plugin configuration
 applicationName = "Greeting Microservice"
-mainClassName = "de.debuglevel.microservices.greeting.MainKt"
+mainClassName = "de.debuglevel.greeting.MainKt"
 
 sourceCompatibility = 1.8
 

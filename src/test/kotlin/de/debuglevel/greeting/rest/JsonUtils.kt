@@ -1,4 +1,4 @@
-package de.debuglevel.microservices.greeting.rest
+package de.debuglevel.greeting.rest
 
 import com.google.gson.Gson
 

@@ -1,7 +1,7 @@
-package de.debuglevel.microservices.greeting.rest
+package de.debuglevel.greeting.rest
 
 import com.google.gson.GsonBuilder
-import de.debuglevel.microservices.greeting.Greeter
+import de.debuglevel.greeting.Greeter
 import de.debuglevel.microservices.utils.apiversion.apiVersion
 import de.debuglevel.microservices.utils.spark.configuredPort
 import de.debuglevel.microservices.utils.status.status
