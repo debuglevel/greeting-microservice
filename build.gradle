@@ -43,12 +43,16 @@ repositories {
     maven {
         url "https://dl.bintray.com/debuglevel/maven"
     }
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    // Tests
+    // Testing
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
@@ -60,12 +64,18 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'org.slf4j:slf4j-simple:1.7.5'
 
-    // Spark (REST Server)
+    // Spark (REST server)
     compile 'com.sparkjava:spark-kotlin:1.0.0-alpha'
     compile 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.20'
 
     // JSON
     compile 'com.google.code.gson:gson:2.8.4'
+
+    // khttp (HTTP client)
+    //compile 'com.github.jkcclemens:khttp:-SNAPSHOT'
+
+    // Template Engine
+    //compile 'com.sparkjava:spark-template-mustache:2.7.1'
 }
 
 // jar configuration is still needed (despite of application plugin) to add Manifest to traditional jar
