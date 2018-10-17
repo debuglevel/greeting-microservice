@@ -1,6 +1,14 @@
 FROM openjdk:8-jdk-alpine AS builder
-COPY . /src/
 WORKDIR /src/
+
+# cache gradle
+COPY gradle /src/gradle
+COPY gradlew /src/
+# run "gradle --version" to let gradle-wrapper download gradle
+RUN ./gradlew --version
+
+# build source
+COPY . /src/
 RUN ./gradlew build
 
 
