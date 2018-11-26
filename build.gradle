@@ -19,7 +19,7 @@ plugins {
 
     // bundle all dependencies into one fat shadowed jar
     // (gets automatically triggered when application plugin is present)
-    id 'com.github.johnrengelman.shadow' version '2.0.4'
+    id 'com.github.johnrengelman.shadow' version '4.0.3'
 }
 
 compileKotlin {
