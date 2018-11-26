@@ -69,7 +69,7 @@ dependencies {
     compile 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.20'
 
     // JSON
-    compile 'com.google.code.gson:gson:2.8.4'
+    compile 'com.google.code.gson:gson:2.8.5'
 
     // khttp (HTTP client)
     //compile 'com.github.jkcclemens:khttp:-SNAPSHOT'
