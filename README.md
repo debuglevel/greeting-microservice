@@ -10,13 +10,15 @@ This is an example how to create a microservice.
   * REST microservice
   * GSON
 * Kotlin
-  * Logging (kotlin-logging, slf4j)
-  * Tests (Junit 5)
+  * Logging (kotlin-logging, SLF4J)
+  * Tests (JUnit 5)
 * Gradle (with Wrapper)
-  * Fat shadowed Jar
+  * fat shadowed Jar
 
 ### Integration
 
+* Git
+  * .gitignore
 * GitLab CI/CD using Docker images in GitLab Runner
   * save artifacts in GitLab
 * Travis CI
@@ -27,3 +29,4 @@ This is an example how to create a microservice.
 * Docker (Linux Container)
   * Dockerfile
   * docker-compose.yml
+  * .dockerignore
