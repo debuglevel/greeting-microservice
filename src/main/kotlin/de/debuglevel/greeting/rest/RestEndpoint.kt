@@ -2,11 +2,16 @@ package de.debuglevel.greeting.rest
 
 import de.debuglevel.greeting.rest.greeting.GreetingController
 import de.debuglevel.microservices.utils.apiversion.apiVersion
+import de.debuglevel.microservices.utils.logging.buildRequestLog
+import de.debuglevel.microservices.utils.logging.buildResponseLog
 import de.debuglevel.microservices.utils.spark.configuredPort
 import de.debuglevel.microservices.utils.status.status
 import mu.KotlinLogging
 import spark.Spark.path
+import spark.kotlin.after
+import spark.kotlin.before
 import spark.kotlin.get
+
 
 /**
  * REST endpoint
@@ -51,5 +56,9 @@ class RestEndpoint {
                 }
             }
         }
+
+        // add loggers
+        before { logger.debug(buildRequestLog(request)) }
+        after { logger.debug(buildResponseLog(request, response)) }
     }
 }
