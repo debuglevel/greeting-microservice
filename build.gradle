@@ -61,8 +61,8 @@ dependencies {
     // Logging
     // see http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
     compile 'io.github.microutils:kotlin-logging:1.4.9'
-    compile 'org.slf4j:slf4j-api:1.7.5'
-    compile 'org.slf4j:slf4j-simple:1.7.5'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.slf4j:slf4j-simple:1.7.25'
 
     // Spark (REST server)
     compile 'com.sparkjava:spark-kotlin:1.0.0-alpha'
