@@ -34,7 +34,7 @@ version '0.0.1-SNAPSHOT'
 
 // application plugin configuration
 applicationName = "Greeting Microservice"
-mainClassName = "de.debuglevel.greeting.MainKt"
+mainClassName = "de.debuglevel.greeting.rest.MainKt"
 
 sourceCompatibility = 1.8
 

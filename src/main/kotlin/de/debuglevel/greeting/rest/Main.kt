@@ -1,6 +1,4 @@
-package de.debuglevel.greeting
-
-import de.debuglevel.greeting.rest.RestEndpoint
+package de.debuglevel.greeting.rest
 
 /**
  * Application entry point.

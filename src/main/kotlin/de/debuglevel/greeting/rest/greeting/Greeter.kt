@@ -1,4 +1,4 @@
-package de.debuglevel.greeting
+package de.debuglevel.greeting.rest.greeting
 
 import mu.KotlinLogging
 
@@ -18,29 +18,18 @@ object Greeter {
      * @return a greeting
      */
     @Throws(GreetingException::class)
-    fun greet(name: String): Greeting {
+    fun greet(name: String): GreetingDTO {
         logger.debug { "Greeting '$name'..." }
 
-        if (name.isNullOrBlank()) {
-            throw GreetingException("Cannot greet a blank name.")
+        if (name.isBlank()) {
+            throw GreetingException("Cannot greeting a blank name.")
         }
 
-        val greeting = Greeting(name)
+        val greeting = GreetingDTO(name)
 
         logger.debug { "Greeted '$name' like '${greeting.greeting}'..." }
 
         return greeting
-    }
-
-    /**
-     * A greeting
-     *
-     * @param name name of the person to greet
-     * @constructor the `name` field is annotated with `@Transient` so that it is excluded from GSON serialization
-     */
-    data class Greeting(@Transient private val name: String)
-    {
-        val greeting: String = "Hello, $name!"
     }
 
     class GreetingException(message: String) : Exception(message)

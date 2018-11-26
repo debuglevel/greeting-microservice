@@ -1,7 +1,6 @@
 package de.debuglevel.greeting.rest
 
-import com.google.gson.GsonBuilder
-import de.debuglevel.greeting.Greeter
+import de.debuglevel.greeting.rest.greeting.GreetingController
 import de.debuglevel.microservices.utils.apiversion.apiVersion
 import de.debuglevel.microservices.utils.spark.configuredPort
 import de.debuglevel.microservices.utils.status.status
@@ -25,40 +24,30 @@ class RestEndpoint {
         configuredPort()
         status(this::class.java)
 
-        // publish following paths on e.g. /v1/greet/
+        // publish following paths on e.g. /v1/greetings/
         apiVersion("1")
         {
-            path("/greet") {
+            path("/greetings") {
                 get("/:name") {
                     val name = params(":name")
-                    logger.info("Got request to greet '$name' on API v1")
+                    logger.info("Got request to greeting '$name' on API v1")
                     "Hello from API v1, $name!"
                 }
             }
         }
 
-        // publish following paths on e.g. /v2/greet/ and /greet/ (as "default" is true)
+        // publish following paths on e.g. /v2/greetings/ and /greetings/ (as "default" is true)
         apiVersion("2", true)
         {
-            path("/greet") {
-                get("/:name") {
-                    val name = params(":name")
+            path("/greetings") {
+                //get("/", "text/html", GreetingController.getListHtml())
+                get("/", "application/json", GreetingController.getList())
+                //post("/", function = GreetingController.postOne())
 
-                    logger.info("Got request to greet '$name' on API v2")
-
-                    type(contentType = "application/json")
-                    try {
-                        val greeting = Greeter.greet(name)
-                        GsonBuilder()
-                                .setPrettyPrinting()
-                                .create()
-                                .toJson(greeting)
-                    } catch (e: Greeter.GreetingException) {
-                        logger.info("Name '$name' could not be greeted: ", e.message)
-                        response.type("application/json")
-                        response.status(400)
-                        "{\"message\":\"name '$name' could not be greeted: ${e.message}\"}"
-                    }
+                path("/:name") {
+                    get("", "application/json", GreetingController.getOne())
+                    get("/", "application/json", GreetingController.getOne())
+                    //get("/", "text/html", GreetingController.getOneHtml())
                 }
             }
         }

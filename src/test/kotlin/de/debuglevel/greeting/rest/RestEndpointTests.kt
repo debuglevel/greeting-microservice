@@ -24,7 +24,7 @@ class RestEndpointTests {
         // Arrange
 
         // Act
-        val response = ApiTestUtils.request("GET", "/greet/test", null)
+        val response = ApiTestUtils.request("GET", "/greetings/test", null)
 
         // Assert
         // HTTP Codes begin from "100". So something from 100 and above was probably a response to a HTTP request
@@ -40,7 +40,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             assertThat(response?.body).contains(testData.expected)
@@ -52,8 +52,8 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val responseApiDefault = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
-            val responseApiV2 = ApiTestUtils.request("GET", "/v2/greet/${testData.value}", null)
+            val responseApiDefault = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
+            val responseApiV2 = ApiTestUtils.request("GET", "/v2/greetings/${testData.value}", null)
 
             // Assert
             assertThat(responseApiDefault?.body).contains(testData.expected)
@@ -66,7 +66,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val responseApiV1 = ApiTestUtils.request("GET", "/v1/greet/${testData.value}", null)
+            val responseApiV1 = ApiTestUtils.request("GET", "/v1/greetings/${testData.value}", null)
 
             // Assert
             assertThat(responseApiV1?.body).contains(testData.expected)
@@ -78,7 +78,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             assertThat(response?.status).isEqualTo(200)
@@ -90,7 +90,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             assertThat(response?.contentType).isEqualTo("application/json")
@@ -102,7 +102,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             val validJson = JsonUtils.isJSONValid(response?.body)
@@ -135,7 +135,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             assertThat(response?.body).doesNotContain("Hello, ${testData.value}!")
@@ -147,7 +147,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             assertThat(response?.body).contains("message")
@@ -159,7 +159,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             assertThat(response?.status).isEqualTo(400)
@@ -171,7 +171,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             assertThat(response?.contentType).isEqualTo("application/json")
@@ -183,7 +183,7 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val response = ApiTestUtils.request("GET", "/greet/${testData.value}", null)
+            val response = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
 
             // Assert
             val validJson = JsonUtils.isJSONValid(response?.body)
