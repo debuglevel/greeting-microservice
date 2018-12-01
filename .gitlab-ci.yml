@@ -29,7 +29,7 @@ stages:
 # traditional build with gradle and generate artifacts
 build:
   stage: build
-  image: gradle:4.8-jdk8-alpine
+  image: gradle:4.10-jdk8-alpine
   script:
   - gradle build
   artifacts:
