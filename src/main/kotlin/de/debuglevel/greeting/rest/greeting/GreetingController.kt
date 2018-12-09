@@ -27,42 +27,37 @@ object GreetingController {
 
 //    fun getOneHtml(): RouteHandler.() -> String {
 //        return {
-//            val dinnerId = request.params(":dinnerId").toInt()
-//            logger.debug("Got GET request on '/dinners/$dinnerId'")
+//            val greetingId = request.params(":greetingId").toInt()
 //
 //            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "dinner/show.html.mustache"))
+//            MustacheTemplateEngine().render(ModelAndView(model, "greeting/show.html.mustache"))
 //        }
 //    }
 
     fun getList(): RouteHandler.() -> String {
         return {
-            val dinners = setOf<GreetingDTO>(
+            val greetings = setOf<GreetingDTO>(
                     GreetingDTO("Mozart"),
                     GreetingDTO("Beethoven"),
                     GreetingDTO("Haydn")
             )
 
             type(contentType = "application/json")
-            JsonTransformer.render(dinners)
+            JsonTransformer.render(greetings)
         }
     }
 
 //    fun getListHtml(): RouteHandler.() -> String {
 //        return {
-//            logger.debug("Got GET request on '/dinners/'")
-//
 //            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "dinner/list.html.mustache"))
+//            MustacheTemplateEngine().render(ModelAndView(model, "greeting/list.html.mustache"))
 //        }
 //    }
 
 //    fun getAddFormHtml(): RouteHandler.() -> String {
 //        return {
-//            logger.debug("Got GET request on '/participants'")
-//
 //            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "participant/add.html.mustache"))
+//            MustacheTemplateEngine().render(ModelAndView(model, "greeting/add.html.mustache"))
 //        }
 //    }
 }
