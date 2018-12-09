@@ -34,6 +34,19 @@ class RestEndpointTests {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class `valid requests on greet` {
+        @Test
+        fun `server lists greetings`() {
+            // Arrange
+
+            // Act
+            val response = ApiTestUtils.request("GET", "/greetings/", null)
+
+            // Assert
+            assertThat(response?.body).contains("Mozart")
+            assertThat(response?.body).contains("Beethoven")
+            assertThat(response?.body).contains("Haydn")
+        }
+
         @ParameterizedTest
         @MethodSource("validNameProvider")
         fun `server sends greeting in body`(testData: NameTestData) {
