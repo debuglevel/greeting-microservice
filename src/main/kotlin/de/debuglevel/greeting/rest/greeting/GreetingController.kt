@@ -10,7 +10,6 @@ object GreetingController {
     fun getOne(): RouteHandler.() -> String {
         return {
             val name = params(":name")
-            logger.debug("Got GET request on '/greetings/$name'")
 
             try {
                 val greeting = Greeter.greet(name)
@@ -38,8 +37,6 @@ object GreetingController {
 
     fun getList(): RouteHandler.() -> String {
         return {
-            logger.debug("Got GET request on '/greetings/'")
-
             val dinners = setOf<GreetingDTO>(
                     GreetingDTO("Mozart"),
                     GreetingDTO("Beethoven"),
