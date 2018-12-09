@@ -1,5 +1,6 @@
 package de.debuglevel.greeting.rest.greeting
 
+import de.debuglevel.greeting.domain.greeting.Greeter
 import de.debuglevel.greeting.rest.responsetransformer.JsonTransformer
 import mu.KotlinLogging
 import spark.kotlin.RouteHandler

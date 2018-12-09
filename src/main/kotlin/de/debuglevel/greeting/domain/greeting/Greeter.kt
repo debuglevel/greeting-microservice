@@ -1,5 +1,6 @@
-package de.debuglevel.greeting.rest.greeting
+package de.debuglevel.greeting.domain.greeting
 
+import de.debuglevel.greeting.rest.greeting.GreetingDTO
 import mu.KotlinLogging
 
 /**
