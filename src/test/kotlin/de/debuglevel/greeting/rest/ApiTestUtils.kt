@@ -5,6 +5,7 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 
+
 // TODO: replace this Utils with an easy to use REST library
 object ApiTestUtils {
     fun request(method: String, path: String, requestBody: String?): TestResponse? {
@@ -12,7 +13,18 @@ object ApiTestUtils {
         val url = URL("http://localhost:4567$path")
         val connection = url.openConnection() as HttpURLConnection
         connection.requestMethod = method
-        connection.doOutput = true
+
+        if (requestBody != null) {
+            // set the content length of the body
+            connection.setRequestProperty("Content-length", requestBody.toByteArray().size.toString())
+            connection.doOutput = true
+            connection.useCaches = false
+
+            // send the string as body of the request
+            val outputStream = connection.outputStream
+            outputStream.write(requestBody.toByteArray())
+            outputStream.close()
+        }
 
         try {
             connection.connect()
