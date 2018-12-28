@@ -29,9 +29,9 @@ stages:
 # traditional build with gradle and generate artifacts
 build:
   stage: build
-  image: gradle:4.10-jdk8-alpine
+  image: openjdk:8-jdk-alpine
   script:
-  - gradle build
+    - ./gradlew build
   artifacts:
     paths:
     # use only shadowed jars
