@@ -1,6 +1,7 @@
 package de.debuglevel.greeting.rest
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -17,6 +18,11 @@ class RestEndpointTests {
         restEndpoint.start(arrayOf())
 
         awaitInitialization()
+    }
+
+    @AfterAll
+    fun stopServer() {
+        SparkTestUtils.awaitShutdown()
     }
 
     @Test
