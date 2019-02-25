@@ -65,7 +65,7 @@ dependencies {
 
     // Spark (REST server)
     implementation "com.sparkjava:spark-kotlin:1.0.0-alpha"
-    implementation 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.21'
+    implementation 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.22'
 
     // JSON
     implementation 'com.google.code.gson:gson:2.8.5'
