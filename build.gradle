@@ -27,7 +27,7 @@ plugins {
 }
 
 group 'de.debuglevel.greeting'
-version '0.0.1-SNAPSHOT'
+version '0.0.1'
 
 // application plugin configuration
 applicationName = "Greeting Microservice"
