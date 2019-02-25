@@ -1,6 +1,6 @@
 language: java
 jdk:
-- openjdk8
+  - openjdk8
 
 before_install:
   - chmod +x gradlew
@@ -8,34 +8,45 @@ before_install:
 
 script:
   - ./gradlew build
-      
+
 notifications:
   email: false
 
-# if releases are deployed on every commit (not only on tags, deploy.on.tags=false), a tag is needed nevertheless.
-# this creates a custom tag containing a timestamp, as Travis CI would tag it like "untagged-RANDOMHEX"
-before_deploy:
-  - git config --local user.name "Marc Kohaupt (Travis CI)"
-  - git config --local user.email "debuglevel@gmail.com"
-  - git tag "$(date +'%Y-%m-%d_%H-%M-%S')_$(git log --format=%h -1)"
-  
+# If releases are deployed on every commit (not only on tags, i.e. deploy.on.tags=false), a tag is needed nevertheless.
+# This creates a custom tag containing a timestamp, as Travis CI would tag it like "untagged-RANDOMHEX".
+# With deploy.on.tags=true, this section is not needed.
+#before_deploy:
+#  - git config --local user.name "Marc Kohaupt (Travis CI)"
+#  - git config --local user.email "debuglevel@gmail.com"
+#  - git tag "$(date +'%Y-%m-%d_%H-%M-%S')_$(git log --format=%h -1)"
+
+# See https://docs.travis-ci.com/user/deployment/releases
 deploy:
   - provider: releases
+
+    # Set up via https://docs.travis-ci.com/user/deployment/releases#authenticating-with-an-oauth-token; keep a copy of .travis.yml, use "travis setup releases", extract the api_key and use it in your copy of .travis.yml
     api_key:
       secure: txPqR2Wj96buxGxm0bUIYhE0/p8R740pOunvHOs6i4E1DtS0D4rJARTM3MSRgeda7rhDMsjEdog9DOhBXT/COmhv9XN7KR/WvjhAJFmfdHoqvSBPPTmW9BbZQirpYxb0VrWbtygHAO9bAYJPN+XNm0mST22p+Pdv1LyZvGnQJK04SV+ItKh0G3aQKg3Q4I5o79a0eyRgY6WmyadPsM26W+cgQ8ah6GpSzmZkdbByC030/QG3JhPjvp0ku1B6klBiLSSzpA7BjjiTrNpvLNbXBFyDtD8ehrg77zPpnaOmChqwgYvIEaqe7mwz4sHYCc6f/ce6sHFFfCeUbbZqCe58tAmZKglljt7ZyzT/+8MuYuSm8/QS2IB/8kDrYuTDYvIIXPHlVjsWUhI5zpKfxhbhvTy/PO7WhVVPUQxjuMd4k/6b5ixCoSsJ/weYhZ8h21QNQH41HLaQ8VSMkE30c1razFCh+0IOzGGESDjTJ5eisdFKKg670ZolCZMQHtZ/avO39c3S06QiUTnCrELiGuPc/COTJR9On5B4p63S3eYWnfu2ak0+u31W72QmY3Bo+g7SIw/FkSOOBIPuI5XwlvM5HUU/6NBnDGhGRLl+bZhaevfrgzNwvo7yM9/X+/kHDh4hHPHpIcJRxfNgXwFZVlkX1VQctBIZtm6KIsh8xSar/1k=
+
     file_glob: true
-    file: "**/build/libs/*-all.jar"
+    file:
+      - "**/build/libs/*.jar"
+      - "**/build/distributions/*shadow*.tar"
+
     skip_cleanup: true
-    # only deploy on certain conditions: https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
+
+    # Only deploy on certain conditions: https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
     on:
-      # only deploy commits of "master" branch
-      branch: master
+      # Only deploy commits of "master" branch
+      #branch: master
+
       # true: only deploy release if commit is tagged
       # false: only deploy release if commit is not tagged
-      # if "tags" condition is present, the "branch" condition is ignored
-      # if "tags" condition is not present, "branch" condition is considered
-      #tags: false
-  # https://docs.travis-ci.com/user/deployment/heroku/
+      # If "tags" condition is present, the "branch" condition is ignored
+      # If "tags" condition is not present, "branch" condition is considered
+      tags: true
+
+  # See https://docs.travis-ci.com/user/deployment/heroku/
   - provider: heroku
     api_key:
       secure: EFQlSfYNhNxCm4oIxvKP06vc8RwCz80P1Zoe1msKARqqqee6vG0A9Qwr/T/RViCxsPXhvSxFe/pWgrVC++CVBY1PH8RuMxE7lMqh0+f6zsT4R0Xg9Tq5lyxKLjhPGt+aFAt+Z2ajiIyev/hzpDa6qhhFLGpY6lIli4HhRauk+rlec0D2Ca7vVqKNCbI/TG2V7YE3r/dm5KXipg//Xq8EApji4bQtyUbQfXhfW4s5ZIwOOeRlOHNLhhF+vOYuBYICWrpyKrmctoiqc2z/H+IuT+sFOkebSfCx/DIyjzVMN6pDPVbYH9Il90f/de92eBbZXyiOBmFoaYjPMku3lhppZl9hlO2bJXL3jx84nt/JOfd7kh1tglAD0FYY081wrmYxM4SoD7bJXitSMDtB4kBrlsKSwBUZX6eXi99c30aQeb1GbwF+0Oa/ptgsr/klqJr80+gF/jhez5ykjF1VUeZSuhYDi9BrbXRK0jRNDaOKm8Yxmr00M+BEilwJC1mnypSbT7eEd7zk9tz2q2u7wUBHMArORQqi4icjJnDYvRwyiFyBeS8P/uMFDsFPRHUihYH320/TUM1SBc3QRJ4sy7RnANcqf+9k37xOVRSMFqpWVlekvZYTx0HA5dCHLleRocHDQ7CYOsCZQvtfVQLDwlCk0KbW5WqW4pieMgeY8/c9ykw=

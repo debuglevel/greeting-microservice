@@ -129,19 +129,19 @@ class RestEndpointTests {
         }
 
         fun validNameProvider() = Stream.of(
-                NameTestData(value = "Mozart", expected = "Hello, Mozart!"),
-                NameTestData(value = "Amadeus", expected = "Hello, Amadeus!"),
-                // TODO: Umlauts do not work when executed as gradle task in Windows
+            NameTestData(value = "Mozart", expected = "Hello, Mozart!"),
+            NameTestData(value = "Amadeus", expected = "Hello, Amadeus!"),
+            // TODO: Umlauts do not work when executed as gradle task in Windows
 //                NameTestData(value = "H%C3%A4nschen", expected = "Hello, Hänschen!"),
-                NameTestData(value = "Max%20Mustermann", expected = "Hello, Max Mustermann!")
+            NameTestData(value = "Max%20Mustermann", expected = "Hello, Max Mustermann!")
         )
 
         fun validNameProviderApiV1() = Stream.of(
-                NameTestData(value = "Mozart", expected = "Hello from API v1, Mozart!"),
-                NameTestData(value = "Amadeus", expected = "Hello from API v1, Amadeus!"),
-                // TODO: Umlauts do not work when executed as gradle task in Windows
+            NameTestData(value = "Mozart", expected = "Hello from API v1, Mozart!"),
+            NameTestData(value = "Amadeus", expected = "Hello from API v1, Amadeus!"),
+            // TODO: Umlauts do not work when executed as gradle task in Windows
 //                NameTestData(value = "H%C3%A4nschen", expected = "Hello, Hänschen!"),
-                NameTestData(value = "Max%20Mustermann", expected = "Hello from API v1, Max Mustermann!")
+            NameTestData(value = "Max%20Mustermann", expected = "Hello from API v1, Max Mustermann!")
         )
     }
 
@@ -210,13 +210,13 @@ class RestEndpointTests {
         }
 
         fun invalidNameProvider() = Stream.of(
-                //NameTestData(value = ""),
-                NameTestData(value = "%20")
+            //NameTestData(value = ""),
+            NameTestData(value = "%20")
         )
     }
 
     data class NameTestData(
-            val value: String,
-            val expected: String? = null
+        val value: String,
+        val expected: String? = null
     )
 }

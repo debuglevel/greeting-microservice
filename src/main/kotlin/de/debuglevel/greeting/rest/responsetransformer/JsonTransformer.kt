@@ -12,8 +12,8 @@ object JsonTransformer : ResponseTransformer {
     private val logger = KotlinLogging.logger {}
 
     private val gson = GsonBuilder()
-            .setPrettyPrinting()
-            .create()
+        .setPrettyPrinting()
+        .create()
 
     override fun render(model: Any?): String {
         return gson.toJson(model)

@@ -23,10 +23,10 @@ class GreeterTests {
     }
 
     fun validNameProvider() = Stream.of(
-            NameTestData(value = "Mozart", expected = "Hello, Mozart!"),
-            NameTestData(value = "Amadeus", expected = "Hello, Amadeus!"),
-            NameTestData(value = "Hänschen", expected = "Hello, Hänschen!"),
-            NameTestData(value = "Max Mustermann", expected = "Hello, Max Mustermann!")
+        NameTestData(value = "Mozart", expected = "Hello, Mozart!"),
+        NameTestData(value = "Amadeus", expected = "Hello, Amadeus!"),
+        NameTestData(value = "Hänschen", expected = "Hello, Hänschen!"),
+        NameTestData(value = "Max Mustermann", expected = "Hello, Max Mustermann!")
     )
 
     @ParameterizedTest
@@ -41,12 +41,12 @@ class GreeterTests {
     }
 
     fun invalidNameProvider() = Stream.of(
-            NameTestData(value = ""),
-            NameTestData(value = " ")
+        NameTestData(value = ""),
+        NameTestData(value = " ")
     )
 
     data class NameTestData(
-            val value: String,
-            val expected: String? = null
+        val value: String,
+        val expected: String? = null
     )
 }

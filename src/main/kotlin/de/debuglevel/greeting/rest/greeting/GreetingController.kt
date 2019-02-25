@@ -38,9 +38,9 @@ object GreetingController {
     fun getList(): RouteHandler.() -> String {
         return {
             val greetings = setOf<GreetingDTO>(
-                    GreetingDTO("Mozart"),
-                    GreetingDTO("Beethoven"),
-                    GreetingDTO("Haydn")
+                GreetingDTO("Mozart"),
+                GreetingDTO("Beethoven"),
+                GreetingDTO("Haydn")
             )
 
             type(contentType = "application/json")

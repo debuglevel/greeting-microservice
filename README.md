@@ -1,6 +1,6 @@
 # Greeting Microservice Example
 
-This is an example how to create a microservice.
+This is an example how to create a microservice in Kotlin.
 
 ## Technology used
 
@@ -21,6 +21,7 @@ This is an example how to create a microservice.
   * .gitignore
 * GitLab CI/CD using Docker images in GitLab Runner
   * save artifacts in GitLab
+  * upload Docker image to GitLab registry
 * Travis CI
   * deploy on GitHub Releases
   * deploy on Heroku

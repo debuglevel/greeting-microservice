@@ -14,8 +14,8 @@ RUN ./gradlew build
 
 ## Final image
 FROM openjdk:8-jre-alpine
-RUN mkdir /app
-COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
+WORKDIR /app
+COPY --from=builder /src/build/libs/*.jar /app/microservice.jar
 
 # set the default port to 80
 ENV PORT 80
