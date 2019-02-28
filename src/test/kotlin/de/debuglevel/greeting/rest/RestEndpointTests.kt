@@ -1,5 +1,6 @@
 package de.debuglevel.greeting.rest
 
+import de.debuglevel.microservices.utils.spark.SparkTestUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Nested
