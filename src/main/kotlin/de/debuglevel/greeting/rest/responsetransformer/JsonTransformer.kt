@@ -12,6 +12,7 @@ object JsonTransformer : ResponseTransformer {
     private val logger = KotlinLogging.logger {}
 
     private val gson = GsonBuilder()
+        .disableHtmlEscaping() // e.g. prevents "=" to be encoded to "\u003d"
         .setPrettyPrinting()
         .create()
 
