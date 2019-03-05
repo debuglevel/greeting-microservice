@@ -31,3 +31,10 @@ This is an example how to create a microservice in Kotlin.
   * Dockerfile
   * docker-compose.yml
   * .dockerignore
+
+## Remarks
+* Remove all tags if you fork this repository:
+```
+# See https://stackoverflow.com/questions/44702757/how-to-remove-all-git-origin-and-local-tags
+$ git tag -d $(git tag -l) && git fetch && git push origin --delete $(git tag -l) && git tag -d $(git tag -l)
+```
