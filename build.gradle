@@ -9,16 +9,16 @@ buildscript {
 
 plugins {
     // Like --scan option to gradle; should be placed before any other plugins
-    id 'com.gradle.build-scan' version '2.1'
+    id 'com.gradle.build-scan' version '2.4'
 
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.21'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
 
     // Gradle dependency update checker; run by "dependencyUpdates" task
-    id "com.github.ben-manes.versions" version "0.20.0"
+    id "com.github.ben-manes.versions" version "0.22.0"
 
     // Release version with "gradle release"
-    id 'net.researchgate.release' version '2.6.0'
+    id 'net.researchgate.release' version '2.8.1'
 
     // Create start scripts
     // Is executed on "build" task but not on e.g. "jar" task
@@ -26,7 +26,7 @@ plugins {
 
     // Bundle all dependencies into one fat shadowed jar
     // (Gets automatically triggered when application plugin is present)
-    id 'com.github.johnrengelman.shadow' version '4.0.4'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
 group 'de.debuglevel.greeting'
@@ -51,14 +51,14 @@ dependencies {
     //implementation "org.jetbrains.kotlin:kotlin-reflect"
 
     // Tests
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.4.0'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.4.0'
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.4.0'
-    testCompile 'org.assertj:assertj-core:3.12.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.5.1'
+    testCompile 'org.assertj:assertj-core:3.13.2'
 
     // Logging
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
-    implementation 'io.github.microutils:kotlin-logging:1.6.25'
+    implementation 'io.github.microutils:kotlin-logging:1.7.4'
     implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'org.slf4j:slf4j-simple:1.7.25'
 
