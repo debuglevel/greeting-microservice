@@ -2,11 +2,13 @@ package de.debuglevel.greeting.domain.greeting
 
 import de.debuglevel.greeting.rest.greeting.GreetingDTO
 import mu.KotlinLogging
+import javax.inject.Singleton
 
 /**
  * Greets persons
  */
-object Greeter {
+@Singleton
+class GreetingService {
     private val logger = KotlinLogging.logger {}
 
     /**

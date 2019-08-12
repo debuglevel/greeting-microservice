@@ -9,14 +9,14 @@ import java.util.stream.Stream
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class GreeterTests {
+class GreetingServiceTests {
     @ParameterizedTest
     @MethodSource("validNameProvider")
     fun `greet valid names`(testData: NameTestData) {
         // Arrange
 
         // Act
-        val greeting = Greeter.greet(testData.value).greeting
+        val greeting = GreetingService.greet(testData.value).greeting
 
         //Assert
         assertThat(greeting).isEqualTo(testData.expected)
@@ -37,7 +37,11 @@ class GreeterTests {
         // Act
 
         // Assert
-        assertThatExceptionOfType(Greeter.GreetingException::class.java).isThrownBy({ Greeter.greet(testData.value) })
+        assertThatExceptionOfType(GreetingService.GreetingException::class.java).isThrownBy({
+            GreetingService.greet(
+                testData.value
+            )
+        })
     }
 
     fun invalidNameProvider() = Stream.of(
