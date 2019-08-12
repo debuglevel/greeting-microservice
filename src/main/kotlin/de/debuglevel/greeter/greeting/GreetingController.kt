@@ -1,6 +1,5 @@
-package de.debuglevel.greeting.rest.greeting
+package de.debuglevel.greeter.greeting
 
-import de.debuglevel.greeting.domain.greeting.GreetingService
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import mu.KotlinLogging

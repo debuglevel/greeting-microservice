@@ -1,4 +1,4 @@
-package de.debuglevel.greeting.rest
+package de.debuglevel.greeter
 
 import com.natpryce.konfig.Configuration
 import com.natpryce.konfig.ConfigurationProperties

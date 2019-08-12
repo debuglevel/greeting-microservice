@@ -1,4 +1,4 @@
-package de.debuglevel.greeting.rest
+package de.debuglevel.greeter
 
 import de.debuglevel.microservices.utils.spark.SparkTestUtils
 import org.assertj.core.api.Assertions.assertThat
@@ -72,8 +72,10 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val responseApiDefault = ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
-            val responseApiV2 = ApiTestUtils.request("GET", "/v2/greetings/${testData.value}", null)
+            val responseApiDefault =
+                ApiTestUtils.request("GET", "/greetings/${testData.value}", null)
+            val responseApiV2 =
+                ApiTestUtils.request("GET", "/v2/greetings/${testData.value}", null)
 
             // Assert
             assertThat(responseApiDefault?.body).contains(testData.expected)
@@ -86,7 +88,8 @@ class RestEndpointTests {
             // Arrange
 
             // Act
-            val responseApiV1 = ApiTestUtils.request("GET", "/v1/greetings/${testData.value}", null)
+            val responseApiV1 =
+                ApiTestUtils.request("GET", "/v1/greetings/${testData.value}", null)
 
             // Assert
             assertThat(responseApiV1?.body).contains(testData.expected)
@@ -134,15 +137,27 @@ class RestEndpointTests {
             NameTestData(value = "Amadeus", expected = "Hello, Amadeus!"),
             // TODO: Umlauts do not work when executed as gradle task in Windows
 //                NameTestData(value = "H%C3%A4nschen", expected = "Hello, Hänschen!"),
-            NameTestData(value = "Max%20Mustermann", expected = "Hello, Max Mustermann!")
+            NameTestData(
+                value = "Max%20Mustermann",
+                expected = "Hello, Max Mustermann!"
+            )
         )
 
         fun validNameProviderApiV1() = Stream.of(
-            NameTestData(value = "Mozart", expected = "Hello from API v1, Mozart!"),
-            NameTestData(value = "Amadeus", expected = "Hello from API v1, Amadeus!"),
+            NameTestData(
+                value = "Mozart",
+                expected = "Hello from API v1, Mozart!"
+            ),
+            NameTestData(
+                value = "Amadeus",
+                expected = "Hello from API v1, Amadeus!"
+            ),
             // TODO: Umlauts do not work when executed as gradle task in Windows
 //                NameTestData(value = "H%C3%A4nschen", expected = "Hello, Hänschen!"),
-            NameTestData(value = "Max%20Mustermann", expected = "Hello from API v1, Max Mustermann!")
+            NameTestData(
+                value = "Max%20Mustermann",
+                expected = "Hello from API v1, Max Mustermann!"
+            )
         )
     }
 

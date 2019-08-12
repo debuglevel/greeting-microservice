@@ -1,4 +1,4 @@
-package de.debuglevel.greeting.rest
+package de.debuglevel.greeter
 
 import de.debuglevel.microservices.utils.spark.SparkTestUtils
 import org.assertj.core.api.Assertions

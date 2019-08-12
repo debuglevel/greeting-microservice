@@ -1,4 +1,4 @@
-package de.debuglevel.greeting.rest.greeting
+package de.debuglevel.greeter.greeting
 
 /**
  * A greeting

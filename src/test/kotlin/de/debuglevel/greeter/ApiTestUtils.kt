@@ -1,4 +1,4 @@
-package de.debuglevel.greeting.rest
+package de.debuglevel.greeter
 
 import spark.utils.IOUtils
 import java.io.IOException
@@ -29,10 +29,18 @@ object ApiTestUtils {
         try {
             connection.connect()
             val body = IOUtils.toString(connection.inputStream)
-            return TestResponse(connection.responseCode, connection.contentType, body)
+            return TestResponse(
+                connection.responseCode,
+                connection.contentType,
+                body
+            )
         } catch (e: IOException) {
             val body = IOUtils.toString(connection.errorStream)
-            return TestResponse(connection.responseCode, connection.contentType, body)
+            return TestResponse(
+                connection.responseCode,
+                connection.contentType,
+                body
+            )
         }
     }
 

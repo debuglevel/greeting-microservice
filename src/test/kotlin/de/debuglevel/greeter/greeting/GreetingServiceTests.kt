@@ -1,4 +1,4 @@
-package de.debuglevel.greeting.domain.greeting
+package de.debuglevel.greeter.greeting
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
@@ -23,10 +23,22 @@ class GreetingServiceTests {
     }
 
     fun validNameProvider() = Stream.of(
-        NameTestData(value = "Mozart", expected = "Hello, Mozart!"),
-        NameTestData(value = "Amadeus", expected = "Hello, Amadeus!"),
-        NameTestData(value = "Hänschen", expected = "Hello, Hänschen!"),
-        NameTestData(value = "Max Mustermann", expected = "Hello, Max Mustermann!")
+        NameTestData(
+            value = "Mozart",
+            expected = "Hello, Mozart!"
+        ),
+        NameTestData(
+            value = "Amadeus",
+            expected = "Hello, Amadeus!"
+        ),
+        NameTestData(
+            value = "Hänschen",
+            expected = "Hello, Hänschen!"
+        ),
+        NameTestData(
+            value = "Max Mustermann",
+            expected = "Hello, Max Mustermann!"
+        )
     )
 
     @ParameterizedTest

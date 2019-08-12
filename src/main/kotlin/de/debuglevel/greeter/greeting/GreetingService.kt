@@ -1,6 +1,5 @@
-package de.debuglevel.greeting.domain.greeting
+package de.debuglevel.greeter.greeting
 
-import de.debuglevel.greeting.rest.greeting.GreetingDTO
 import mu.KotlinLogging
 import javax.inject.Singleton
 

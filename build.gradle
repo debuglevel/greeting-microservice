@@ -35,11 +35,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
-group 'de.debuglevel.greeting'
+group 'de.debuglevel.greeter'
 
 // application plugin configuration
-applicationName = "Greeting Microservice"
-mainClassName = "de.debuglevel.greeting.rest.Application"
+applicationName = "Greeter Microservice"
+mainClassName = "de.debuglevel.greeter.Application"
 
 repositories {
     jcenter()
