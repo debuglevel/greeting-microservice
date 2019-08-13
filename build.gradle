@@ -88,24 +88,30 @@ dependencies {
     implementation 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.24'
 
     // Micronaut
+    /// Bill of Materials, which defines dependency versions
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    implementation "io.micronaut:micronaut-runtime"
-    implementation "javax.annotation:javax.annotation-api"
-    kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kapt "io.micronaut:micronaut-inject-java"
-    kapt "io.micronaut:micronaut-validation"
     kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kaptTest "io.micronaut:micronaut-inject-java"
+    kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
+    /// Validation
+    kapt "io.micronaut:micronaut-validation"
+    /// Server
     implementation "io.micronaut:micronaut-http-server-netty"
+    /// Client
     implementation "io.micronaut:micronaut-http-client"
-    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
-
+    /// Inversion of Control / Dependency Injection
+    kapt "io.micronaut:micronaut-inject-java"
+    kaptTest "io.micronaut:micronaut-inject-java"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    /// Tests
     //testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testImplementation "org.jetbrains.spek:spek-api:1.1.5"
     //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
     testRuntimeOnly "org.jetbrains.spek:spek-junit-platform-engine:1.1.5"
+
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "javax.annotation:javax.annotation-api"
+    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
     
     // JSON
     //implementation 'com.google.code.gson:gson:2.8.5'
