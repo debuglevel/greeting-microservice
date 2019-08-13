@@ -58,12 +58,18 @@ dependencies {
 
     // Tests
     // specific versions provided by Micronaut BOM
+    /// JUnit
     testImplementation "org.junit.jupiter:junit-jupiter-api"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
     testImplementation "org.junit.jupiter:junit-jupiter-params"
     //testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     //testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
     //testCompile 'org.junit.jupiter:junit-jupiter-params:5.5.1'
+    /// Spek
+    testImplementation "org.jetbrains.kotlin:kotlin-test"
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spekVersion"
+    testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spekVersion"
+    /// Assertions
     testCompile 'org.assertj:assertj-core:3.13.2'
 
     // Logging
