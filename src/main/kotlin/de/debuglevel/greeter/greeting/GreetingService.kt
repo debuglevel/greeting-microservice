@@ -10,6 +10,14 @@ import javax.inject.Singleton
 class GreetingService {
     private val logger = KotlinLogging.logger {}
 
+    private val localizedGreetings = mapOf(
+        "xx_XX" to "I don't speak your language, but I still want to say hello, %s",
+        "de_DE" to "Grüß Gott, %s",
+        "de_CH" to "Grüezi %s!",
+        "en_GB" to "Good morning, %s.",
+        "en_US" to "Howdy, %s!"
+    )
+
     /**
      * Greets a person.
      *
@@ -20,16 +28,25 @@ class GreetingService {
      * @return a greeting
      */
     @Throws(GreetingException::class)
-    fun greet(name: String): GreetingDTO {
-        logger.debug { "Greeting '$name'..." }
+    fun greet(name: String, language: String?): Greeting {
+        logger.debug { "Greeting '$name' with language '$language'..." }
 
         if (name.isBlank()) {
-            throw GreetingException("Cannot greeting a blank name.")
+            logger.debug { "Cannot greet a blank name" }
+            throw GreetingException("Cannot greet a blank name.")
         }
 
-        val greeting = GreetingDTO(name)
+        val languageKey = when {
+            language.isNullOrBlank() -> localizedGreetings.keys.first()
+            !localizedGreetings.containsKey(language) -> localizedGreetings.keys.first()
+            else -> language
+        }
 
-        logger.debug { "Greeted '$name' like '${greeting.greeting}'..." }
+        val localizedGreeting = localizedGreetings.getValue(languageKey)
+
+        val greeting = Greeting(localizedGreeting, name)
+
+        logger.debug { "Greeted '$name' in '$language' like '${greeting.greeting}'..." }
 
         return greeting
     }

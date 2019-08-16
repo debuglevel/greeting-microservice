@@ -3,10 +3,14 @@ package de.debuglevel.greeter.greeting
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.client.annotation.Client
 import io.reactivex.Single
+import javax.validation.constraints.NotBlank
 
 @Client("/greetings")
 interface GreetingClient {
 
-    @Get
-    fun getOne(): Single<String>
+    @Get("/{name}{?language}")
+    fun getOne(@NotBlank name: String, language: String?): Single<GreetingDTO>
+
+//    @Get
+//    fun getList(): Set<GreetingDTO>
 }

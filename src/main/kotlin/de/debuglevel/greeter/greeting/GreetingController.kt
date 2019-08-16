@@ -5,76 +5,25 @@ import io.micronaut.http.annotation.Get
 import mu.KotlinLogging
 
 @Controller("/greetings")
-class GreetingController(val greetingService: GreetingService) {
+class GreetingController(private val greetingService: GreetingService) {
     private val logger = KotlinLogging.logger {}
 
-    @Get("/{name}")
-    fun getOne(name: String): GreetingDTO {
-        return greetingService.greet(name)
+    @Get("/{name}{?language}")
+//    fun getOne(@NotNull name: String, @Nullable language: String?): GreetingDTO {
+    fun getOne(name: String, language: String?): Greeting {
+        logger.debug("Called getOne($name, $language)")
+        return greetingService.greet(name, language)
     }
 
-//    fun getOne(): RouteHandler.() -> String {
-//        return {
-//            val name = params(":name")
-//
-//            try {
-//                val greeting = Greeter.greet(name)
-//
-//                type(contentType = "application/json")
-//                JsonTransformer.render(greeting)
-//            } catch (e: Greeter.GreetingException) {
-//                logger.info("Name '$name' could not be greeted: ", e.message)
-//                response.type("application/json")
-//                response.status(400)
-//                "{\"message\":\"name '$name' could not be greeted: ${e.message}\"}"
-//            }
-//        }
-//    }
-
-//    fun getOneHtml(): RouteHandler.() -> String {
-//        return {
-//            val greetingId = request.params(":greetingId").toInt()
-//
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "greeting/show.html.mustache"))
-//        }
-//    }
-
     @Get("/")
-    fun getList(): Set<GreetingDTO> {
-        val greetings = setOf<GreetingDTO>(
-            GreetingDTO("Mozart"),
-            GreetingDTO("Beethoven"),
-            GreetingDTO("Haydn")
+    fun getList(): Set<Greeting> {
+        logger.debug("Called getList()")
+        val greetings = setOf<Greeting>(
+            Greeting("Servusla, %s", "Mozart"),
+            Greeting("Wie schaut's, %s?", "Beethoven"),
+            Greeting("Moin %s", "Haydn")
         )
 
         return greetings
     }
-
-//    fun getList(): RouteHandler.() -> String {
-//        return {
-//            val greetings = setOf<GreetingDTO>(
-//                GreetingDTO("Mozart"),
-//                GreetingDTO("Beethoven"),
-//                GreetingDTO("Haydn")
-//            )
-//
-//            type(contentType = "application/json")
-//            JsonTransformer.render(greetings)
-//        }
-//    }
-
-//    fun getListHtml(): RouteHandler.() -> String {
-//        return {
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "greeting/list.html.mustache"))
-//        }
-//    }
-
-//    fun getAddFormHtml(): RouteHandler.() -> String {
-//        return {
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "greeting/add.html.mustache"))
-//        }
-//    }
 }

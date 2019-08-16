@@ -1,68 +1,49 @@
-//package de.debuglevel.greeter.greeting
-//
-//import org.assertj.core.api.Assertions.assertThat
-//import org.assertj.core.api.Assertions.assertThatExceptionOfType
-//import org.junit.jupiter.api.TestInstance
-//import org.junit.jupiter.params.ParameterizedTest
-//import org.junit.jupiter.params.provider.MethodSource
-//import java.util.stream.Stream
-//
-//
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//class GreetingServiceTests {
-//    @ParameterizedTest
-//    @MethodSource("validNameProvider")
-//    fun `greet valid names`(testData: NameTestData) {
-//        // Arrange
-//
-//        // Act
-//        val greeting = GreetingService.greet(testData.value).greeting
-//
-//        //Assert
-//        assertThat(greeting).isEqualTo(testData.expected)
-//    }
-//
-//    fun validNameProvider() = Stream.of(
-//        NameTestData(
-//            value = "Mozart",
-//            expected = "Hello, Mozart!"
-//        ),
-//        NameTestData(
-//            value = "Amadeus",
-//            expected = "Hello, Amadeus!"
-//        ),
-//        NameTestData(
-//            value = "Hänschen",
-//            expected = "Hello, Hänschen!"
-//        ),
-//        NameTestData(
-//            value = "Max Mustermann",
-//            expected = "Hello, Max Mustermann!"
-//        )
-//    )
-//
-//    @ParameterizedTest
-//    @MethodSource("invalidNameProvider")
-//    fun `format invalid names`(testData: NameTestData) {
-//        // Arrange
-//
-//        // Act
-//
-//        // Assert
-//        assertThatExceptionOfType(GreetingService.GreetingException::class.java).isThrownBy({
-//            GreetingService.greet(
-//                testData.value
-//            )
-//        })
-//    }
-//
-//    fun invalidNameProvider() = Stream.of(
-//        NameTestData(value = ""),
-//        NameTestData(value = " ")
-//    )
-//
-//    data class NameTestData(
-//        val value: String,
-//        val expected: String? = null
-//    )
-//}
+package de.debuglevel.greeter.greeting
+
+import io.micronaut.test.annotation.MicronautTest
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+import javax.inject.Inject
+
+@MicronautTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class GreetingServiceTests {
+
+    @Inject
+    lateinit var greetingService: GreetingService
+
+    @ParameterizedTest
+    @MethodSource("validNameAndLanguageProvider")
+    fun `greet valid names in various languages`(testData: TestDataProvider.NameTestData) {
+        // Arrange
+
+        // Act
+        val greeting = greetingService.greet(testData.name, testData.language)
+
+        // Assert
+        assertThat(greeting.greeting).isEqualTo(testData.expected)
+    }
+
+    fun validNameAndLanguageProvider() = TestDataProvider.validNameAndLanguageProvider()
+
+    @ParameterizedTest
+    @MethodSource("invalidNameProvider")
+    fun `greet invalid names`(testData: TestDataProvider.NameTestData) {
+        // Arrange
+
+        // Act
+
+        // Assert
+        assertThatExceptionOfType(GreetingService.GreetingException::class.java).isThrownBy {
+            greetingService.greet(
+                testData.name,
+                testData.language
+            )
+        }
+    }
+
+    fun invalidNameProvider() = TestDataProvider.invalidNameProvider()
+}
