@@ -1,0 +1,26 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--
+        Disable Jansi because on Windows, as it will throw a warning on logback initialization.
+        Somehow, the output is colored nevertheless.
+        -->
+        <withJansi>false</withJansi>
+
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <!-- <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern> -->
+
+            <!-- Do NOT use this formatter on production because the %L line number outputter is slow; use the above pattern instead. -->
+            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}:%L) - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="io.micronaut.http.server" level="DEBUG"/>
+    <logger name="de.debuglevel" level="DEBUG"/>
+</configuration>

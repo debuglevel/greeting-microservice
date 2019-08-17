@@ -79,11 +79,12 @@ dependencies {
 
     // Logging
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
+//    implementation 'io.github.microutils:kotlin-logging:1.7.4'
     implementation 'io.github.microutils:kotlin-logging:1.7.4'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
-    implementation 'org.slf4j:slf4j-simple:1.7.25'
+//    implementation 'org.slf4j:slf4j-api:1.7.25'
+//    implementation 'org.slf4j:slf4j-simple:1.7.25'
     // TODO: used by micronaut-cli by default; use it too?
-    // runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
 
     // Configuration
 //    implementation "com.natpryce:konfig:1.6.10.0"
