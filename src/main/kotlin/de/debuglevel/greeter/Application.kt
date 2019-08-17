@@ -18,8 +18,6 @@ object Application {
         applicationContext = Micronaut.run(Application.javaClass)
 
         // TODO: log the accessed URLs
-        // TODO: status/info/health (https://docs.micronaut.io/latest/guide/index.html#management)
-        // TODO: start on configured port (probably already a Micronaut setting)
         // TODO: log application startup
         // TODO: how to do API versioning? (or do it at all?)
         // TODO: do configuration with some Micronaut provided stuff instead of natpryce.konfig?
