@@ -1,5 +1,6 @@
 package de.debuglevel.greeter
 
+import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.Micronaut
 
 /**
@@ -10,9 +11,11 @@ import io.micronaut.runtime.Micronaut
  * @param args parameters from the command line call
  */
 object Application {
+    lateinit var applicationContext: ApplicationContext
+
     @JvmStatic
     fun main(args: Array<String>) {
-        Micronaut.run(Application.javaClass)
+        applicationContext = Micronaut.run(Application.javaClass)
 
         // TODO: log the accessed URLs
         // TODO: status/info/health (https://docs.micronaut.io/latest/guide/index.html#management)

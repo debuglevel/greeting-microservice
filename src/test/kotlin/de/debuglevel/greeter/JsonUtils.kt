@@ -44,7 +44,7 @@ class JsonUtilsTest {
         val isValid = JsonUtils.isValidJson(json)
 
         // Assert
-        Assertions.assertThat(isValid).isTrue
+        Assertions.assertThat(isValid).isTrue()
     }
 
     @Test
@@ -61,6 +61,6 @@ class JsonUtilsTest {
         val isValid = JsonUtils.isValidJson(json)
 
         // Assert
-        Assertions.assertThat(isValid).isFalse
+        Assertions.assertThat(isValid).isFalse()
     }
 }
