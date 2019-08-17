@@ -1,2 +1,7 @@
-# TODO does not work. obviously the file should be named otherwise :D
-micronaut.server.port=80
+micronaut:
+  application:
+    name: greeter
+  server:
+    port: 8080 # default: -1 (random port)
+    cors:
+    #enabled: true # default: false

@@ -108,6 +108,9 @@ dependencies {
     kapt "io.micronaut:micronaut-inject-java"
     kaptTest "io.micronaut:micronaut-inject-java"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    /// Management & Monitoring
+    /// automatically provides the /health endpoint publicly, and some other with authentication
+    compile 'io.micronaut:micronaut-management'
     /// Tests
     //testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "io.micronaut.test:micronaut-test-junit5"
