@@ -116,6 +116,8 @@ java {
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8 // Byte code will be JVM 8
+        // retain parameter names for Java reflection
+        javaParameters = true
     }
 }
 
@@ -127,6 +129,12 @@ jar {
                 'Implementation-Version': version,
                 'Main-Class': mainClassName
     }
+}
+
+// Appends entries in META-INF/services resources into a single resource. Not sure, if needed.
+// see: https://github.com/johnrengelman/shadow/blob/master/src/main/groovy/com/github/jengelman/gradle/plugins/shadow/transformers/ServiceFileTransformer.groovy
+shadowJar {
+    mergeServiceFiles()
 }
 
 // Configuration of com.gradle.build-scan plugin
@@ -160,6 +168,11 @@ test {
 allOpen {
     annotation("io.micronaut.aop.Around")
 }
+
+// -noverify skips verifying JAR files (reduce startup time)
+// -XX:TieredStopAtLevel=1 limits optimizations of the HotSpot compiler and its runtime overhead (reduce startup time)
+// -Dcom.sun.management.jmxremote enables Java Management Extensions
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 
 // For Heroku: create a "stage" task which simply executes "build"
 task stage(dependsOn: ['clean', 'build'])
