@@ -38,7 +38,7 @@ object Application {
         // TODO: do configuration with some Micronaut provided stuff instead of natpryce.konfig?
         // TODO: prettier JSON output?
         // TODO: create a README.md which is usable as a template
-
+        // TODO: use micronaut-data as data persistance?
     }
 }
 
