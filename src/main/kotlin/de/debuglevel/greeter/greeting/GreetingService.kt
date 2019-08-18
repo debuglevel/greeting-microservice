@@ -11,7 +11,8 @@ class GreetingService {
     private val logger = KotlinLogging.logger {}
 
     private val localizedGreetings = mapOf(
-        "xx_XX" to "I don't speak your language, but I still want to say hello, %s",
+        "null" to "You did not provide a language, but I'll try english: Hello, %s!",
+        "unknown" to "I don't speak your language, but I still want to say hello, %s",
         "de_DE" to "Grüß Gott, %s",
         "de_CH" to "Grüezi %s!",
         "en_GB" to "Good morning, %s.",
@@ -37,8 +38,8 @@ class GreetingService {
         }
 
         val languageKey = when {
-            language.isNullOrBlank() -> localizedGreetings.keys.first()
-            !localizedGreetings.containsKey(language) -> localizedGreetings.keys.first()
+            language.isNullOrBlank() -> "null"
+            !localizedGreetings.containsKey(language) -> "unknown"
             else -> language
         }
 

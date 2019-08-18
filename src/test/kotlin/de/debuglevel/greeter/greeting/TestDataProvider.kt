@@ -5,7 +5,7 @@ import java.util.stream.Stream
 object TestDataProvider {
     data class NameTestData(
         val name: String,
-        val language: String,
+        val language: String?,
         val expected: String? = null
     )
 
@@ -37,7 +37,22 @@ object TestDataProvider {
         ),
         NameTestData(
             name = "Max Mustermann",
-            language = "xy_XY",
+            language = "en_GB",
+            expected = "Good morning, Max Mustermann."
+        ),
+        NameTestData(
+            name = "Max Mustermann",
+            language = null,
+            expected = "You did not provide a language, but I'll try english: Hello, Max Mustermann!"
+        ),
+        NameTestData(
+            name = "Max Mustermann",
+            language = "",
+            expected = "You did not provide a language, but I'll try english: Hello, Max Mustermann!"
+        ),
+        NameTestData(
+            name = "Max Mustermann",
+            language = "zz_ZZ",
             expected = "I don't speak your language, but I still want to say hello, Max Mustermann"
         )
     )
