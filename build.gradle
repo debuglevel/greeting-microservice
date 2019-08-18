@@ -104,6 +104,7 @@ dependencies {
     /// Management & Monitoring
     /// automatically provides the /health endpoint publicly, and some other with authentication
     compile 'io.micronaut:micronaut-management'
+    //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
 
     // Swagger / OpenAPI
     kapt "io.micronaut.configuration:micronaut-openapi"
