@@ -38,7 +38,6 @@ object Application {
         // TODO: do configuration with some Micronaut provided stuff instead of natpryce.konfig?
         // TODO: prettier JSON output?
         // TODO: create a README.md which is usable as a template
-        // TODO: retain parameter names via compileJava.options.compilerArgs += '-parameters' or/and? https://docs.micronaut.io/latest/guide/index.html#kotlinretainparamnames
 
     }
 }
