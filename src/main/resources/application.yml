@@ -12,3 +12,6 @@ micronaut:
       swagger:
         paths: classpath:META-INF/swagger
         mapping: /swagger/**
+jackson:
+  serialization:
+    indentOutput: true
