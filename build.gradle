@@ -70,7 +70,7 @@ dependencies {
     /// Mockito
     //testImplementation "org.mockito:mockito-junit-jupiter:2.22.0"
     /// Assertions
-    testCompile 'org.assertj:assertj-core:3.13.2'
+    testImplementation 'org.assertj:assertj-core:3.13.2'
 
     // Logging
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
@@ -103,7 +103,7 @@ dependencies {
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     /// Management & Monitoring
     /// automatically provides the /health endpoint publicly, and some other with authentication
-    compile 'io.micronaut:micronaut-management'
+    implementation 'io.micronaut:micronaut-management'
     //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
 
     // Swagger / OpenAPI
