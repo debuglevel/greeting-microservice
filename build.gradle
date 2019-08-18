@@ -104,6 +104,10 @@ dependencies {
     /// Management & Monitoring
     /// automatically provides the /health endpoint publicly, and some other with authentication
     compile 'io.micronaut:micronaut-management'
+
+    // Swagger / OpenAPI
+    kapt "io.micronaut.configuration:micronaut-openapi"
+    implementation "io.swagger.core.v3:swagger-annotations"
 }
 
 // Java configuration
