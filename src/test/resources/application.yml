@@ -1,3 +1,8 @@
 micronaut:
   server:
     port: -1
+
+app:
+  greetings:
+    # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
+    default-language: "null"

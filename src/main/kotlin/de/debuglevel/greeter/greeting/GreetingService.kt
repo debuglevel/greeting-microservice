@@ -1,5 +1,6 @@
 package de.debuglevel.greeter.greeting
 
+import io.micronaut.context.annotation.Property
 import mu.KotlinLogging
 import javax.inject.Singleton
 
@@ -7,7 +8,10 @@ import javax.inject.Singleton
  * Greets persons
  */
 @Singleton
-class GreetingService {
+class GreetingService(
+    // Note: a value for @Property must exist in the configuration file, while @Value can handle default values
+    @Property(name = "app.greetings.default-language") val defaultLanguageKey: String
+) {
     private val logger = KotlinLogging.logger {}
 
     private val localizedGreetings = mapOf(
@@ -30,6 +34,7 @@ class GreetingService {
      */
     @Throws(GreetingException::class)
     fun greet(name: String, language: String?): Greeting {
+        logger.info { "Default Language Key: $defaultLanguageKey" }
         logger.debug { "Greeting '$name' with language '$language'..." }
 
         if (name.isBlank()) {
@@ -38,7 +43,7 @@ class GreetingService {
         }
 
         val languageKey = when {
-            language.isNullOrBlank() -> "null"
+            language.isNullOrBlank() -> defaultLanguageKey
             !localizedGreetings.containsKey(language) -> "unknown"
             else -> language
         }
