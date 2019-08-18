@@ -1,4 +1,4 @@
-# Greeting Microservice Example
+# Greeter Microservice Example
 
 This is an example how to create a microservice in Kotlin.
 
@@ -6,9 +6,8 @@ This is an example how to create a microservice in Kotlin.
 
 ### Basics
 
-* Spark
+* Micronaut
   * REST microservice
-  * GSON
 * Kotlin
   * Logging (kotlin-logging, SLF4J)
   * Tests (JUnit 5)
