@@ -9,9 +9,7 @@ import io.swagger.v3.oas.annotations.info.License
 import mu.KotlinLogging
 
 /**
- * Application entry point.
- *
- * Starts the Micronaut server
+ * Application entry point, which starts the Micronaut server.
  *
  * @param args parameters from the command line call
  */
