@@ -5,6 +5,8 @@ services:
 variables:
 ## Uncomment this to inject a self-signed certificate into the docker:dind service
 #  CERTIFICATE_URL: http://my_server/my_corp.crt
+#  # disable TLS; see: https://gitlab.com/gitlab-org/gitlab-runner/issues/1350#note_199840999 and https://about.gitlab.com/2019/07/31/docker-in-docker-with-docker-19-dot-03/
+#  DOCKER_TLS_CERTDIR: ""
 
 before_script:
   - JOB_TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
