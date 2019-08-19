@@ -1,7 +1,10 @@
 micronaut:
   server:
     port: -1
-
+  router:
+    versioning:
+      enabled: true
+      default-version: 2
 app:
   greetings:
     # note that "null" must be enclosed by quotation marks, as it would be unset otherwise

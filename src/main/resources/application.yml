@@ -12,6 +12,9 @@ micronaut:
       swagger:
         paths: classpath:META-INF/swagger
         mapping: /swagger/**
+    versioning:
+      enabled: true
+      default-version: 2
 jackson:
   serialization:
     indentOutput: true
