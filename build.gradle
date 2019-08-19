@@ -70,12 +70,12 @@ dependencies {
     /// Mockito
     //testImplementation "org.mockito:mockito-junit-jupiter:2.22.0"
     /// Assertions
-    testImplementation 'org.assertj:assertj-core:3.13.2'
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
 
     // Logging
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
-    implementation 'io.github.microutils:kotlin-logging:1.7.4'
-    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+    implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
+    runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 
     // Micronaut
     /// Bill of Materials, which defines dependency versions
@@ -85,7 +85,7 @@ dependencies {
     // Core
     implementation "io.micronaut:micronaut-runtime"
     implementation "javax.annotation:javax.annotation-api"
-    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
+    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion"
     /// Validation
     kapt "io.micronaut:micronaut-validation"
     //implementation 'io.micronaut.configuration:micronaut-hibernate-validator' // if full Bean Validator 2.0 compliance is needed
