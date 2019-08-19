@@ -1,2 +1,13 @@
-rootProject.name = 'greeter-microservice'
+pluginManagement {
+    plugins {
+        id 'com.gradle.build-scan' version "$buildScanVersion"
+        id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
+        id 'org.jetbrains.kotlin.kapt' version "$kotlinVersion"
+        id "org.jetbrains.kotlin.plugin.allopen" version "$kotlinVersion"
+        id "com.github.ben-manes.versions" version "$versionsPluginVersion"
+        id 'net.researchgate.release' version "$releasePluginVersion"
+        id 'com.github.johnrengelman.shadow' version "$shadowVersion"
+    }
+}
 
+rootProject.name = 'greeter-microservice'
