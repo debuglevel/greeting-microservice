@@ -23,7 +23,7 @@ plugins {
     // TODO: configure allopen to only open @Validated classes
     id "org.jetbrains.kotlin.plugin.allopen" version "1.3.41"
 
-    // Check updated dependencies with "gradle dependencyUpdates"
+    // Check updated dependencies with "gradle dependencyUpdates".
     id "com.github.ben-manes.versions" version "0.22.0"
 
     // Release version with "gradle release"
@@ -168,6 +168,20 @@ test {
 
 allOpen {
     annotation("io.micronaut.aop.Around")
+}
+
+// filter out release candidates on dependency update check
+dependencyUpdates.resolutionStrategy {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'ea', 'pr'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
 }
 
 // -noverify skips verifying JAR files (reduce startup time)
