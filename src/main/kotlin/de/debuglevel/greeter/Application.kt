@@ -35,7 +35,6 @@ object Application {
         applicationContext = Micronaut.run(Application.javaClass)
 
         // TODO: how to do API versioning? (or do it at all?)
-        // TODO: do configuration with some Micronaut provided stuff instead of natpryce.konfig?
         // TODO: prettier JSON output?
         // TODO: create a README.md which is usable as a template
         // TODO: use micronaut-data as data persistance?

@@ -77,10 +77,6 @@ dependencies {
     implementation 'io.github.microutils:kotlin-logging:1.7.4'
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
 
-    // Configuration
-    // TODO: change to Micronaut configuration
-    //implementation "com.natpryce:konfig:1.6.10.0"
-
     // Micronaut
     /// Bill of Materials, which defines dependency versions
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
