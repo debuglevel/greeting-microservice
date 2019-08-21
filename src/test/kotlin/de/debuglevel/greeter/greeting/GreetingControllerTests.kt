@@ -25,13 +25,13 @@ class GreetingControllerTests {
     @MethodSource("validNameAndLanguageProvider")
     fun `greet valid names in various languages`(testData: TestDataProvider.NameTestData) {
         // Arrange
+
+        // Act
         // UriBuilder.expand() handles nasty things like URL encoding of umlauts, spaces, ...
         val uri = UriBuilder.of("/{name}")
             .queryParam("language", testData.language)
             .expand(mutableMapOf("name" to testData.name))
             .toString()
-
-        // Act
         val greeting = httpClient.toBlocking().retrieve(uri)
 
         // Assert
