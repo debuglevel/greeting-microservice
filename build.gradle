@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin"
-        //classpath "org.hibernate:hibernate-gradle-plugin:5.4.3.Final" // TODO: defined in Micronaut Data example, but use unknown
+        classpath "org.hibernate:hibernate-gradle-plugin:5.4.3.Final"
     }
 }
 
@@ -39,7 +39,7 @@ plugins {
     id 'com.github.johnrengelman.shadow'
 }
 
-//apply plugin: 'org.hibernate.orm' // TODO: defined in Micronaut Data example, but use unknown
+apply plugin: 'org.hibernate.orm' // TODO: move into plugins{} if possible
 
 group 'de.debuglevel.greeter'
 
@@ -176,6 +176,15 @@ test {
 
 allOpen {
     annotation("io.micronaut.aop.Around")
+}
+
+// enhance Hibernate enities in bytecode
+hibernate {
+    enhance {
+        enableLazyInitialization= true
+        enableDirtyTracking = true
+        enableAssociationManagement = true
+    }
 }
 
 // filter out release candidates on dependency update check
