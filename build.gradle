@@ -113,8 +113,10 @@ dependencies {
     /// Persistence
     kapt 'io.micronaut.data:micronaut-data-processor:1.0.0.M1'
     implementation 'io.micronaut.data:micronaut-data-hibernate-jpa:1.0.0.M1'
-    testRuntimeOnly "com.h2database:h2"
     runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
+    testRuntimeOnly "com.h2database:h2"
+    //testRuntimeOnly 'org.hsqldb:hsqldb:2.3.4'
+    //testRuntimeOnly 'org.apache.derby:derby:10.13.1.1'
 
     // Swagger / OpenAPI
     kapt "io.micronaut.configuration:micronaut-openapi"
