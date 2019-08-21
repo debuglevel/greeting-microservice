@@ -2,8 +2,9 @@ package de.debuglevel.greeter.person
 
 import io.micronaut.test.annotation.MicronautTest
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import javax.inject.Inject
 
 @MicronautTest
@@ -13,10 +14,10 @@ class PersonServiceTests {
     @Inject
     lateinit var personService: PersonService
 
-    @Test
-    fun `save person`() {
+    @ParameterizedTest
+    @MethodSource("personProvider")
+    fun `save person`(person: Person) {
         // Arrange
-        val person = Person(0, "Mozart")
 
         // Act
         val savedPerson = personService.save(person)
@@ -25,10 +26,10 @@ class PersonServiceTests {
         assertThat(savedPerson).isEqualTo(person)
     }
 
-    @Test
-    fun `retrieve person`() {
+    @ParameterizedTest
+    @MethodSource("personProvider")
+    fun `retrieve person`(person: Person) {
         // Arrange
-        val person = Person(0, "Mozart")
         val savedPerson = personService.save(person)
 
         // Act
@@ -37,4 +38,6 @@ class PersonServiceTests {
         // Assert
         assertThat(retrievedPerson).isEqualTo(savedPerson)
     }
+
+    fun personProvider() = TestDataProvider.personProvider()
 }

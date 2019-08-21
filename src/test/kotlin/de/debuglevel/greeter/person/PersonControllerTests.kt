@@ -7,8 +7,9 @@ import io.micronaut.http.uri.UriBuilder
 import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.annotation.MicronautTest
 import org.assertj.core.api.Assertions
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import javax.inject.Inject
 
 @MicronautTest
@@ -21,10 +22,10 @@ class PersonControllerTests {
     @field:Client("/persons")
     lateinit var httpClient: HttpClient
 
-    @Test
-    fun `save person`() {
+    @ParameterizedTest
+    @MethodSource("personDtoProvider")
+    fun `save person`(person: PersonDTO) {
         // Arrange
-        val person = Person(0, "Mozart")
 
         // Act
         val uri = UriBuilder.of("/{name}")
@@ -37,10 +38,10 @@ class PersonControllerTests {
         Assertions.assertThat(savedPerson.name).isEqualTo(person.name)
     }
 
-    @Test
-    fun `retrieve person`() {
+    @ParameterizedTest
+    @MethodSource("personDtoProvider")
+    fun `retrieve person`(person: PersonDTO) {
         // Arrange
-        val person = Person(0, "Mozart")
         val saveUri = UriBuilder.of("/{name}")
             .expand(mutableMapOf("name" to person.name))
             .toString()
@@ -58,4 +59,9 @@ class PersonControllerTests {
         Assertions.assertThat(retrievedPerson.id).isEqualTo(savedPerson.id)
         Assertions.assertThat(retrievedPerson.name).isEqualTo(savedPerson.name)
     }
+
+    fun personDtoProvider() = TestDataProvider.personProvider()
+        .map {
+            PersonDTO(it.id, it.name)
+        }
 }
