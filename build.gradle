@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin"
+        //classpath "org.hibernate:hibernate-gradle-plugin:5.4.3.Final" // TODO: defined in Micronaut Data example, but use unknown
     }
 }
 
@@ -37,6 +38,8 @@ plugins {
     // (Gets automatically triggered when application plugin is present)
     id 'com.github.johnrengelman.shadow'
 }
+
+//apply plugin: 'org.hibernate.orm' // TODO: defined in Micronaut Data example, but use unknown
 
 group 'de.debuglevel.greeter'
 
@@ -101,6 +104,11 @@ dependencies {
     /// automatically provides the /health endpoint publicly, and some other with authentication
     implementation 'io.micronaut:micronaut-management'
     //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
+    /// Persistence
+    kapt 'io.micronaut.data:micronaut-data-processor:1.0.0.M1'
+    implementation 'io.micronaut.data:micronaut-data-hibernate-jpa:1.0.0.M1'
+    testRuntimeOnly "com.h2database:h2"
+    runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
 
     // Swagger / OpenAPI
     kapt "io.micronaut.configuration:micronaut-openapi"
