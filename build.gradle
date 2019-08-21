@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin"
-        classpath "org.hibernate:hibernate-gradle-plugin:5.4.3.Final"
+        classpath "org.hibernate:hibernate-gradle-plugin:$hibernateGradlePluginVersion"
     }
 }
 
