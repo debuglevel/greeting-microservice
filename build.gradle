@@ -4,6 +4,8 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin"
+
+        // TODO: might be removed when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
         classpath "org.hibernate:hibernate-gradle-plugin:$hibernateGradlePluginVersion"
     }
 }
@@ -38,8 +40,9 @@ plugins {
     // (Gets automatically triggered when application plugin is present)
     id 'com.github.johnrengelman.shadow'
 }
-
-apply plugin: 'org.hibernate.orm' // TODO: move into plugins{} if possible
+// Enhance Hibernate entities (see configuration block below)
+// TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
+apply plugin: 'org.hibernate.orm'
 
 group 'de.debuglevel.greeter'
 
