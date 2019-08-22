@@ -23,4 +23,8 @@ COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 ENV MICRONAUT_SERVER_PORT 80
 EXPOSE 80
 
-CMD ["java", "-jar", "/app/microservice.jar"]
+# -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap let the JVM respect CPU and RAM limits inside a Docker container
+CMD ["java", \
+     "-XX:+UnlockExperimentalVMOptions", \
+     "-XX:+UseCGroupMemoryLimitForHeap", \
+     "-jar", "/app/microservice.jar"]
