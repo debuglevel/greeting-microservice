@@ -30,10 +30,10 @@ object Application {
     @JvmStatic
     fun main(args: Array<String>) {
         logger.info { "Starting up..." }
+        Thread.sleep(30 * 1000)
         applicationContext = Micronaut.run(Application.javaClass)
 
         // TODO: how to do API versioning? (or do it at all?)
-        // TODO: use micronaut-data as data persistance?
     }
 }
 
