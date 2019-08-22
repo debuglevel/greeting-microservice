@@ -117,6 +117,9 @@ dependencies {
     testRuntimeOnly "com.h2database:h2"
     //testRuntimeOnly 'org.hsqldb:hsqldb:2.3.4'
     //testRuntimeOnly 'org.apache.derby:derby:10.13.1.1'
+    /// Security
+    kapt "io.micronaut:micronaut-security"
+    implementation "io.micronaut:micronaut-security"
 
     // Swagger / OpenAPI
     kapt "io.micronaut.configuration:micronaut-openapi"
