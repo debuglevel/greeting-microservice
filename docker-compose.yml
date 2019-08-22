@@ -6,4 +6,5 @@ services:
     ports:
       - "80:80"
     environment:
+      # port 80 is actually already defined as default for docker as ENV in Dockerfile
       - MICRONAUT_SERVER_PORT=80

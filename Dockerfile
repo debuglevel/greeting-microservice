@@ -18,7 +18,7 @@ WORKDIR /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 
 # set the default port to 80
-ENV PORT 80
+ENV MICRONAUT_SERVER_PORT 80
 EXPOSE 80
 
 CMD ["java", "-jar", "/app/microservice.jar"]
