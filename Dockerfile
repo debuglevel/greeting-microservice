@@ -27,4 +27,7 @@ EXPOSE 80
 CMD ["java", \
      "-XX:+UnlockExperimentalVMOptions", \
      "-XX:+UseCGroupMemoryLimitForHeap", \
+     "-noverify", \
+     "-XX:TieredStopAtLevel=1", \
+     "-Dcom.sun.management.jmxremote", \
      "-jar", "/app/microservice.jar"]
