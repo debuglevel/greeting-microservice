@@ -1,4 +1,5 @@
 ## Building stage
+#FROM openjdk:11-jdk AS builder # use OpenJDK 11 if desired
 FROM openjdk:8-jdk-alpine AS builder
 WORKDIR /src/
 
@@ -13,6 +14,7 @@ COPY . /src/
 RUN ./gradlew build
 
 ## Final image
+#FROM openjdk:11-jre # use OpenJDK 11 if desired
 FROM openjdk:8-jre-alpine
 WORKDIR /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
