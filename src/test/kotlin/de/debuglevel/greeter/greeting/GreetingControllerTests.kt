@@ -1,5 +1,6 @@
 package de.debuglevel.greeter.greeting
 
+import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.uri.UriBuilder
@@ -23,7 +24,7 @@ class GreetingControllerTests {
 
     @ParameterizedTest
     @MethodSource("validNameAndLanguageProvider")
-    fun `greet valid names in various languages`(testData: TestDataProvider.NameTestData) {
+    fun `greet valid names in various languages (GET)`(testData: TestDataProvider.NameTestData) {
         // Arrange
 
         // Act
@@ -36,6 +37,21 @@ class GreetingControllerTests {
 
         // Assert
         Assertions.assertThat(greeting).contains(testData.expected)
+    }
+
+    @ParameterizedTest
+    @MethodSource("validNameAndLanguageProvider")
+    fun `greet valid names in various languages (POST)`(testData: TestDataProvider.NameTestData) {
+        // Arrange
+        val greetingRequest = GreetingRequest(testData.name, testData.language)
+
+        // Act
+        val uri = UriBuilder.of("/").build()
+        val greeting = httpClient.toBlocking()
+            .retrieve(HttpRequest.POST(uri, greetingRequest), GreetingDTO::class.java)
+
+        // Assert
+        Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)
     }
 
     fun validNameAndLanguageProvider() = TestDataProvider.validNameAndLanguageProvider()

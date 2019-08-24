@@ -23,12 +23,6 @@ Analyses have to be POSTed first to the microservice before you can GET their re
 
 ## Swagger / OpenAPI
 There is an OpenAPI (former: Swagger) specification created, which is available at <http://localhost:8080/swagger/greeter-microservice-0.1.0.yml> (or somewhere in the jar file). It can easily be pasted into the [Swagger Editor](https://editor.swagger.io) which provides a live demo for [Swagger UI](https://swagger.io/tools/swagger-ui/), but also offers to create client libraries via [Swagger Codegen](https://swagger.io/tools/swagger-codegen/).
- 
-## Add greeting
-Actually, there is no POST endpoint in this simple example. But if there was one, a POST request could be sent like this:
-```
-$ curl -X POST -d @upload.json -H "Content-Type: application/json" -H "Accept: application/json" http://localhost/greetings/
-```
 
 ## Get greeting
 To get an appropriate greeting for a person, send a GET request to the service:
@@ -45,6 +39,12 @@ $ curl -X GET -H "Content-Type: application/json" -H "Accept: application/json" 
 {
   "greeting" : "Grüß Gott, Johnny Knoxville"
 }
+```
+
+## Add greeting
+In this example, a greeting can also be POSTed. This way, the payload is transferred in the body as JSON (which is often a better idea than putting it in the URL or parameters, due to URL encoding issues).
+```
+$ curl -X POST -d '{"name":"Max", "language":"de_DE"}' -H "Content-Type: application/json" -H "Accept: application/json" http://localhost/greetings/
 ```
 
 # Configuration

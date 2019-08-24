@@ -16,11 +16,24 @@ class GreetingClientTests {
 
     @ParameterizedTest
     @MethodSource("validNameAndLanguageProvider")
-    fun `greet valid names in various languages`(testData: TestDataProvider.NameTestData) {
+    fun `greet valid names in various languages (GET)`(testData: TestDataProvider.NameTestData) {
         // Arrange
 
         // Act
         val greeting = greetingClient.getOne(testData.name, testData.language).blockingGet()
+
+        // Assert
+        Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)
+    }
+
+    @ParameterizedTest
+    @MethodSource("validNameAndLanguageProvider")
+    fun `greet valid names in various languages (POST)`(testData: TestDataProvider.NameTestData) {
+        // Arrange
+        val greetingRequest = GreetingRequest(testData.name, testData.language)
+
+        // Act
+        val greeting = greetingClient.postOne(greetingRequest).blockingGet()
 
         // Assert
         Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)
