@@ -35,7 +35,6 @@ class PersonControllerTests {
         // Act
         val uri = UriBuilder.of("/{name}")
             .expand(mutableMapOf("name" to person.name))
-            .toString()
         val savedPerson = httpClient.toBlocking()
             .retrieve(HttpRequest.POST(uri, ""), PersonDTO::class.java)
 
@@ -49,7 +48,6 @@ class PersonControllerTests {
         // Arrange
         val saveUri = UriBuilder.of("/{name}")
             .expand(mutableMapOf("name" to person.name))
-            .toString()
         val savedPerson = httpClient.toBlocking()
             .retrieve(HttpRequest.POST(saveUri, ""), PersonDTO::class.java)
 
@@ -70,8 +68,7 @@ class PersonControllerTests {
         // Arrange
 
         // Act
-        val retrieveUri = UriBuilder.of("/VIPs")
-            .toString()
+        val retrieveUri = UriBuilder.of("/VIPs").build()
         val httpRequest = HttpRequest
             .GET<String>(retrieveUri)
             .basicAuth("myUser", "secretPassword")
@@ -90,8 +87,7 @@ class PersonControllerTests {
         // Arrange
 
         // Act
-        val retrieveUri = UriBuilder.of("/VIPs")
-            .toString()
+        val retrieveUri = UriBuilder.of("/VIPs").build()
         val httpRequest = HttpRequest
             .GET<String>(retrieveUri)
         val thrown = catchThrowable {
