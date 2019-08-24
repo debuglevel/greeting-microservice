@@ -16,7 +16,7 @@ $ git tag -d $(git tag -l) && git fetch && git push origin --delete $(git tag -l
 Analyses have to be POSTed first to the microservice before you can GET their results. It is assumed that the R script places its results in a "output" directory.
 
 ## Swagger / OpenAPI
-There is an OpenAPI (former: Swagger) specification created, which is available at [http://localhost:8080/swagger/greeter-microservice-0.1.0.yml] (or somewhere in the jar file). It can easily be pasted into the [Swagger Editor](https://editor.swagger.io) which provides a live demo for [Swagger UI](https://swagger.io/tools/swagger-ui/), but also offers to create client libraries via [Swagger Codegen](https://swagger.io/tools/swagger-codegen/).
+There is an OpenAPI (former: Swagger) specification created, which is available at <http://localhost:8080/swagger/greeter-microservice-0.1.0.yml> (or somewhere in the jar file). It can easily be pasted into the [Swagger Editor](https://editor.swagger.io) which provides a live demo for [Swagger UI](https://swagger.io/tools/swagger-ui/), but also offers to create client libraries via [Swagger Codegen](https://swagger.io/tools/swagger-codegen/).
  
 ## Add greeting
 Actually, there is no POST endpoint in this simple example. But if there was one, a POST request could be sent like this:
@@ -42,4 +42,4 @@ $ curl -X GET -H "Content-Type: application/json" -H "Accept: application/json" 
 ```
 
 # Configuration
-There is a `application.yml` included in the jar file. Its content can be modified and saved as a separate `application.yml` on the level of the jar file. Configuration can also be applied via the other supported ways of Micronaut (see https://docs.micronaut.io/latest/guide/index.html#config). For Docker, the configuration via environment variables is the most interesting one (see `docker-compose.yml`).
+There is a `application.yml` included in the jar file. Its content can be modified and saved as a separate `application.yml` on the level of the jar file. Configuration can also be applied via the other supported ways of Micronaut (see <https://docs.micronaut.io/latest/guide/index.html#config>). For Docker, the configuration via environment variables is the most interesting one (see `docker-compose.yml`).
