@@ -30,8 +30,7 @@ deploy:
 
     file_glob: true
     file:
-      - "**/build/libs/*.jar"
-      - "**/build/distributions/*shadow*.tar"
+      - "**/build/distributions/*.tar"
 
     skip_cleanup: true
 
