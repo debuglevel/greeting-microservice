@@ -49,8 +49,9 @@ deploy:
   # See https://docs.travis-ci.com/user/deployment/heroku/
   - provider: heroku
     api_key:
-      secure: EFQlSfYNhNxCm4oIxvKP06vc8RwCz80P1Zoe1msKARqqqee6vG0A9Qwr/T/RViCxsPXhvSxFe/pWgrVC++CVBY1PH8RuMxE7lMqh0+f6zsT4R0Xg9Tq5lyxKLjhPGt+aFAt+Z2ajiIyev/hzpDa6qhhFLGpY6lIli4HhRauk+rlec0D2Ca7vVqKNCbI/TG2V7YE3r/dm5KXipg//Xq8EApji4bQtyUbQfXhfW4s5ZIwOOeRlOHNLhhF+vOYuBYICWrpyKrmctoiqc2z/H+IuT+sFOkebSfCx/DIyjzVMN6pDPVbYH9Il90f/de92eBbZXyiOBmFoaYjPMku3lhppZl9hlO2bJXL3jx84nt/JOfd7kh1tglAD0FYY081wrmYxM4SoD7bJXitSMDtB4kBrlsKSwBUZX6eXi99c30aQeb1GbwF+0Oa/ptgsr/klqJr80+gF/jhez5ykjF1VUeZSuhYDi9BrbXRK0jRNDaOKm8Yxmr00M+BEilwJC1mnypSbT7eEd7zk9tz2q2u7wUBHMArORQqi4icjJnDYvRwyiFyBeS8P/uMFDsFPRHUihYH320/TUM1SBc3QRJ4sy7RnANcqf+9k37xOVRSMFqpWVlekvZYTx0HA5dCHLleRocHDQ7CYOsCZQvtfVQLDwlCk0KbW5WqW4pieMgeY8/c9ykw=
-    app: greeting-microservice
+      # Output of: travis encrypt $(heroku auth:token)
+      secure: x3qV9/MWQlG/AV+kAITJe2J16QQ+km6eLKyN/3MwtMZ0+55zseWvq1QLexnLQm9Mt9fSKofAR64TNAvvAUspCx42uQDa/zuYQIJV5oBCeN+BYSd42MdsPxsuOge3DiLlArpZIl+nEiy9wl5msxb3G524J01wo0QO/UdsD91WfndeSPW/v68NFK+yVDAG1/HAslmDUC9Nkjo3JBuoiOsGgKnqzbn53rPQDMGQCqp306TlfW14knzpQQBYGH56EflghvAtCs4oYDA5UnMmWK1r6vN47UXIY0etl+kbMxwY8esDuYMMOpiNP+s50740CAcXgzFH9GuFY7lQAGp8TYxbEeKXfphQpYu3v0VkZCP5Xh6BIw1dF9bgQW7yX/eCIfiYvR22C+HT5StonDJrMTtpxiD0WLmkFAodtWarhLPRMuQkoz6U6g/zanLWmrTlp3zhFt13ymNGf3Upj3AtDwlaC0E9XsZWlGlGTM+0WbO0JdYqghWdcT/Rca9K/RbRkBB1Jnfhcz5frNUV1ykyPXjg/kmWvWlL4jCDSQlhQbksd8CVzIi2zMYHSqcQcOhTOWwib4wjxPHqb87u7M4UfG96Tr8DPtK2qFvYDU4JYc5qSPQ1bs2MUjMmvBPOSBvvXq5IFGB51z4dEZxEH2nNAY2QG43n/7YthFFzIxUqtBdi6HU=
+    app: greeter-microservice
     # build on heroku can be initialized by its Build API (default) or by a git push
     #strategy: git
     skip_cleanup: true
