@@ -1,0 +1,5 @@
+micronaut:
+  server:
+    # for unit testing, assign random ports
+    port: -1
+
