@@ -36,9 +36,8 @@ build:
     - ./gradlew build
   artifacts:
     paths:
-      # use only shadowed jars
-      - "build/libs/*.jar"
-      - "build/distributions/*shadow*.tar"
+      # use all distribution tar files
+      - "build/distributions/*.tar"
 
       # reports (e.g. about failed tests)
       - "build/reports"
