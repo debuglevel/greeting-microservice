@@ -12,8 +12,8 @@
             <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
 
             <!-- Do NOT use this formatter on production because the %L line number outputter is slow; use the above pattern instead. -->
-            <!-- <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}:%L) - %msg%n -->
-            </pattern>
+            <!-- <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}:%L) - %msg%n
+            </pattern> -->
         </encoder>
     </appender>
 
