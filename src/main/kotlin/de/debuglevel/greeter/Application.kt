@@ -18,7 +18,7 @@ import mu.KotlinLogging
         title = "Greeter Microservice",
         version = "0.1.0",
         description = "Microservice for greeting people",
-        license = License(name = "WTFPL 2.0", url = "http://www.wtfpl.net/"),
+        license = License(name = "Unlicense", url = "https://unlicense.org/"),
         contact = Contact(url = "http://debuglevel.de", name = "Marc Kohaupt", email = "debuglevel at gmail.com")
     )
 )
