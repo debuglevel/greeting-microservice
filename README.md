@@ -16,7 +16,7 @@ If you fork this repository to create your own application from this template
 # See https://stackoverflow.com/questions/44702757/how-to-remove-all-git-origin-and-local-tags
 $ git tag -d $(git tag -l) && git fetch && git push origin --delete $(git tag -l) && git tag -d $(git tag -l)
 ```
-* and reset your `version`to `version=0.0.1-SNAPSHOT` in `gradle.proprties`
+* and reset your `version`to `version=0.0.1-SNAPSHOT` in `gradle.properties`
 
 # HTTP API
 
