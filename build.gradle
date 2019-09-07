@@ -77,7 +77,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-params"
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     /// Mockito
-    //testImplementation "org.mockito:mockito-junit-jupiter:2.22.0"
+    //testImplementation "org.mockito:mockito-junit-jupiter:$mockitoJunitJupiterVersion"
     /// Assertions
     testImplementation "org.assertj:assertj-core:$assertjVersion"
 
@@ -115,8 +115,8 @@ dependencies {
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion"
     runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
     testRuntimeOnly "com.h2database:h2"
-    //testRuntimeOnly 'org.hsqldb:hsqldb:2.3.4'
-    //testRuntimeOnly 'org.apache.derby:derby:10.13.1.1'
+    //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
+    //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
     /// Security
     kapt "io.micronaut:micronaut-security"
     implementation "io.micronaut:micronaut-security"
