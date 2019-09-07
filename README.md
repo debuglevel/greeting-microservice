@@ -26,7 +26,7 @@ There is an OpenAPI (former: Swagger) specification created, which is available 
 ## Get greeting
 To get an appropriate greeting for a person, send a GET request to the service:
 ```
-$ curl -X GET -H "Content-Type: application/json" -H "Accept: application/json" http://localhost/greetings/Johnny%20Knoxville
+$ curl -X GET http://localhost/greetings/Johnny%20Knoxville
 {
   "greeting" : "You did not provide a language, but I'll try english: Hello, Johnny Knoxville!"
 }
@@ -34,7 +34,7 @@ $ curl -X GET -H "Content-Type: application/json" -H "Accept: application/json" 
 
 You can also define a language as query parameter:
 ```
-$ curl -X GET -H "Content-Type: application/json" -H "Accept: application/json" http://localhost/greetings/Johnny%20Knoxville?language=de_DE
+$ curl -X GET http://localhost/greetings/Johnny%20Knoxville?language=de_DE
 {
   "greeting" : "Grüß Gott, Johnny Knoxville"
 }
@@ -43,7 +43,7 @@ $ curl -X GET -H "Content-Type: application/json" -H "Accept: application/json" 
 ## Add greeting
 In this example, a greeting can also be POSTed. This way, the payload is transferred in the body as JSON (which is often a better idea than putting it in the URL or parameters, due to URL encoding issues).
 ```
-$ curl -X POST -d '{"name":"Max", "language":"de_DE"}' -H "Content-Type: application/json" -H "Accept: application/json" http://localhost/greetings/
+$ curl -X POST -d '{"name":"Max", "language":"de_DE"}' -H "Content-Type: application/json" http://localhost/greetings/
 ```
 
 # Configuration
