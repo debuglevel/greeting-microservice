@@ -12,42 +12,42 @@ buildscript {
 
 plugins {
     // Like --scan option to gradle; should be placed before any other plugins
-    id 'com.gradle.build-scan'
+    id "com.gradle.build-scan"
 
-    id 'java'
-    id 'org.jetbrains.kotlin.jvm'
+    id "java"
+    id "org.jetbrains.kotlin.jvm"
 
     // Kotlin annotations processor (needed by Micronaut)
-    id 'org.jetbrains.kotlin.kapt'
+    id "org.jetbrains.kotlin.kapt"
 
     //
     // needed for Bean Validation https://docs.micronaut.io/latest/guide/index.html#beanValidation
     // unsure, if there is another reason for it
     // TODO: configure allopen to only open @Validated classes
-    id 'org.jetbrains.kotlin.plugin.allopen'
+    id "org.jetbrains.kotlin.plugin.allopen"
 
     // Check updated dependencies with "gradle dependencyUpdates".
-    id 'com.github.ben-manes.versions'
+    id "com.github.ben-manes.versions"
 
     // Release version with "gradle release"
-    id 'net.researchgate.release'
+    id "net.researchgate.release"
 
     // Create start scripts
     // Is executed on "build" task but not on e.g. "jar" task
-    id 'application'
+    id "application"
 
     // Bundle all dependencies into one fat shadowed jar
     // (Gets automatically triggered when application plugin is present)
-    id 'com.github.johnrengelman.shadow'
+    id "com.github.johnrengelman.shadow"
 
     // add no-argument constructors as they are needed for JPA (see https://kotlinlang.org/docs/reference/compiler-plugins.html#jpa-support)
     id "org.jetbrains.kotlin.plugin.jpa"
 }
 // Enhance Hibernate entities (see configuration block below)
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
-apply plugin: 'org.hibernate.orm'
+apply plugin: "org.hibernate.orm"
 
-group 'de.debuglevel.greeter'
+group "de.debuglevel.greeter"
 
 // application plugin configuration
 applicationName = "Greeter Microservice"
@@ -97,7 +97,7 @@ dependencies {
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion"
     /// Validation
     kapt "io.micronaut:micronaut-validation"
-    //implementation 'io.micronaut.configuration:micronaut-hibernate-validator' // if full Bean Validator 2.0 compliance is needed
+    //implementation "io.micronaut.configuration:micronaut-hibernate-validator" // if full Bean Validator 2.0 compliance is needed
     /// Server
     implementation "io.micronaut:micronaut-http-server-netty"
     /// Client
@@ -108,8 +108,8 @@ dependencies {
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     /// Management & Monitoring
     /// automatically provides the /health endpoint publicly, and some other with authentication
-    implementation 'io.micronaut:micronaut-management'
-    //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
+    implementation "io.micronaut:micronaut-management"
+    //implementation "io.micronaut.configuration:micronaut-jmx" // activate JMX for the endpoints
     /// Persistence
     kapt "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion"
@@ -145,9 +145,9 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 jar {
     // add Manifest to jar
     manifest {
-        attributes 'Implementation-Title': applicationName,
-                'Implementation-Version': version,
-                'Main-Class': mainClassName
+        attributes "Implementation-Title": applicationName,
+                "Implementation-Version": version,
+                "Main-Class": mainClassName
     }
 }
 
@@ -160,8 +160,8 @@ shadowJar {
 // Configuration of com.gradle.build-scan plugin
 buildScan {
     // Accept the license agreement for com.gradle.build-scan plugin
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
 
     // Always publish scan (no more need for --scan option)
     publishAlways()
@@ -202,11 +202,11 @@ hibernate {
 dependencyUpdates.resolutionStrategy {
     componentSelection { rules ->
         rules.all { ComponentSelection selection ->
-            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'ea', 'pr'].any { qualifier ->
+            boolean rejected = ["alpha", "beta", "rc", "cr", "m", "preview", "b", "ea", "pr"].any { qualifier ->
                 selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
             }
             if (rejected) {
-                selection.reject('Release candidate')
+                selection.reject("Release candidate")
             }
         }
     }
@@ -215,8 +215,8 @@ dependencyUpdates.resolutionStrategy {
 // -noverify skips verifying JAR files (reduce startup time)
 // -XX:TieredStopAtLevel=1 limits optimizations of the HotSpot compiler and its runtime overhead (reduce startup time)
 // -Dcom.sun.management.jmxremote enables Java Management Extensions
-run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+run.jvmArgs("-noverify", "-XX:TieredStopAtLevel=1", "-Dcom.sun.management.jmxremote")
 
 // For Heroku: create a "stage" task which simply executes "build"
-task stage(dependsOn: ['clean', 'build'])
+task stage(dependsOn: ["clean", "build"])
 build.mustRunAfter clean
