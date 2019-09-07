@@ -114,7 +114,7 @@ dependencies {
     kapt "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion"
     runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
-    testRuntimeOnly "com.h2database:h2"
+    runtimeOnly "com.h2database:h2"
     //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
     /// Security
