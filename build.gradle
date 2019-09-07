@@ -3,51 +3,51 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin"
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
 
         // TODO: might be removed when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
-        classpath "org.hibernate:hibernate-gradle-plugin:$hibernateGradlePluginVersion"
+        classpath("org.hibernate:hibernate-gradle-plugin:$hibernateGradlePluginVersion")
     }
 }
 
 plugins {
     // Like --scan option to gradle; should be placed before any other plugins
-    id "com.gradle.build-scan"
+    id("com.gradle.build-scan")
 
-    id "java"
-    id "org.jetbrains.kotlin.jvm"
+    id("java")
+    id("org.jetbrains.kotlin.jvm")
 
     // Kotlin annotations processor (needed by Micronaut)
-    id "org.jetbrains.kotlin.kapt"
+    id("org.jetbrains.kotlin.kapt")
 
     //
     // needed for Bean Validation https://docs.micronaut.io/latest/guide/index.html#beanValidation
     // unsure, if there is another reason for it
     // TODO: configure allopen to only open @Validated classes
-    id "org.jetbrains.kotlin.plugin.allopen"
+    id("org.jetbrains.kotlin.plugin.allopen")
 
     // Check updated dependencies with "gradle dependencyUpdates".
-    id "com.github.ben-manes.versions"
+    id("com.github.ben-manes.versions")
 
     // Release version with "gradle release"
-    id "net.researchgate.release"
+    id("net.researchgate.release")
 
     // Create start scripts
     // Is executed on "build" task but not on e.g. "jar" task
-    id "application"
+    id("application")
 
     // Bundle all dependencies into one fat shadowed jar
     // (Gets automatically triggered when application plugin is present)
-    id "com.github.johnrengelman.shadow"
+    id("com.github.johnrengelman.shadow")
 
     // add no-argument constructors as they are needed for JPA (see https://kotlinlang.org/docs/reference/compiler-plugins.html#jpa-support)
-    id "org.jetbrains.kotlin.plugin.jpa"
+    id("org.jetbrains.kotlin.plugin.jpa")
 }
 // Enhance Hibernate entities (see configuration block below)
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
-apply plugin: "org.hibernate.orm"
+apply(plugin: "org.hibernate.orm")
 
-group "de.debuglevel.greeter"
+group = "de.debuglevel.greeter"
 
 // application plugin configuration
 applicationName = "Greeter Microservice"
@@ -56,10 +56,10 @@ mainClassName = "de.debuglevel.greeter.Application"
 repositories {
     jcenter()
     maven {
-        url "https://dl.bintray.com/debuglevel/maven"
+        url = "https://dl.bintray.com/debuglevel/maven"
     }
     maven {
-        url "https://jitpack.io"
+        url = "https://jitpack.io"
     }
 }
 
@@ -67,63 +67,63 @@ dependencies {
     // If no specific version is given, it is usually provided by the Micronaut BOM
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     //implementation "org.jetbrains.kotlin:kotlin-reflect"
 
     // Tests
     /// JUnit
-    testImplementation "org.junit.jupiter:junit-jupiter-api"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
-    testImplementation "org.junit.jupiter:junit-jupiter-params"
-    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testImplementation("io.micronaut.test:micronaut-test-junit5")
     /// Mockito
-    //testImplementation "org.mockito:mockito-junit-jupiter:$mockitoJunitJupiterVersion"
+    //testImplementation("org.mockito:mockito-junit-jupiter:$mockitoJunitJupiterVersion")
     /// Assertions
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation("org.assertj:assertj-core:$assertjVersion")
 
     // Logging
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
-    implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
-    runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
+    implementation("io.github.microutils:kotlin-logging:$kotlinLoggingVersion")
+    runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
 
     // Micronaut
     /// Bill of Materials, which defines dependency versions
-    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kapt(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     // Core
-    implementation "io.micronaut:micronaut-runtime"
-    implementation "javax.annotation:javax.annotation-api"
-    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion"
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("javax.annotation:javax.annotation-api")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion")
     /// Validation
-    kapt "io.micronaut:micronaut-validation"
+    kapt("io.micronaut:micronaut-validation")
     //implementation "io.micronaut.configuration:micronaut-hibernate-validator" // if full Bean Validator 2.0 compliance is needed
     /// Server
-    implementation "io.micronaut:micronaut-http-server-netty"
+    implementation("io.micronaut:micronaut-http-server-netty")
     /// Client
-    implementation "io.micronaut:micronaut-http-client"
+    implementation("io.micronaut:micronaut-http-client")
     /// Inversion of Control / Dependency Injection
-    kapt "io.micronaut:micronaut-inject-java"
-    kaptTest "io.micronaut:micronaut-inject-java"
-    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    kapt("io.micronaut:micronaut-inject-java")
+    kaptTest("io.micronaut:micronaut-inject-java")
+    testAnnotationProcessor("io.micronaut:micronaut-inject-java")
     /// Management & Monitoring
     /// automatically provides the /health endpoint publicly, and some other with authentication
-    implementation "io.micronaut:micronaut-management"
+    implementation("io.micronaut:micronaut-management")
     //implementation "io.micronaut.configuration:micronaut-jmx" // activate JMX for the endpoints
     /// Persistence
-    kapt "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
-    implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion"
-    runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
-    testRuntimeOnly "com.h2database:h2"
-    //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
-    //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
+    kapt("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion")
+    runtimeOnly("io.micronaut.configuration:micronaut-jdbc-tomcat")
+    testRuntimeOnly("com.h2database:h2")
+    //testRuntimeOnly("org.hsqldb:hsqldb:$hsqldbVersion")
+    //testRuntimeOnly("org.apache.derby:derby:$derbyVersion")
     /// Security
-    kapt "io.micronaut:micronaut-security"
-    implementation "io.micronaut:micronaut-security"
+    kapt("io.micronaut:micronaut-security")
+    implementation("io.micronaut:micronaut-security")
 
     // Swagger / OpenAPI
-    kapt "io.micronaut.configuration:micronaut-openapi"
-    implementation "io.swagger.core.v3:swagger-annotations"
+    kapt("io.micronaut.configuration:micronaut-openapi")
+    implementation("io.swagger.core.v3:swagger-annotations")
 }
 
 // Java configuration
