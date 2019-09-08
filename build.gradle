@@ -55,6 +55,7 @@ mainClassName = "de.debuglevel.greeter.Application"
 
 repositories {
     jcenter()
+//    mavenLocal()
 //    maven {
 //        url "https://jitpack.io"
 //    }
