@@ -47,8 +47,6 @@ plugins {
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
 apply plugin: 'org.hibernate.orm'
 
-group 'de.debuglevel.greeter'
-
 // application plugin configuration
 applicationName = "Greeter Microservice"
 mainClassName = "de.debuglevel.greeter.Application"
