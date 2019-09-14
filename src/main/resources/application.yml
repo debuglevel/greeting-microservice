@@ -3,6 +3,11 @@ app:
     # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
     default-language: "null"
     unknown-language: "unknown"
+  security:
+    single-user-password-authentication:
+      credentials:
+        username: "SECRET_USERNAME"
+        password: "SECRET_PASSWORD"
 
 micronaut:
   application:

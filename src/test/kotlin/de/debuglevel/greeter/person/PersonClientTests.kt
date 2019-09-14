@@ -49,7 +49,7 @@ class PersonClientTests {
 
         // Act
         val encodedCredentials =
-            Base64.getEncoder().encodeToString("myUser:secretPassword".byteInputStream().readBytes())
+            Base64.getEncoder().encodeToString("SECRET_USERNAME:SECRET_PASSWORD".byteInputStream().readBytes())
         val basicAuthenticationHeader = "Basic $encodedCredentials"
         val retrievedPersons = personClient.getVIPs(basicAuthenticationHeader)
 
@@ -65,7 +65,7 @@ class PersonClientTests {
 
         // Act
         val encodedCredentials =
-            Base64.getEncoder().encodeToString("myUser:wrongPassword".byteInputStream().readBytes())
+            Base64.getEncoder().encodeToString("SECRET_USERNAME:wrongPassword".byteInputStream().readBytes())
         val basicAuthenticationHeader = "Basic $encodedCredentials"
         val thrown = Assertions.catchThrowable {
             personClient.getVIPs(basicAuthenticationHeader)

@@ -71,7 +71,7 @@ class PersonControllerTests {
         val retrieveUri = UriBuilder.of("/VIPs").build()
         val httpRequest = HttpRequest
             .GET<String>(retrieveUri)
-            .basicAuth("myUser", "secretPassword")
+            .basicAuth("SECRET_USERNAME", "SECRET_PASSWORD")
         val argument = Argument.of(List::class.java, PersonDTO::class.java)
         val retrievedPersons = httpClient.toBlocking()
             .retrieve(httpRequest, argument) as List<PersonDTO>
