@@ -10,16 +10,16 @@ class PersonService(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    fun retrieve(id: UUID): Person? {
+    fun get(id: UUID): Person {
         logger.debug { "Getting person with ID '$id'..." }
 
-        val person: Person? = personRepository.findById(id).orElse(null)
+        val person: Person = personRepository.findById(id).orElseThrow { EntityNotFoundException(id) }
 
         logger.debug { "Got person with ID '$id': $person" }
         return person
     }
 
-    fun save(person: Person): Person {
+    fun add(person: Person): Person {
         logger.debug { "Saving person '$person'..." }
 
         val savedPerson = personRepository.save(person)
@@ -31,15 +31,26 @@ class PersonService(
     fun update(id: UUID, person: Person): Person {
         logger.debug { "Saving person '$person' with ID '$id'..." }
 
-        // TODO: that's not nice; the whole service should be rewritten to throw an exception instead of returning null if no entity was found.
-        // an object must be known to Hibernate (i.e. retrieved first) to get updated; it would be a "detached entity" otherwise.
-        val updatePerson = this.retrieve(id)?.apply {
+        // an object must be known to Hibernate (i.e. retrieved first) to get updated;
+        // it would be a "detached entity" otherwise.
+        val updatePerson = this.get(id).apply {
             name = person.name
-        }!!
+        }
 
         val savedPerson = personRepository.save(updatePerson)
 
         logger.debug { "Saved person: $savedPerson with ID '$id'" }
         return person
     }
+
+    fun list(): Set<Person> {
+        logger.debug { "Getting all persons ..." }
+
+        val persons = personRepository.findAll().toSet()
+
+        logger.debug { "Got all persons" }
+        return persons
+    }
+
+    class EntityNotFoundException(criteria: Any) : Exception("Entity '$criteria' does not exist.")
 }

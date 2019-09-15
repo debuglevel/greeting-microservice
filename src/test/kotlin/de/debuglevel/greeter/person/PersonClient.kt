@@ -1,5 +1,6 @@
 package de.debuglevel.greeter.person
 
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Header
 import io.micronaut.http.annotation.Post
@@ -11,11 +12,14 @@ import javax.validation.constraints.NotBlank
 @Client("/persons")
 interface PersonClient {
     @Get("/{id}")
-    fun getOne(@NotBlank id: UUID): Single<PersonDTO>
+    fun getOne(@NotBlank id: UUID): Single<PersonResponse>
 
-    @Post("/{name}")
-    fun postOne(@NotBlank name: String): Single<PersonDTO>
+    @Post("/")
+    fun postOne(@Body person: PersonRequest): Single<PersonResponse>
+
+    @Get("/")
+    fun getAll(): Set<PersonRequest>
 
     @Get("/VIPs")
-    fun getVIPs(@Header authorization: String): Set<PersonDTO>
+    fun getVIPs(@Header authorization: String): Set<PersonResponse>
 }

@@ -1,5 +1,6 @@
 package de.debuglevel.greeter.person
 
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
@@ -15,26 +16,64 @@ class PersonController(private val personService: PersonService) {
     private val logger = KotlinLogging.logger {}
 
     /**
+     * Get all persons
+     * @return All persons
+     */
+    @Get("/")
+    fun getAll(): HttpResponse<Set<PersonResponse>> {
+        logger.debug("Called getAll()")
+        return try {
+            val persons = personService.list()
+            val personsResponse = persons
+                .map { PersonResponse(it) }
+                .toSet()
+
+            HttpResponse.ok(personsResponse)
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError<Set<PersonResponse>>()
+        }
+    }
+
+    /**
      * Get a person
      * @param uuid ID of the person
      * @return A person
      */
     @Get("/{uuid}")
-    fun getOne(uuid: UUID): Person? {
+    fun getOne(uuid: UUID): HttpResponse<PersonResponse> {
         logger.debug("Called getOne($uuid)")
-        return personService.retrieve(uuid)
+        return try {
+            val person = personService.get(uuid)
+            HttpResponse.ok(PersonResponse(person))
+        } catch (e: PersonService.EntityNotFoundException) {
+            HttpResponse.badRequest<PersonResponse>()
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError<PersonResponse>()
+        }
     }
 
     /**
-     * Create a person.
-     * @param name Name of the person
-     * @return A person with their ID
+     * Create a personRequest.
+     * @return A personRequest with their ID
      */
-    @Post("/{name}")
-    fun postOne(name: String): Person {
-        logger.debug("Called postOne($name)")
-        val person = Person(null, name)
-        return personService.save(person)
+    @Post("/")
+    fun postOne(personRequest: PersonRequest): HttpResponse<PersonResponse> {
+        logger.debug("Called postOne($personRequest)")
+
+        return try {
+            val person = Person(
+                id = null,
+                name = personRequest.name
+            )
+            val addedPerson = personService.add(person)
+
+            HttpResponse.created(PersonResponse(addedPerson))
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError<PersonResponse>()
+        }
     }
 
     /**
@@ -43,10 +82,23 @@ class PersonController(private val personService: PersonService) {
      * @return The updated person
      */
     @Put("/{uuid}")
-    fun putOne(uuid: UUID, name: String): Person {
-        logger.debug("Called putOne($uuid)")
-        val person = Person(null, name)
-        return personService.update(uuid, person)
+    fun putOne(uuid: UUID, personRequest: PersonRequest): HttpResponse<PersonResponse> {
+        logger.debug("Called putOne($uuid, $personRequest)")
+
+        return try {
+            val person = Person(
+                id = null,
+                name = personRequest.name
+            )
+            val updatedPerson = personService.update(uuid, person)
+
+            HttpResponse.ok(PersonResponse(updatedPerson))
+        } catch (e: PersonService.EntityNotFoundException) {
+            HttpResponse.badRequest<PersonResponse>()
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError<PersonResponse>()
+        }
     }
 
     /**

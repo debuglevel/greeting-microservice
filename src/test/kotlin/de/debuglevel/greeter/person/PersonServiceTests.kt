@@ -21,7 +21,7 @@ class PersonServiceTests {
         // Arrange
 
         // Act
-        val savedPerson = personService.save(person)
+        val savedPerson = personService.add(person)
 
         // Assert
         assertThat(savedPerson).isEqualTo(person)
@@ -31,10 +31,10 @@ class PersonServiceTests {
     @MethodSource("personProvider")
     fun `retrieve person`(person: Person) {
         // Arrange
-        val savedPerson = personService.save(person)
+        val savedPerson = personService.add(person)
 
         // Act
-        val retrievedPerson = personService.retrieve(savedPerson.id!!)
+        val retrievedPerson = personService.get(savedPerson.id!!)
 
         // Assert
         assertThat(retrievedPerson).isEqualTo(savedPerson)
@@ -44,12 +44,12 @@ class PersonServiceTests {
     fun `update person`() {
         // Arrange
         val person = Person(null, "Test")
-        val savedPerson = personService.save(person)
+        val savedPerson = personService.add(person)
 
         // Act
-        val retrievedPerson = personService.retrieve(savedPerson.id!!)
-        retrievedPerson?.name = "Test updated"
-        val updatedPerson = personService.update(retrievedPerson?.id!!, retrievedPerson)
+        val retrievedPerson = personService.get(savedPerson.id!!)
+        retrievedPerson.name = "Test updated"
+        val updatedPerson = personService.update(retrievedPerson.id!!, retrievedPerson)
 
         // Assert
         assertThat(updatedPerson.name).isEqualTo("Test updated")
@@ -62,12 +62,12 @@ class PersonServiceTests {
     fun `update person with copy()`() {
         // Arrange
         val person = Person(null, "Test")
-        val savedPerson = personService.save(person)
+        val savedPerson = personService.add(person)
 
         // Act
-        val retrievedPerson = personService.retrieve(savedPerson.id!!)
-        val updatePerson = retrievedPerson?.copy(name = "Test updated")
-        val updatedPerson = personService.update(updatePerson?.id!!, updatePerson)
+        val retrievedPerson = personService.get(savedPerson.id!!)
+        val updatePerson = retrievedPerson.copy(name = "Test updated")
+        val updatedPerson = personService.update(updatePerson.id!!, updatePerson)
 
         // Assert
         assertThat(updatedPerson.name).isEqualTo("Test updated")

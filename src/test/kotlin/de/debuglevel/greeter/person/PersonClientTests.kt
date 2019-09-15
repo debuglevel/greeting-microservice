@@ -18,22 +18,22 @@ class PersonClientTests {
     lateinit var personClient: PersonClient
 
     @ParameterizedTest
-    @MethodSource("personDtoProvider")
-    fun `save person`(person: PersonDTO) {
+    @MethodSource("personRequestProvider")
+    fun `save person`(personRequest: PersonRequest) {
         // Arrange
 
         // Act
-        val savedPerson = personClient.postOne(person.name).blockingGet()
+        val savedPerson = personClient.postOne(personRequest).blockingGet()
 
         // Assert
-        Assertions.assertThat(savedPerson.name).isEqualTo(person.name)
+        Assertions.assertThat(savedPerson.name).isEqualTo(personRequest.name)
     }
 
     @ParameterizedTest
-    @MethodSource("personDtoProvider")
-    fun `retrieve person`(person: PersonDTO) {
+    @MethodSource("personRequestProvider")
+    fun `retrieve person`(personRequest: PersonRequest) {
         // Arrange
-        val savedPerson = personClient.postOne(person.name).blockingGet()
+        val savedPerson = personClient.postOne(personRequest).blockingGet()
 
         // Act
         val retrievedPerson = personClient.getOne(savedPerson.id!!).blockingGet()
@@ -41,6 +41,7 @@ class PersonClientTests {
         // Assert
         Assertions.assertThat(retrievedPerson.id).isEqualTo(savedPerson.id)
         Assertions.assertThat(retrievedPerson.name).isEqualTo(savedPerson.name)
+        Assertions.assertThat(retrievedPerson).isEqualTo(savedPerson)
     }
 
     @Test
@@ -77,8 +78,8 @@ class PersonClientTests {
             .hasMessageContaining("Unauthorized")
     }
 
-    fun personDtoProvider() = TestDataProvider.personProvider()
+    fun personRequestProvider() = TestDataProvider.personProvider()
         .map {
-            PersonDTO(it.id, it.name)
+            PersonRequest(it.id, it.name)
         }
 }

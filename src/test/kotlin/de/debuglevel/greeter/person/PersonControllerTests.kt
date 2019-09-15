@@ -28,39 +28,38 @@ class PersonControllerTests {
     lateinit var httpClient: HttpClient
 
     @ParameterizedTest
-    @MethodSource("personDtoProvider")
-    fun `save person`(person: PersonDTO) {
+    @MethodSource("personRequestProvider")
+    fun `save person`(personRequest: PersonRequest) {
         // Arrange
 
         // Act
-        val uri = UriBuilder.of("/{name}")
-            .expand(mutableMapOf("name" to person.name))
+        val uri = UriBuilder.of("/").build()
         val savedPerson = httpClient.toBlocking()
-            .retrieve(HttpRequest.POST(uri, ""), PersonDTO::class.java)
+            .retrieve(HttpRequest.POST(uri, personRequest), PersonResponse::class.java)
 
         // Assert
-        Assertions.assertThat(savedPerson.name).isEqualTo(person.name)
+        Assertions.assertThat(savedPerson.name).isEqualTo(personRequest.name)
     }
 
     @ParameterizedTest
-    @MethodSource("personDtoProvider")
-    fun `retrieve person`(person: PersonDTO) {
+    @MethodSource("personRequestProvider")
+    fun `retrieve person`(personRequest: PersonRequest) {
         // Arrange
-        val saveUri = UriBuilder.of("/{name}")
-            .expand(mutableMapOf("name" to person.name))
+        val saveUri = UriBuilder.of("/").build()
         val savedPerson = httpClient.toBlocking()
-            .retrieve(HttpRequest.POST(saveUri, ""), PersonDTO::class.java)
+            .retrieve(HttpRequest.POST(saveUri, personRequest), PersonRequest::class.java)
 
         // Act
         val retrieveUri = UriBuilder.of("/{id}")
             .expand(mutableMapOf("id" to savedPerson.id))
             .toString()
         val retrievedPerson = httpClient.toBlocking()
-            .retrieve(retrieveUri, PersonDTO::class.java)
+            .retrieve(retrieveUri, PersonRequest::class.java)
 
         // Assert
         Assertions.assertThat(retrievedPerson.id).isEqualTo(savedPerson.id)
         Assertions.assertThat(retrievedPerson.name).isEqualTo(savedPerson.name)
+        Assertions.assertThat(retrievedPerson).isEqualTo(savedPerson)
     }
 
     @Test
@@ -72,9 +71,9 @@ class PersonControllerTests {
         val httpRequest = HttpRequest
             .GET<String>(retrieveUri)
             .basicAuth("SECRET_USERNAME", "SECRET_PASSWORD")
-        val argument = Argument.of(List::class.java, PersonDTO::class.java)
+        val argument = Argument.of(List::class.java, PersonRequest::class.java)
         val retrievedPersons = httpClient.toBlocking()
-            .retrieve(httpRequest, argument) as List<PersonDTO>
+            .retrieve(httpRequest, argument) as List<PersonRequest>
 
         // Assert
         Assertions.assertThat(retrievedPersons).anyMatch { it.name == "Hermoine Granger" }
@@ -100,8 +99,8 @@ class PersonControllerTests {
             .hasMessageContaining("Unauthorized")
     }
 
-    fun personDtoProvider() = TestDataProvider.personProvider()
+    fun personRequestProvider() = TestDataProvider.personProvider()
         .map {
-            PersonDTO(it.id, it.name)
+            PersonRequest(it.id, it.name)
         }
 }
