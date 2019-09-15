@@ -3,6 +3,7 @@ package de.debuglevel.greeter.person
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.Put
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import mu.KotlinLogging
@@ -34,6 +35,18 @@ class PersonController(private val personService: PersonService) {
         logger.debug("Called postOne($name)")
         val person = Person(null, name)
         return personService.save(person)
+    }
+
+    /**
+     * Update a person.
+     * @param uuid ID of the person
+     * @return The updated person
+     */
+    @Put("/{uuid}")
+    fun putOne(uuid: UUID, name: String): Person {
+        logger.debug("Called putOne($uuid)")
+        val person = Person(null, name)
+        return personService.update(uuid, person)
     }
 
     /**
