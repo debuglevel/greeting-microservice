@@ -36,7 +36,7 @@ class PersonClientTests {
         val savedPerson = personClient.postOne(person.name).blockingGet()
 
         // Act
-        val retrievedPerson = personClient.getOne(savedPerson.id).blockingGet()
+        val retrievedPerson = personClient.getOne(savedPerson.id!!).blockingGet()
 
         // Assert
         Assertions.assertThat(retrievedPerson.id).isEqualTo(savedPerson.id)

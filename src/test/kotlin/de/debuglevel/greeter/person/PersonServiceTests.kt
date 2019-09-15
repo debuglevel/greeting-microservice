@@ -33,7 +33,7 @@ class PersonServiceTests {
         val savedPerson = personService.save(person)
 
         // Act
-        val retrievedPerson = personService.retrieve(savedPerson.id)
+        val retrievedPerson = personService.retrieve(savedPerson.id!!)
 
         // Assert
         assertThat(retrievedPerson).isEqualTo(savedPerson)

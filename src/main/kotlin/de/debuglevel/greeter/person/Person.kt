@@ -1,5 +1,6 @@
 package de.debuglevel.greeter.person
 
+import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
@@ -8,6 +9,6 @@ import javax.persistence.Id
 data class Person(
     @Id
     @GeneratedValue
-    var id: Long,
+    var id: UUID?,
     var name: String
 )

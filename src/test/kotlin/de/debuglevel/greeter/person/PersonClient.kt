@@ -5,12 +5,13 @@ import io.micronaut.http.annotation.Header
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
 import io.reactivex.Single
+import java.util.*
 import javax.validation.constraints.NotBlank
 
 @Client("/persons")
 interface PersonClient {
     @Get("/{id}")
-    fun getOne(@NotBlank id: Long): Single<PersonDTO>
+    fun getOne(@NotBlank id: UUID): Single<PersonDTO>
 
     @Post("/{name}")
     fun postOne(@NotBlank name: String): Single<PersonDTO>

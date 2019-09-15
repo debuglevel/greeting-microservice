@@ -5,19 +5,19 @@ import java.util.stream.Stream
 object TestDataProvider {
     fun personProvider() = Stream.of(
         Person(
-            id = 0,
+            id = null,
             name = "Mozart"
         ),
         Person(
-            id = 0,
+            id = null,
             name = "Hänschen"
         ),
         Person(
-            id = 0,
+            id = null,
             name = "コハウプト マルク"
         ),
         Person(
-            id = 0,
+            id = null,
             name = "Max Mustermann"
         )
     )

@@ -1,6 +1,7 @@
 package de.debuglevel.greeter.person
 
 import mu.KotlinLogging
+import java.util.*
 import javax.inject.Singleton
 
 @Singleton
@@ -9,7 +10,7 @@ class PersonService(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    fun retrieve(id: Long): Person? {
+    fun retrieve(id: UUID): Person? {
         logger.debug { "Getting person with ID '$id'..." }
 
         val person: Person? = personRepository.findById(id).orElse(null)
