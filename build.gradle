@@ -11,9 +11,6 @@ buildscript {
 }
 
 plugins {
-    // Like --scan option to gradle; should be placed before any other plugins
-    id 'com.gradle.build-scan'
-
     id 'java'
     id 'org.jetbrains.kotlin.jvm'
 
@@ -151,16 +148,6 @@ jar {
 // see: https://github.com/johnrengelman/shadow/blob/master/src/main/groovy/com/github/jengelman/gradle/plugins/shadow/transformers/ServiceFileTransformer.groovy
 shadowJar {
     mergeServiceFiles()
-}
-
-// Configuration of com.gradle.build-scan plugin
-buildScan {
-    // Accept the license agreement for com.gradle.build-scan plugin
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
-
-    // Always publish scan (no more need for --scan option)
-    publishAlways()
 }
 
 // Configuration of net.researchgate.release plugin
