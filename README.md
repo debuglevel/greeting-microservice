@@ -3,6 +3,7 @@
 ![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/debuglevel/greeting-microservice?label=GitLab%20build)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/debuglevel/greeting-microservice?sort=semver)
 ![GitHub](https://img.shields.io/github/license/debuglevel/greeting-microservice)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdebuglevel%2Fgreeting-microservice.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdebuglevel%2Fgreeting-microservice?ref=badge_shield)
 
 # Greeter Microservice
 This is a simple REST microservice to greet people.
@@ -52,3 +53,7 @@ $ curl -X POST -d '{"name":"Max", "language":"de_DE"}' -H "Content-Type: applica
 
 # Configuration
 There is a `application.yml` included in the jar file. Its content can be modified and saved as a separate `application.yml` on the level of the jar file. Configuration can also be applied via the other supported ways of Micronaut (see <https://docs.micronaut.io/latest/guide/index.html#config>). For Docker, the configuration via environment variables is the most interesting one (see `docker-compose.yml`).
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdebuglevel%2Fgreeting-microservice.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdebuglevel%2Fgreeting-microservice?ref=badge_large)
