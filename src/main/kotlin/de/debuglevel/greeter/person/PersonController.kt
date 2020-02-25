@@ -55,8 +55,8 @@ class PersonController(private val personService: PersonService) {
     }
 
     /**
-     * Create a personRequest.
-     * @return A personRequest with their ID
+     * Create a person.
+     * @return A person with their ID
      */
     @Post("/")
     fun postOne(personRequest: PersonRequest): HttpResponse<PersonResponse> {
