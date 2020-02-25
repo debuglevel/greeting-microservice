@@ -20,7 +20,7 @@ $ git tag -d $(git tag -l) && git fetch && git push origin --delete $(git tag -l
 * and reset your `version` to `version=0.0.1-SNAPSHOT` in `gradle.properties`
 
 ### Updating dependencies
-The used libraries in this template might be out-of-date. To identify those dependencies, run `gradle dependencyUpdates`. Furthermore, you might want to update gradle-wrapper. 
+The libraries used in this template might be out-of-date. To identify those dependencies, run `gradle dependencyUpdates`. Furthermore, you might want to update gradle-wrapper. 
 
 # HTTP API
 
