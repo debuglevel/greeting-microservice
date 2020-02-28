@@ -4,8 +4,7 @@ app:
     default-language: "null"
     unknown-language: "unknown"
   security:
-    single-user-password-authentication:
-      credentials:
+    configurable-credential-authentication:
         username: "SECRET_USERNAME"
         password: "SECRET_PASSWORD"
 

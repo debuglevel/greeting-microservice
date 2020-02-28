@@ -11,9 +11,9 @@ import javax.inject.Singleton
  * Example for an AuthenticationProvider, which just checks for a single configured credential
  */
 @Singleton
-class SingleUserPasswordAuthenticationProvider(
-    @Property(name = "app.security.single-user-password-authentication.credentials.username") val username: String,
-    @Property(name = "app.security.single-user-password-authentication.credentials.password") val password: String
+class ConfigurableCredentialAuthenticationProvider(
+    @Property(name = "app.security.configurable-credential-authentication.username") val username: String,
+    @Property(name = "app.security.configurable-credential-authentication.password") val password: String
 ) : AuthenticationProvider {
     override fun authenticate(authenticationRequest: AuthenticationRequest<*, *>): Publisher<AuthenticationResponse> {
         if (authenticationRequest.identity == username &&
