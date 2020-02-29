@@ -152,6 +152,7 @@ shadowJar {
 
 // Configuration of net.researchgate.release plugin
 release {
+    // TODO: maybe remove this because files will be commited automatically
     failOnCommitNeeded = false
     failOnUnversionedFiles = false
 }
