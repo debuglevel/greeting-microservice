@@ -5,8 +5,8 @@ app:
     unknown-language: "unknown"
   security:
     configurable-credential-authentication:
-        username: "SECRET_USERNAME"
-        password: "SECRET_PASSWORD"
+      username: "SECRET_USERNAME"
+      password: "SECRET_PASSWORD"
 
 micronaut:
   application:
@@ -25,6 +25,12 @@ micronaut:
   security:
     # default: false
     enabled: true
+
+logger:
+  levels:
+    de.debuglevel: DEBUG
+    io.micronaut.http.server: DEBUG
+    io.micronaut.data.query: DEBUG
 
 jackson:
   serialization:
@@ -53,7 +59,7 @@ datasources:
     url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: sa
-    password: ''
+    password: ""
     schema-generate: CREATE_DROP
     dialect: H2
 
@@ -65,6 +71,3 @@ jpa:
           provider: none
         hbm2ddl:
           auto: update
-
-
-
