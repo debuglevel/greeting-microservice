@@ -104,8 +104,8 @@ dependencies {
     implementation 'io.micronaut:micronaut-management'
     //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
     /// Persistence
-    kapt "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
-    implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion"
+    kapt "io.micronaut.data:micronaut-data-processor"
+    implementation "io.micronaut.data:micronaut-data-hibernate-jpa"
     runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
     runtimeOnly "com.h2database:h2"
     //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
