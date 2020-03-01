@@ -16,7 +16,7 @@ import mu.KotlinLogging
 @OpenAPIDefinition(
     info = Info(
         title = "Greeter Microservice",
-        version = "0.1.4",
+        version = "0.1",
         description = "Microservice for greeting people",
         license = License(name = "Unlicense", url = "https://unlicense.org/"),
         contact = Contact(url = "http://debuglevel.de", name = "Marc Kohaupt", email = "debuglevel at gmail.com")
