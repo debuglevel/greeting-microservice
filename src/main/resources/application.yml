@@ -14,7 +14,7 @@ micronaut:
   server:
     port: 8080 # default: -1 (random port)
     cors:
-    #  enabled: true # default: false
+      enabled: true # default: false
   router:
     static-resources:
       # YAML file will be available at http://localhost:8080/swagger/greeter-microservice-0.1.yml
