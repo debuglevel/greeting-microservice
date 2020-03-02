@@ -2,6 +2,7 @@ app:
   greetings:
     # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
     default-language: "null"
+    # note that key should not be camelCase, as uppercase characters may lead to problems in configuration binding
     unknown-language: "unknown"
   security:
     configurable-credential-authentication:
