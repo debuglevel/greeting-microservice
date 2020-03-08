@@ -26,6 +26,12 @@ micronaut:
         mapping: /swagger/**
   security:
     enabled: true # default: false
+#  http:
+#    services: # manual service discovery
+#      foo: # service ID
+#        urls: # environment variable list would be MICRONAUT_HTTP_SERVICES_FOO_URLS=http://prod1,http://prod2
+#          - http://foo1
+#          - http://foo2
 
 logger:
   levels:

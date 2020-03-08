@@ -1,6 +1,12 @@
 micronaut:
   server:
     port: -1 # for unit testing, assign random ports
+#  http:
+#    services: # manual service discovery
+#      foo: # service ID
+#        urls: # environment variable list would be MICRONAUT_HTTP_SERVICES_FOO_URLS=http://prod1,http://prod2
+#          - http://foo1
+#          - http://foo2
 
 # default values of consul section only apply if io.micronaut:micronaut-discovery-client is available
 consul:
