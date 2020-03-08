@@ -109,12 +109,12 @@ class PersonController(private val personService: PersonService) {
      */
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Get("/VIPs")
-    fun getVIPs(): Set<Person> {
+    fun getVIPs(): Set<PersonResponse> {
         logger.debug("Called getVIPs()")
-        return setOf<Person>(
-            Person(null, "Harry Potter"),
-            Person(null, "Hermoine Granger"),
-            Person(null, "Ronald Weasley")
+        return setOf<PersonResponse>(
+            PersonResponse(null, "Harry Potter"),
+            PersonResponse(null, "Hermoine Granger"),
+            PersonResponse(null, "Ronald Weasley")
         )
     }
 }
