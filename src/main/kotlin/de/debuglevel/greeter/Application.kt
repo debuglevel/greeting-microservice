@@ -19,7 +19,7 @@ import mu.KotlinLogging
         version = "0.1",
         description = "Microservice for greeting people",
         license = License(name = "Unlicense", url = "https://unlicense.org/"),
-        contact = Contact(url = "http://debuglevel.de", name = "Marc Kohaupt", email = "debuglevel at gmail.com")
+        contact = Contact(url = "http://debuglevel.de", name = "Marc Kohaupt")
     )
 )
 object Application {
