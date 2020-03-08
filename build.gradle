@@ -113,6 +113,8 @@ dependencies {
     /// Security
     kapt "io.micronaut:micronaut-security"
     implementation "io.micronaut:micronaut-security"
+    /// Service registration and discovery
+    implementation "io.micronaut:micronaut-discovery-client"
 
     // Swagger / OpenAPI
     kapt "io.micronaut.configuration:micronaut-openapi"

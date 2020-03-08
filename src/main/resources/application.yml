@@ -10,6 +10,8 @@ app:
 micronaut:
   application:
     name: greeter
+    instance:
+      id: ${random.shortuuid} # instance ID should be set random if Consul registration is active to avoid collisions (default ID would be the port number)
   server:
     port: 8080 # default: -1 (random port)
     cors:
@@ -34,6 +36,16 @@ logger:
 jackson:
   serialization:
     indentOutput: true
+
+# default values of consul section only apply if io.micronaut:micronaut-discovery-client is available
+consul:
+  client:
+    health-check: false # check if Consul is alive; should be true if Consul is used (default: true; other health checks get active as soon as discovery.enabled=true)
+    registration: # register this service on Consul
+      enabled: false # default: true
+    discovery: # search for services on Consul if their id is provided (e.g. Micronaut declarative clients)
+      enabled: false # default: true
+    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}" # Consul server to use for service registration and discovery
 
 datasources:
   #  # Apache Derby

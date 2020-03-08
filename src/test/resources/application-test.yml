@@ -2,3 +2,11 @@ micronaut:
   server:
     port: -1 # for unit testing, assign random ports
 
+# default values of consul section only apply if io.micronaut:micronaut-discovery-client is available
+consul:
+  client:
+    health-check: false # do not check if Consul is alive
+    registration:
+      enabled: false # do not register this service on Consul
+    discovery:
+      enabled: false # do not search for services on Consul
