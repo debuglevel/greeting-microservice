@@ -17,6 +17,10 @@ For builds and deployment, [Docker](https://www.docker.com) (i.e. `Dockerfile`, 
 
 ## Remarks
 
+### Gradle build scan
+
+Please be aware that [Gradle build scans](https://scans.gradle.com/) are enabled by default. Deactivate it in `settings.gradle` if you do not agree to their terms of service.
+
 ### git tags
 
 If you fork this repository to create your own application from this template
