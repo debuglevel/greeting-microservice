@@ -7,11 +7,13 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
+import io.swagger.v3.oas.annotations.tags.Tag
 import mu.KotlinLogging
 import java.util.*
 
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("/persons")
+@Tag(name = "persons")
 class PersonController(private val personService: PersonService) {
     private val logger = KotlinLogging.logger {}
 
