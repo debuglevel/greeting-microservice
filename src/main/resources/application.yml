@@ -1,9 +1,7 @@
 app:
   greetings:
-    # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
-    default-language: "null"
-    # note that key should not be camelCase, as uppercase characters may lead to problems in configuration binding
-    unknown-language: "unknown"
+    default-language: "null" # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
+    unknown-language: "unknown" # note that key should not be camelCase, as uppercase characters may lead to problems in configuration binding
   security:
     configurable-credential-authentication:
       username: "SECRET_USERNAME"
@@ -25,8 +23,7 @@ micronaut:
         paths: classpath:META-INF/swagger
         mapping: /swagger/**
   security:
-    # default: false
-    enabled: true
+    enabled: true # default: false
 
 logger:
   levels:
