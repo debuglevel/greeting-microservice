@@ -152,6 +152,10 @@ shadowJar {
     mergeServiceFiles()
 }
 
+// deactivate zip generations in distributions folder as they are not very useful and take relatively much build time
+tasks.distZip.enabled = false
+tasks.shadowDistZip.enabled = false
+
 // Configuration of net.researchgate.release plugin
 release {
     // TODO: maybe remove this because files will be commited automatically
