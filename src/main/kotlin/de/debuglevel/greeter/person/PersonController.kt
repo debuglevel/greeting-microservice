@@ -1,10 +1,12 @@
 package de.debuglevel.greeter.person
 
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
+import io.micronaut.http.server.types.files.StreamedFile
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -54,6 +56,19 @@ class PersonController(private val personService: PersonService) {
             logger.error(e) { "Unhandled exception" }
             HttpResponse.serverError<PersonResponse>()
         }
+    }
+
+    /**
+     * Download a never ending file of random names
+     * @param uuid ID of the person
+     * @return A person
+     */
+    @Get("/endlessRandom")
+    fun downloadRandomEndless(): StreamedFile {
+        logger.debug("Called downloadRandomEndless()")
+
+        val inputStream = personService.randomStream()
+        return StreamedFile(inputStream, MediaType.TEXT_PLAIN_TYPE)
     }
 
     /**
