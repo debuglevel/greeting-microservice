@@ -106,7 +106,7 @@ dependencies {
     /// Persistence
     kapt "io.micronaut.data:micronaut-data-processor"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa"
-    runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
+    implementation "io.micronaut.sql:micronaut-jdbc-hikari"
     runtimeOnly "com.h2database:h2"
     //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
