@@ -111,8 +111,8 @@ dependencies {
     //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
     /// Security
-    kapt "io.micronaut:micronaut-security"
-    implementation "io.micronaut:micronaut-security"
+    kapt "io.micronaut.security:micronaut-security-annotations"
+    implementation "io.micronaut.security:micronaut-security"
     /// Service registration and discovery
     implementation "io.micronaut:micronaut-discovery-client"
 
