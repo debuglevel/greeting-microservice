@@ -137,6 +137,15 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
+kapt {
+    arguments {
+        arg("micronaut.processing.incremental", true)
+        arg("micronaut.processing.annotations", "de.debuglevel.*")
+        arg("micronaut.processing.group", "de.debuglevel")
+        arg("micronaut.processing.module", "greeter")
+    }
+}
+
 // jar configuration
 jar {
     // add Manifest to jar
