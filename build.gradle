@@ -44,9 +44,16 @@ plugins {
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
 apply plugin: 'org.hibernate.orm'
 
+ext {
+    _group = "de.debuglevel"
+    _module = "greeter"
+    _mainClass = _group + "." + _module + ".Application"
+    _title = "Greeter Microservice"
+}
+
 // application plugin configuration
-applicationName = "Greeter Microservice"
-mainClassName = "de.debuglevel.greeter.Application"
+applicationName = _title
+mainClassName = _mainClass
 
 repositories {
     jcenter()
