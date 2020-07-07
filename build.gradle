@@ -17,7 +17,6 @@ plugins {
     // Kotlin annotations processor (needed by Micronaut)
     id 'org.jetbrains.kotlin.kapt'
 
-    //
     // needed for Bean Validation https://docs.micronaut.io/latest/guide/index.html#beanValidation
     // unsure, if there is another reason for it
     // TODO: configure allopen to only open @Validated classes
