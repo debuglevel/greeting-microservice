@@ -216,7 +216,7 @@ allOpen {
     annotation("io.micronaut.aop.Around")
 }
 
-// enhance Hibernate enities in bytecode
+// enhance Hibernate entities in bytecode
 hibernate {
     enhance {
         enableLazyInitialization = true
