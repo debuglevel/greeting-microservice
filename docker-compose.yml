@@ -20,7 +20,6 @@ services:
 
 #  # Service registration and discovery with Consul
 #  consul:
-#    # as of 2020-03-08, micronaut only supports 1.2.x
-#    image: consul:1.2.4
+#    image: consul:1.8.0
 #    ports:
 #      - "8500:8500"
