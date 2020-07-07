@@ -64,11 +64,11 @@ repositories {
 }
 
 dependencies {
-    // If no specific version is given, it is usually provided by the Micronaut BOM
+    // If no specific version is defined, it might be provided by the Micronaut BOM
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    //implementation "org.jetbrains.kotlin:kotlin-reflect"
+    //implementation "org.jetbrains.kotlin:kotlin-reflect
 
     // Tests
     /// JUnit
@@ -86,45 +86,54 @@ dependencies {
     implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 
-    // Micronaut
-    /// Bill of Materials, which defines dependency versions
+
+    // Micronaut Bill of Materials, which defines dependency versions
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
     kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
     kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
-    // Core
+
+    // Micronaut Core
     implementation "io.micronaut:micronaut-runtime"
+    implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
     implementation "javax.annotation:javax.annotation-api"
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion"
-    implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
-    /// Validation
-    kapt "io.micronaut:micronaut-validation"
-    //implementation 'io.micronaut.configuration:micronaut-hibernate-validator' // if full Bean Validator 2.0 compliance is needed
-    /// Server
-    implementation "io.micronaut:micronaut-http-server-netty"
-    /// Client
-    implementation "io.micronaut:micronaut-http-client"
-    /// Inversion of Control / Dependency Injection
+
+    // Micronaut Inversion of Control / Dependency Injection
     kapt "io.micronaut:micronaut-inject-java"
     kaptTest "io.micronaut:micronaut-inject-java"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
-    /// Management & Monitoring
+
+    // Micronaut Validation
+    kapt "io.micronaut:micronaut-validation"
+    //implementation 'io.micronaut.configuration:micronaut-hibernate-validator' // if full Bean Validator 2.0 compliance is needed
+
+    // Micronaut HTTP Server
+    implementation "io.micronaut:micronaut-http-server-netty"
+
+    // Micronaut HTTP Client
+    implementation "io.micronaut:micronaut-http-client"
+
+    // Micronaut Management & Monitoring
     /// automatically provides the /health endpoint publicly, and some other with authentication
     implementation 'io.micronaut:micronaut-management'
     //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
-    /// Persistence
+
+    // Micronaut Persistence
     kapt "io.micronaut.data:micronaut-data-processor"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa"
     implementation "io.micronaut.sql:micronaut-jdbc-hikari"
     runtimeOnly "com.h2database:h2"
     //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
-    /// Security
+
+    // Micronaut Security
     kapt "io.micronaut.security:micronaut-security-annotations"
     implementation "io.micronaut.security:micronaut-security"
-    /// Service registration and discovery
+
+    // Micronaut Service registration and discovery
     implementation "io.micronaut:micronaut-discovery-client"
 
-    // Swagger / OpenAPI
+    // Micronaut OpenAPI integration
     kapt "io.micronaut.configuration:micronaut-openapi"
     implementation "io.swagger.core.v3:swagger-annotations"
 }
