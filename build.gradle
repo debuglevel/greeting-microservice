@@ -44,10 +44,10 @@ plugins {
 apply plugin: 'org.hibernate.orm'
 
 ext {
-    _group = "de.debuglevel"
-    _module = "greeter"
+    _group = applicationGroup
+    _module = applicationModule
     _mainClass = _group + "." + _module + ".Application"
-    _title = "Greeter Microservice"
+    _title = applicationTitle
 }
 
 // application plugin configuration
@@ -176,9 +176,9 @@ kapt {
 jar {
     // add Manifest to jar
     manifest {
-        attributes 'Implementation-Title': applicationName,
+        attributes 'Implementation-Title': applicationTitle,
                 'Implementation-Version': version,
-                'Main-Class': mainClassName
+                'Main-Class': _mainClass
     }
 }
 
