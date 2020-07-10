@@ -18,6 +18,7 @@ RUN ./gradlew assemble
 FROM oracle/graalvm-ce:20.1.0-java8 as graalvm
 WORKDIR /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
+RUN gu install native-image
 RUN java -version
 RUN native-image --version
 RUN native-image --no-server -cp /app/microservice.jar
