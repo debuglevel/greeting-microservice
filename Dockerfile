@@ -11,12 +11,15 @@ RUN ./gradlew --version
 
 # build source
 COPY . /src/
-RUN ./gradlew build
+#RUN ./gradlew build
+RUN ./gradlew assemble
 
 ## GraalVM native-image
 FROM oracle/graalvm-ce:1.0.0-rc13 as graalvm
 WORKDIR /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
+RUN java -version
+RUN native-image --version
 RUN native-image --no-server -cp /app/microservice.jar
 RUN ls -al /app
 RUN native-image --no-server --no-fallback --class-path /app/microservice.jar
