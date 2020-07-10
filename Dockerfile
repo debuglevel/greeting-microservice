@@ -15,7 +15,7 @@ COPY . /src/
 RUN ./gradlew assemble
 
 ## GraalVM native-image
-FROM oracle/graalvm-ce:1.0.0-rc13 as graalvm
+FROM oracle/graalvm-ce:20.1.0-java8 as graalvm
 WORKDIR /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 RUN java -version
