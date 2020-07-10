@@ -85,6 +85,10 @@ dependencies {
     implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 
+    // GraalVM
+    annotationProcessor "io.micronaut:micronaut-graal"
+    kapt "io.micronaut:micronaut-graal"
+    compileOnly "org.graalvm.nativeimage:svm"
 
     // Micronaut Bill of Materials, which defines dependency versions
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")

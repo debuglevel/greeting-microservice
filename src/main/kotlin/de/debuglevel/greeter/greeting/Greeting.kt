@@ -1,5 +1,7 @@
 package de.debuglevel.greeter.greeting
 
+import io.micronaut.core.annotation.Introspected
+
 /**
  * A greeting
  *
@@ -7,6 +9,7 @@ package de.debuglevel.greeter.greeting
  * @param name name of the person to greet
  * @constructor the `localizedGreeting` field is annotated with `@Transient` so that it is excluded from serialization
  */
+@Introspected
 data class Greeting(
     @Transient
     private val localizedGreeting: String,
