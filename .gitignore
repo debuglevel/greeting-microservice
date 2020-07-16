@@ -1,3 +1,6 @@
+# Ignore .project and .classpath created by gitpod.io and probably Eclipse IDE
+.project
+.classpath
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,gradle,kotlin,intellij,code,eclipse,linux,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,kotlin,intellij,code,eclipse,linux,windows
