@@ -38,6 +38,7 @@ logger:
     de.debuglevel: DEBUG
     io.micronaut.http.server: DEBUG
     io.micronaut.data.query: DEBUG
+    # io.micronaut.context.condition: DEBUG # log infos abount loading conditional beans
 
 jackson:
   serialization:
