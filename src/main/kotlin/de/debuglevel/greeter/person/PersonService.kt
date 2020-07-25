@@ -29,7 +29,7 @@ class PersonService(
         val savedPerson = personRepository.save(person)
 
         logger.debug { "Saved person: $savedPerson" }
-        return person
+        return savedPerson
     }
 
     fun update(id: UUID, person: Person): Person {
@@ -41,10 +41,10 @@ class PersonService(
             name = person.name
         }
 
-        val savedPerson = personRepository.save(updatePerson)
+        val updatedPerson = personRepository.save(updatePerson)
 
-        logger.debug { "Saved person: $savedPerson with ID '$id'" }
-        return person
+        logger.debug { "Saved person: $updatedPerson with ID '$id'" }
+        return updatedPerson
     }
 
     fun list(): Set<Person> {
