@@ -24,16 +24,16 @@ class PersonService(
     }
 
     fun add(person: Person): Person {
-        logger.debug { "Saving person '$person'..." }
+        logger.debug { "Adding person '$person'..." }
 
         val savedPerson = personRepository.save(person)
 
-        logger.debug { "Saved person: $savedPerson" }
+        logger.debug { "Added person: $savedPerson" }
         return savedPerson
     }
 
     fun update(id: UUID, person: Person): Person {
-        logger.debug { "Saving person '$person' with ID '$id'..." }
+        logger.debug { "Updating person '$person' with ID '$id'..." }
 
         // an object must be known to Hibernate (i.e. retrieved first) to get updated;
         // it would be a "detached entity" otherwise.
@@ -41,9 +41,9 @@ class PersonService(
             name = person.name
         }
 
-        val updatedPerson = personRepository.save(updatePerson)
+        val updatedPerson = personRepository.update(updatePerson)
 
-        logger.debug { "Saved person: $updatedPerson with ID '$id'" }
+        logger.debug { "Updated person: $updatedPerson with ID '$id'" }
         return updatedPerson
     }
 
