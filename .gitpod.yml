@@ -3,8 +3,9 @@ image:
 
 tasks:
   - init: ./gradlew build
+    #name: Gradle Build
     command: ./gradlew run
-    #name: Application Server
+    name: Application Server
 
 ports:
   - port: 8080
