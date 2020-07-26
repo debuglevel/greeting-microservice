@@ -43,6 +43,7 @@ logger:
 jackson:
   serialization:
     indentOutput: true
+    writeDatesAsTimestamps: false # write DateTimes as ISO 8601 "2020-07-26T21:37:09.39" instead of an array of numbers
 
 # default values of consul section only apply if io.micronaut:micronaut-discovery-client is available
 consul:
