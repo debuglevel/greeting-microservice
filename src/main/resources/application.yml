@@ -41,6 +41,7 @@ logger:
     # io.micronaut.context.condition: DEBUG # log infos abount loading conditional beans
 
 jackson:
+  serialization-inclusion: NON_ABSENT # omit null and Optional.empty() in JSON, but include empty collections and empty strings
   serialization:
     indentOutput: true
     writeDatesAsTimestamps: false # write DateTimes as ISO 8601 "2020-07-26T21:37:09.39" instead of an array of numbers
