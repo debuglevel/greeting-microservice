@@ -3,3 +3,12 @@ image:
 
 tasks:
   - init: ./gradlew build
+  - command: ./gradlew run
+    name: Application Server
+
+ports:
+  - port: 8080
+    #onOpen: open-preview # do not open preview, because there is nothing served on /
+vscode:
+  extensions:
+    - mathiasfrohlich.Kotlin@1.7.1:zRxka5i+6/G9r7KC3xmyXQ==
