@@ -30,7 +30,7 @@ class ConfigurableCredentialAuthenticationProvider(
             if (authenticationRequest.identity == username &&
                 authenticationRequest.secret == password
             ) {
-                logger.debug { "Authentication succeeded user '${authenticationRequest.identity}'" }
+                logger.debug { "Authentication succeeded for user '${authenticationRequest.identity}'" }
                 emitter.onNext(UserDetails(authenticationRequest.identity as String, ArrayList()))
             } else {
                 logger.debug { "Authentication failed for user '${authenticationRequest.identity}'" }
