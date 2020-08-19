@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: ./gradlew build
-#name: Gradle Build
+    #name: Gradle Build
     command: ./gradlew run
     name: Application Server
 
