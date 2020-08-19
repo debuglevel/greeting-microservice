@@ -9,6 +9,7 @@ import io.reactivex.FlowableEmitter
 import org.reactivestreams.Publisher
 import java.util.*
 import javax.inject.Singleton
+import mu.KotlinLogging
 
 /**
  * Example for an AuthenticationProvider, which just checks for a single configured credential
