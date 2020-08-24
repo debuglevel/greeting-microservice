@@ -66,7 +66,7 @@ dependencies {
     // If no specific version is defined, it might be provided by the Micronaut BOM
 
     // Kotlin
-    //implementation "org.jetbrains.kotlin:kotlin-reflect
+    //implementation "org.jetbrains.kotlin:kotlin-reflect"
 
     // Tests
     /// JUnit
