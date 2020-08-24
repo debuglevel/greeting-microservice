@@ -29,6 +29,7 @@ files=(
     docker-compose.yml
     src/main/resources/logback.xml
     src/test/resources/application-test.yml
+    gradle.properties
 
     # might need heavy merges
     .travis.yml
