@@ -22,10 +22,10 @@ plugins {
     // TODO: configure allopen to only open @Validated classes
     id 'org.jetbrains.kotlin.plugin.allopen'
 
-    // Check updated dependencies with "gradle dependencyUpdates".
+    // Check updated dependencies with "./gradlew dependencyUpdates".
     id 'com.github.ben-manes.versions'
 
-    // Release version with "gradle release"
+    // Release version with "./gradlew release"
     id 'net.researchgate.release'
 
     // Create start scripts
