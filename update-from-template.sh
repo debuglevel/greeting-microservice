@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # run this if file is not yet present:
 #  curl -o update-from-template.sh https://raw.githubusercontent.com/debuglevel/greeting-microservice/master/update-from-template.sh && chmod +x update-from-template.sh && git add --chmod=+x update-from-template.sh && git commit update-from-template.sh -m "Add update-from-template.sh script"
