@@ -24,7 +24,7 @@ class PersonController(private val personService: PersonService) {
      * @return All persons
      */
     @Get("/")
-    fun getAll(): HttpResponse<Set<PersonResponse>> {
+    fun getAll(): HttpResponse<*> {
         logger.debug("Called getAll()")
         return try {
             val persons = personService.list()
@@ -35,7 +35,7 @@ class PersonController(private val personService: PersonService) {
             HttpResponse.ok(personsResponse)
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError<Set<PersonResponse>>()
+            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
         }
     }
 
@@ -45,16 +45,16 @@ class PersonController(private val personService: PersonService) {
      * @return A person
      */
     @Get("/{uuid}")
-    fun getOne(uuid: UUID): HttpResponse<PersonResponse> {
+    fun getOne(uuid: UUID): HttpResponse<*> {
         logger.debug("Called getOne($uuid)")
         return try {
             val person = personService.get(uuid)
             HttpResponse.ok(PersonResponse(person))
         } catch (e: PersonService.EntityNotFoundException) {
-            HttpResponse.badRequest<PersonResponse>()
+            HttpResponse.notFound("Person $uuid does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError<PersonResponse>()
+            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
         }
     }
 
@@ -76,7 +76,7 @@ class PersonController(private val personService: PersonService) {
      * @return A person with their ID
      */
     @Post("/")
-    fun postOne(personRequest: PersonRequest): HttpResponse<PersonResponse> {
+    fun postOne(personRequest: PersonRequest): HttpResponse<*> {
         logger.debug("Called postOne($personRequest)")
 
         return try {
@@ -89,7 +89,7 @@ class PersonController(private val personService: PersonService) {
             HttpResponse.created(PersonResponse(addedPerson))
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError<PersonResponse>()
+            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
         }
     }
 
@@ -99,7 +99,7 @@ class PersonController(private val personService: PersonService) {
      * @return The updated person
      */
     @Put("/{uuid}")
-    fun putOne(uuid: UUID, personRequest: PersonRequest): HttpResponse<PersonResponse> {
+    fun putOne(uuid: UUID, personRequest: PersonRequest): HttpResponse<*> {
         logger.debug("Called putOne($uuid, $personRequest)")
 
         return try {
@@ -111,10 +111,10 @@ class PersonController(private val personService: PersonService) {
 
             HttpResponse.ok(PersonResponse(updatedPerson))
         } catch (e: PersonService.EntityNotFoundException) {
-            HttpResponse.badRequest<PersonResponse>()
+            HttpResponse.notFound("Person $uuid does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError<PersonResponse>()
+            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
         }
     }
 
