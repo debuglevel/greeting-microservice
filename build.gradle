@@ -134,6 +134,14 @@ dependencies {
     // Micronaut OpenAPI integration
     kapt "io.micronaut.configuration:micronaut-openapi"
     implementation "io.swagger.core.v3:swagger-annotations"
+    
+    // Micronaut Views
+    //implementation "io.micronaut.views:micronaut-views-thymeleaf"
+    //implementation "io.micronaut.views:micronaut-views-handlebars"
+    //implementation "io.micronaut.views:micronaut-views-velocity"
+    //implementation "io.micronaut.views:micronaut-views-freemarker"
+    //implementation "io.micronaut.views:micronaut-views-rocker"
+    //implementation "io.micronaut.views:micronaut-views-soy"
 }
 
 // Java configuration
