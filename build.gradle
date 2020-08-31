@@ -67,6 +67,7 @@ dependencies {
 
     // Kotlin
     //implementation "org.jetbrains.kotlin:kotlin-reflect"
+    //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
 
     // Tests
     /// JUnit
