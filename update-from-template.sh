@@ -6,7 +6,7 @@
 echo "Adding template git remote..."
 git remote add template https://github.com/debuglevel/greeting-microservice.git
 echo "Fetching from git remote..."
-git fetch template
+git fetch --no-tags template
 
 files=(
     # can usually be replaced without any merges
