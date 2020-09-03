@@ -57,22 +57,6 @@ consul:
     defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}" # Consul server to use for service registration and discovery
 
 datasources:
-  #  # Apache Derby
-  #  default:
-  #    url: jdbc:derby:memory:devDb;create=true
-  #    driverClassName: org.apache.derby.jdbc.EmbeddedDriver
-  #    username: sa
-  #    password: ''
-  #    schema-generate: CREATE_DROP
-  #    dialect: Derby
-  #  # HSQL
-  #  default:
-  #    url: jdbc:hsqldb:mem:devDb
-  #    driverClassName: org.hsqldb.jdbc.JDBCDriver
-  #    username: sa
-  #    password: ''
-  #    schema-generate: CREATE_DROP
-  #    dialect: HSQL
   # H2
   default:
     # replace "mem" by e.g. /data/db to store it in a file
@@ -82,6 +66,22 @@ datasources:
     password: ""
     schema-generate: CREATE_DROP
     dialect: H2
+#  # Apache Derby
+#  default:
+#    url: jdbc:derby:memory:devDb;create=true
+#    driverClassName: org.apache.derby.jdbc.EmbeddedDriver
+#    username: sa
+#    password: ''
+#    schema-generate: CREATE_DROP
+#    dialect: Derby
+#  # HSQL
+#  default:
+#    url: jdbc:hsqldb:mem:devDb
+#    driverClassName: org.hsqldb.jdbc.JDBCDriver
+#    username: sa
+#    password: ''
+#    schema-generate: CREATE_DROP
+#    dialect: HSQL
 
 jpa:
   default:
