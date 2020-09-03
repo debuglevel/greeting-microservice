@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PersonClientTests {
+class PersonControllerTests {
     @Inject
     lateinit var personClient: PersonClient
 
