@@ -59,7 +59,8 @@ consul:
 datasources:
   # H2
   default:
-    # replace "mem" by e.g. /data/db to store it in a file
+    # replace "mem:devDb" by e.g. "file:/data/db" to store it in a file
+    # for H2 in-memory behaviour and options see http://www.h2database.com/html/features.html#in_memory_databases
     url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: sa
