@@ -107,6 +107,7 @@ class PersonController(private val personService: PersonService) {
             val updatePersonResponse = UpdatePersonResponse(updatedPerson)
             HttpResponse.ok(updatePersonResponse)
         } catch (e: PersonService.EntityNotFoundException) {
+            logger.debug { "Updating person $id failed: ${e.message}" }
             HttpResponse.notFound("Person $id does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }

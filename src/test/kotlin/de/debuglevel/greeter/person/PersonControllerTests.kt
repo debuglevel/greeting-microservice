@@ -53,13 +53,45 @@ class PersonControllerTests {
         // Arrange
 
         // Act
-        val throwable = Assertions.catchThrowableOfType(
+        val httpClientResponseException = Assertions.catchThrowableOfType(
             { personClient.getOne(UUID.randomUUID()).blockingGet() },
             HttpClientResponseException::class.java
         )
 
         // Assert
-        Assertions.assertThat(throwable.status).isEqualTo(HttpStatus.NOT_FOUND)
+        Assertions.assertThat(httpClientResponseException.status).isEqualTo(HttpStatus.NOT_FOUND)
+    }
+
+    @Test
+    fun `update person`() {
+        // Arrange
+        val addPersonRequest = AddPersonRequest("Original Name")
+        val addedPerson = personClient.postOne(addPersonRequest).blockingGet()
+        val updatePersonRequest = UpdatePersonRequest("Updated Name")
+
+        // Act
+        val updatedPerson = personClient.putOne(addedPerson.id, updatePersonRequest).blockingGet()
+        val getPerson = personClient.getOne(addedPerson.id).blockingGet()
+
+        // Assert
+        Assertions.assertThat(updatedPerson.id).isEqualTo(addedPerson.id)
+        Assertions.assertThat(getPerson.id).isEqualTo(addedPerson.id)
+        Assertions.assertThat(updatedPerson.name).isEqualTo(updatePersonRequest.name)
+    }
+
+    @Test
+    fun `update non-existing person`() {
+        // Arrange
+        val updatePersonRequest = UpdatePersonRequest("Updated Name")
+
+        // Act
+        val httpClientResponseException = Assertions.catchThrowableOfType(
+            { personClient.putOne(UUID.randomUUID(), updatePersonRequest).blockingGet() },
+            HttpClientResponseException::class.java
+        )
+
+        // Assert
+        Assertions.assertThat(httpClientResponseException.status).isEqualTo(HttpStatus.NOT_FOUND)
     }
 
     @Test
