@@ -18,34 +18,36 @@ class PersonClientTests {
     lateinit var personClient: PersonClient
 
     @ParameterizedTest
-    @MethodSource("personRequestProvider")
-    fun `save person`(personRequest: PersonRequest) {
+    @MethodSource("personProvider")
+    fun `add person`(person: Person) {
         // Arrange
+        val addPersonRequest = AddPersonRequest(person)
 
         // Act
-        val savedPerson = personClient.postOne(personRequest).blockingGet()
+        val savedPerson = personClient.postOne(addPersonRequest).blockingGet()
 
         // Assert
-        Assertions.assertThat(savedPerson.name).isEqualTo(personRequest.name)
+        Assertions.assertThat(savedPerson.name).isEqualTo(person.name)
     }
 
     @ParameterizedTest
-    @MethodSource("personRequestProvider")
-    fun `retrieve person`(personRequest: PersonRequest) {
+    @MethodSource("personProvider")
+    fun `get person`(person: Person) {
         // Arrange
-        val savedPerson = personClient.postOne(personRequest).blockingGet()
+        val addPersonRequest = AddPersonRequest(person)
+        val addedPerson = personClient.postOne(addPersonRequest).blockingGet()
 
         // Act
-        val retrievedPerson = personClient.getOne(savedPerson.id!!).blockingGet()
+        val getPerson = personClient.getOne(addedPerson.id).blockingGet()
 
         // Assert
-        Assertions.assertThat(retrievedPerson.id).isEqualTo(savedPerson.id)
-        Assertions.assertThat(retrievedPerson.name).isEqualTo(savedPerson.name)
-        Assertions.assertThat(retrievedPerson).isEqualTo(savedPerson)
+        Assertions.assertThat(getPerson.id).isEqualTo(addedPerson.id)
+        Assertions.assertThat(getPerson.name).isEqualTo(person.name)
+        Assertions.assertThat(getPerson.name).isEqualTo(addedPerson.name)
     }
 
     @Test
-    fun `retrieve VIPs`() {
+    fun `get VIPs`() {
         // Arrange
 
         // Act
@@ -61,7 +63,7 @@ class PersonClientTests {
     }
 
     @Test
-    fun `fail retrieving VIPs with bad authentication`() {
+    fun `fail get VIPs with bad authentication`() {
         // Arrange
 
         // Act
@@ -78,8 +80,5 @@ class PersonClientTests {
             .hasMessageContaining("Unauthorized")
     }
 
-    fun personRequestProvider() = TestDataProvider.personProvider()
-        .map {
-            PersonRequest(it.id, it.name)
-        }
+    fun personProvider() = TestDataProvider.personProvider()
 }

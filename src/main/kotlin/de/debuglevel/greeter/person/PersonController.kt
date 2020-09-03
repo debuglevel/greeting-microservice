@@ -28,14 +28,13 @@ class PersonController(private val personService: PersonService) {
         logger.debug("Called getAll()")
         return try {
             val persons = personService.list()
-            val personsResponse = persons
-                .map { PersonResponse(it) }
-                .toSet()
+            val getPersonResponses = persons
+                .map { GetPersonResponse(it) }
 
-            HttpResponse.ok(personsResponse)
+            HttpResponse.ok(getPersonResponses)
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
+            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
         }
     }
 
@@ -49,19 +48,19 @@ class PersonController(private val personService: PersonService) {
         logger.debug("Called getOne($uuid)")
         return try {
             val person = personService.get(uuid)
-            HttpResponse.ok(PersonResponse(person))
+
+            val getPersonResponse = GetPersonResponse(person)
+            HttpResponse.ok(getPersonResponse)
         } catch (e: PersonService.EntityNotFoundException) {
             HttpResponse.notFound("Person $uuid does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
+            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
         }
     }
 
     /**
      * Download a never ending file of random names
-     * @param uuid ID of the person
-     * @return A person
      */
     @Get("/endlessRandom")
     fun downloadRandomEndless(): StreamedFile {
@@ -76,20 +75,18 @@ class PersonController(private val personService: PersonService) {
      * @return A person with their ID
      */
     @Post("/")
-    fun postOne(personRequest: PersonRequest): HttpResponse<*> {
-        logger.debug("Called postOne($personRequest)")
+    fun postOne(addPersonRequest: AddPersonRequest): HttpResponse<*> {
+        logger.debug("Called postOne($addPersonRequest)")
 
         return try {
-            val person = Person(
-                id = null,
-                name = personRequest.name
-            )
+            val person = addPersonRequest.toPerson()
             val addedPerson = personService.add(person)
 
-            HttpResponse.created(PersonResponse(addedPerson))
+            val addPersonResponse = AddPersonResponse(addedPerson)
+            HttpResponse.created(addPersonResponse)
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
+            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
         }
     }
 
@@ -99,22 +96,20 @@ class PersonController(private val personService: PersonService) {
      * @return The updated person
      */
     @Put("/{uuid}")
-    fun putOne(uuid: UUID, personRequest: PersonRequest): HttpResponse<*> {
-        logger.debug("Called putOne($uuid, $personRequest)")
+    fun putOne(uuid: UUID, updatePersonRequest: UpdatePersonRequest): HttpResponse<*> {
+        logger.debug("Called putOne($uuid, $updatePersonRequest)")
 
         return try {
-            val person = Person(
-                id = null,
-                name = personRequest.name
-            )
+            val person = updatePersonRequest.toPerson()
             val updatedPerson = personService.update(uuid, person)
 
-            HttpResponse.ok(PersonResponse(updatedPerson))
+            val updatePersonResponse = UpdatePersonResponse(updatedPerson)
+            HttpResponse.ok(updatePersonResponse)
         } catch (e: PersonService.EntityNotFoundException) {
             HttpResponse.notFound("Person $uuid does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: " + e.stackTrace)
+            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
         }
     }
 
@@ -124,12 +119,12 @@ class PersonController(private val personService: PersonService) {
      */
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Get("/VIPs")
-    fun getVIPs(): Set<PersonResponse> {
+    fun getVIPs(): Set<GetPersonResponse> {
         logger.debug("Called getVIPs()")
-        return setOf<PersonResponse>(
-            PersonResponse(null, "Harry Potter"),
-            PersonResponse(null, "Hermoine Granger"),
-            PersonResponse(null, "Ronald Weasley")
+        return setOf(
+            GetPersonResponse(UUID.randomUUID(), "Harry Potter"),
+            GetPersonResponse(UUID.randomUUID(), "Hermoine Granger"),
+            GetPersonResponse(UUID.randomUUID(), "Ronald Weasley")
         )
     }
 }

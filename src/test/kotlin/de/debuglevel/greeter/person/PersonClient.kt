@@ -12,14 +12,14 @@ import javax.validation.constraints.NotBlank
 @Client("/persons")
 interface PersonClient {
     @Get("/{id}")
-    fun getOne(@NotBlank id: UUID): Single<PersonResponse>
+    fun getOne(@NotBlank id: UUID): Single<GetPersonResponse>
 
     @Post("/")
-    fun postOne(@Body person: PersonRequest): Single<PersonResponse>
+    fun postOne(@Body person: AddPersonRequest): Single<AddPersonResponse>
 
     @Get("/")
-    fun getAll(): Set<PersonRequest>
+    fun getAll(): Set<GetPersonResponse>
 
     @Get("/VIPs")
-    fun getVIPs(@Header authorization: String): Set<PersonResponse>
+    fun getVIPs(@Header authorization: String): Set<GetPersonResponse>
 }

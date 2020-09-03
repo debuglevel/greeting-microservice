@@ -28,57 +28,60 @@ class PersonControllerTests {
     lateinit var httpClient: HttpClient
 
     @ParameterizedTest
-    @MethodSource("personRequestProvider")
-    fun `save person`(personRequest: PersonRequest) {
+    @MethodSource("personProvider")
+    fun `add person`(person: Person) {
         // Arrange
+        val addPersonRequest = AddPersonRequest(person)
 
         // Act
-        val uri = UriBuilder.of("/").build()
-        val savedPerson = httpClient.toBlocking()
-            .retrieve(HttpRequest.POST(uri, personRequest), PersonResponse::class.java)
+        val addUri = UriBuilder.of("/").build()
+        val addedPerson = httpClient.toBlocking()
+            .retrieve(HttpRequest.POST(addUri, addPersonRequest), AddPersonResponse::class.java)
 
         // Assert
-        Assertions.assertThat(savedPerson.name).isEqualTo(personRequest.name)
+        Assertions.assertThat(addedPerson.name).isEqualTo(person.name)
+        Assertions.assertThat(addedPerson.name).isEqualTo(addPersonRequest.name)
     }
 
     @ParameterizedTest
-    @MethodSource("personRequestProvider")
-    fun `retrieve person`(personRequest: PersonRequest) {
+    @MethodSource("personProvider")
+    fun `get person`(person: Person) {
         // Arrange
-        val saveUri = UriBuilder.of("/").build()
-        val savedPerson = httpClient.toBlocking()
-            .retrieve(HttpRequest.POST(saveUri, personRequest), PersonRequest::class.java)
+        val addPersonRequest = AddPersonRequest(person)
+        val addUri = UriBuilder.of("/").build()
+        val addedPerson = httpClient.toBlocking()
+            .retrieve(HttpRequest.POST(addUri, addPersonRequest), AddPersonResponse::class.java)
 
         // Act
-        val retrieveUri = UriBuilder.of("/{id}")
-            .expand(mutableMapOf("id" to savedPerson.id))
+        val getUri = UriBuilder.of("/{id}")
+            .expand(mutableMapOf("id" to addedPerson.id))
             .toString()
-        val retrievedPerson = httpClient.toBlocking()
-            .retrieve(retrieveUri, PersonRequest::class.java)
+        val getPerson = httpClient.toBlocking()
+            .retrieve(getUri, GetPersonResponse::class.java)
 
         // Assert
-        Assertions.assertThat(retrievedPerson.id).isEqualTo(savedPerson.id)
-        Assertions.assertThat(retrievedPerson.name).isEqualTo(savedPerson.name)
-        Assertions.assertThat(retrievedPerson).isEqualTo(savedPerson)
+        Assertions.assertThat(getPerson.id).isEqualTo(addedPerson.id)
+        Assertions.assertThat(getPerson.name).isEqualTo(person.name)
+        Assertions.assertThat(getPerson.name).isEqualTo(addedPerson.name)
     }
 
     @Test
-    fun `retrieve VIPs`() {
+    fun `get VIPs`() {
         // Arrange
 
         // Act
-        val retrieveUri = UriBuilder.of("/VIPs").build()
+        val getVipUri = UriBuilder.of("/VIPs").build()
         val httpRequest = HttpRequest
-            .GET<String>(retrieveUri)
+            .GET<String>(getVipUri)
             .basicAuth("SECRET_USERNAME", "SECRET_PASSWORD")
-        val argument = Argument.of(List::class.java, PersonRequest::class.java)
-        val retrievedPersons = httpClient.toBlocking()
-            .retrieve(httpRequest, argument) as List<PersonRequest>
+        val argument = Argument.of(List::class.java, GetPersonResponse::class.java)
+        val getPersons = httpClient.toBlocking()
+            .retrieve(httpRequest, argument) as List<GetPersonResponse>
 
         // Assert
-        Assertions.assertThat(retrievedPersons).anyMatch { it.name == "Hermoine Granger" }
-        Assertions.assertThat(retrievedPersons).anyMatch { it.name == "Harry Potter" }
-        Assertions.assertThat(retrievedPersons).anyMatch { it.name == "Ronald Weasley" }
+        Assertions.assertThat(getPersons).anyMatch { it.name == "Hermoine Granger" }
+        Assertions.assertThat(getPersons).anyMatch { it.name == "Harry Potter" }
+        Assertions.assertThat(getPersons).anyMatch { it.name == "Ronald Weasley" }
     }
 
     @Test
@@ -86,9 +89,9 @@ class PersonControllerTests {
         // Arrange
 
         // Act
-        val retrieveUri = UriBuilder.of("/VIPs").build()
+        val getVipUri = UriBuilder.of("/VIPs").build()
         val httpRequest = HttpRequest
-            .GET<String>(retrieveUri)
+            .GET<String>(getVipUri)
         val thrown = catchThrowable {
             httpClient.toBlocking().retrieve(httpRequest)
         }
@@ -99,8 +102,5 @@ class PersonControllerTests {
             .hasMessageContaining("Unauthorized")
     }
 
-    fun personRequestProvider() = TestDataProvider.personProvider()
-        .map {
-            PersonRequest(it.id, it.name)
-        }
+    fun personProvider() = TestDataProvider.personProvider()
 }
