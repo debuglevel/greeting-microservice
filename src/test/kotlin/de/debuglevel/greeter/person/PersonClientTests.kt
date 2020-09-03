@@ -13,7 +13,6 @@ import javax.inject.Inject
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PersonClientTests {
-
     @Inject
     lateinit var personClient: PersonClient
 
@@ -24,10 +23,11 @@ class PersonClientTests {
         val addPersonRequest = AddPersonRequest(person)
 
         // Act
-        val savedPerson = personClient.postOne(addPersonRequest).blockingGet()
+        val addedPerson = personClient.postOne(addPersonRequest).blockingGet()
 
         // Assert
-        Assertions.assertThat(savedPerson.name).isEqualTo(person.name)
+        Assertions.assertThat(addedPerson.name).isEqualTo(person.name)
+        Assertions.assertThat(addedPerson.name).isEqualTo(addPersonRequest.name)
     }
 
     @ParameterizedTest
@@ -54,12 +54,12 @@ class PersonClientTests {
         val encodedCredentials =
             Base64.getEncoder().encodeToString("SECRET_USERNAME:SECRET_PASSWORD".byteInputStream().readBytes())
         val basicAuthenticationHeader = "Basic $encodedCredentials"
-        val retrievedPersons = personClient.getVIPs(basicAuthenticationHeader)
+        val getPersons = personClient.getVIPs(basicAuthenticationHeader)
 
         // Assert
-        Assertions.assertThat(retrievedPersons).anyMatch { it.name == "Hermoine Granger" }
-        Assertions.assertThat(retrievedPersons).anyMatch { it.name == "Harry Potter" }
-        Assertions.assertThat(retrievedPersons).anyMatch { it.name == "Ronald Weasley" }
+        Assertions.assertThat(getPersons).anyMatch { it.name == "Hermoine Granger" }
+        Assertions.assertThat(getPersons).anyMatch { it.name == "Harry Potter" }
+        Assertions.assertThat(getPersons).anyMatch { it.name == "Ronald Weasley" }
     }
 
     @Test
