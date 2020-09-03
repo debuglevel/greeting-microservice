@@ -40,20 +40,20 @@ class PersonController(private val personService: PersonService) {
 
     /**
      * Get a person
-     * @param uuid ID of the person
+     * @param id ID of the person
      * @return A person
      */
-    @Get("/{uuid}")
-    fun getOne(uuid: UUID): HttpResponse<*> {
-        logger.debug("Called getOne($uuid)")
+    @Get("/{id}")
+    fun getOne(id: UUID): HttpResponse<*> {
+        logger.debug("Called getOne($id)")
         return try {
-            val person = personService.get(uuid)
+            val person = personService.get(id)
 
             val getPersonResponse = GetPersonResponse(person)
             HttpResponse.ok(getPersonResponse)
         } catch (e: PersonService.EntityNotFoundException) {
-            logger.debug { "Getting person $uuid failed: ${e.message}" }
-            HttpResponse.notFound("Person $uuid does not exist.")
+            logger.debug { "Getting person $id failed: ${e.message}" }
+            HttpResponse.notFound("Person $id does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
             HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
@@ -93,21 +93,21 @@ class PersonController(private val personService: PersonService) {
 
     /**
      * Update a person.
-     * @param uuid ID of the person
+     * @param id ID of the person
      * @return The updated person
      */
-    @Put("/{uuid}")
-    fun putOne(uuid: UUID, updatePersonRequest: UpdatePersonRequest): HttpResponse<*> {
-        logger.debug("Called putOne($uuid, $updatePersonRequest)")
+    @Put("/{id}")
+    fun putOne(id: UUID, updatePersonRequest: UpdatePersonRequest): HttpResponse<*> {
+        logger.debug("Called putOne($id, $updatePersonRequest)")
 
         return try {
             val person = updatePersonRequest.toPerson()
-            val updatedPerson = personService.update(uuid, person)
+            val updatedPerson = personService.update(id, person)
 
             val updatePersonResponse = UpdatePersonResponse(updatedPerson)
             HttpResponse.ok(updatePersonResponse)
         } catch (e: PersonService.EntityNotFoundException) {
-            HttpResponse.notFound("Person $uuid does not exist.")
+            HttpResponse.notFound("Person $id does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
             HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
