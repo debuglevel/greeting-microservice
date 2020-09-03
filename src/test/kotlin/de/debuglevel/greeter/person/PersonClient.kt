@@ -9,16 +9,16 @@ import javax.validation.constraints.NotBlank
 @Client("/persons")
 interface PersonClient {
     @Get("/{id}")
-    fun getOne(@NotBlank id: UUID): Single<GetPersonResponse>
+    fun get(@NotBlank id: UUID): Single<GetPersonResponse>
 
     @Post("/")
-    fun postOne(@Body person: AddPersonRequest): Single<AddPersonResponse>
+    fun add(@Body person: AddPersonRequest): Single<AddPersonResponse>
 
     @Put("/{id}")
-    fun putOne(@NotBlank id: UUID, @Body person: UpdatePersonRequest): Single<UpdatePersonResponse>
+    fun update(@NotBlank id: UUID, @Body person: UpdatePersonRequest): Single<UpdatePersonResponse>
 
     @Get("/")
-    fun getAll(): List<GetPersonResponse>
+    fun list(): List<GetPersonResponse>
 
     @Get("/VIPs")
     fun getVIPs(@Header authorization: String): Set<GetPersonResponse>

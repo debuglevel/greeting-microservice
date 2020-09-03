@@ -25,7 +25,7 @@ class PersonControllerTests {
         val addPersonRequest = AddPersonRequest(person)
 
         // Act
-        val addedPerson = personClient.postOne(addPersonRequest).blockingGet()
+        val addedPerson = personClient.add(addPersonRequest).blockingGet()
 
         // Assert
         Assertions.assertThat(addedPerson.name).isEqualTo(person.name)
@@ -37,10 +37,10 @@ class PersonControllerTests {
     fun `get person`(person: Person) {
         // Arrange
         val addPersonRequest = AddPersonRequest(person)
-        val addedPerson = personClient.postOne(addPersonRequest).blockingGet()
+        val addedPerson = personClient.add(addPersonRequest).blockingGet()
 
         // Act
-        val getPerson = personClient.getOne(addedPerson.id).blockingGet()
+        val getPerson = personClient.get(addedPerson.id).blockingGet()
 
         // Assert
         Assertions.assertThat(getPerson.id).isEqualTo(addedPerson.id)
@@ -54,7 +54,7 @@ class PersonControllerTests {
 
         // Act
         val httpClientResponseException = Assertions.catchThrowableOfType(
-            { personClient.getOne(UUID.randomUUID()).blockingGet() },
+            { personClient.get(UUID.randomUUID()).blockingGet() },
             HttpClientResponseException::class.java
         )
 
@@ -66,12 +66,12 @@ class PersonControllerTests {
     fun `update person`() {
         // Arrange
         val addPersonRequest = AddPersonRequest("Original Name")
-        val addedPerson = personClient.postOne(addPersonRequest).blockingGet()
+        val addedPerson = personClient.add(addPersonRequest).blockingGet()
         val updatePersonRequest = UpdatePersonRequest("Updated Name")
 
         // Act
-        val updatedPerson = personClient.putOne(addedPerson.id, updatePersonRequest).blockingGet()
-        val getPerson = personClient.getOne(addedPerson.id).blockingGet()
+        val updatedPerson = personClient.update(addedPerson.id, updatePersonRequest).blockingGet()
+        val getPerson = personClient.get(addedPerson.id).blockingGet()
 
         // Assert
         Assertions.assertThat(updatedPerson.id).isEqualTo(addedPerson.id)
@@ -86,7 +86,7 @@ class PersonControllerTests {
 
         // Act
         val httpClientResponseException = Assertions.catchThrowableOfType(
-            { personClient.putOne(UUID.randomUUID(), updatePersonRequest).blockingGet() },
+            { personClient.update(UUID.randomUUID(), updatePersonRequest).blockingGet() },
             HttpClientResponseException::class.java
         )
 
@@ -98,11 +98,11 @@ class PersonControllerTests {
     fun `list persons`() {
         // Arrange
         personProvider().forEach {
-            personClient.postOne(AddPersonRequest(it)).blockingGet()
+            personClient.add(AddPersonRequest(it)).blockingGet()
         }
 
         // Act
-        val getPersons = personClient.getAll()
+        val getPersons = personClient.list()
 
         // Assert
         Assertions.assertThat(getPersons).extracting<String> { x -> x.name }
