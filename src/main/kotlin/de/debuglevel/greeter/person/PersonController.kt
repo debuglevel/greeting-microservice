@@ -52,6 +52,7 @@ class PersonController(private val personService: PersonService) {
             val getPersonResponse = GetPersonResponse(person)
             HttpResponse.ok(getPersonResponse)
         } catch (e: PersonService.EntityNotFoundException) {
+            logger.debug { "Getting person $uuid failed: ${e.message}" }
             HttpResponse.notFound("Person $uuid does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }

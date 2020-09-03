@@ -18,7 +18,7 @@ interface PersonClient {
     fun postOne(@Body person: AddPersonRequest): Single<AddPersonResponse>
 
     @Get("/")
-    fun getAll(): Set<GetPersonResponse>
+    fun getAll(): List<GetPersonResponse>
 
     @Get("/VIPs")
     fun getVIPs(@Header authorization: String): Set<GetPersonResponse>

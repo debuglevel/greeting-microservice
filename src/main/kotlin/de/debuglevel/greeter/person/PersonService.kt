@@ -17,7 +17,10 @@ class PersonService(
     fun get(id: UUID): Person {
         logger.debug { "Getting person with ID '$id'..." }
 
-        val person: Person = personRepository.findById(id).orElseThrow { EntityNotFoundException(id) }
+        val person: Person = personRepository.findById(id).orElseThrow {
+            logger.debug { "Getting person with ID '$id' failed" }
+            EntityNotFoundException(id)
+        }
 
         logger.debug { "Got person with ID '$id': $person" }
         return person
