@@ -34,7 +34,7 @@ class PersonController(private val personService: PersonService) {
             HttpResponse.ok(getPersonResponses)
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
+            HttpResponse.serverError("Unhandled exception: ${e.message}")
         }
     }
 
@@ -56,7 +56,7 @@ class PersonController(private val personService: PersonService) {
             HttpResponse.notFound("Person $id does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
+            HttpResponse.serverError("Unhandled exception: ${e.message}")
         }
     }
 
@@ -87,7 +87,7 @@ class PersonController(private val personService: PersonService) {
             HttpResponse.created(addPersonResponse)
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
+            HttpResponse.serverError("Unhandled exception: ${e.message}")
         }
     }
 
@@ -111,7 +111,7 @@ class PersonController(private val personService: PersonService) {
             HttpResponse.notFound("Person $id does not exist.")
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.stackTrace}")
+            HttpResponse.serverError("Unhandled exception: ${e.message}")
         }
     }
 
