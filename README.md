@@ -10,7 +10,7 @@
 
 This is a simple REST microservice to greet people.
 
-Of course, this is rather a template than a useful microservice 😉.
+Of course, this is rather a template than a useful microservice 🙂.
 It serves as a template to create a REST microservice using [Micronaut](https://micronaut.io) (with [Data](https://github.com/micronaut-projects/micronaut-data) Pesistence, [Security](https://github.com/micronaut-projects/micronaut-security), [Consul](https://www.consul.io/) service registration and discovery, [JMX Management](https://github.com/micronaut-projects/micronaut-jmx), [OpenAPI/Swagger](https://github.com/micronaut-projects/micronaut-openapi)).
 It's written in [Kotlin](https://kotlinlang.org/), edited with [IntelliJ](https://www.jetbrains.com/idea/) and [Gitpod](https://gitpod.io/), built with [Gradle](https://gradle.org/) (producing an [executable fat jar](https://github.com/johnrengelman/shadow), supporting Gradle's [build scan](https://guides.gradle.org/creating-build-scans/), [Researchgate's release plugin](https://github.com/researchgate/gradle-release), and a [dependency update checker](https://github.com/ben-manes/gradle-versions-plugin)).
 It's tested with [JUnit 5](https://junit.org/junit5/) and versioned with [git](https://git-scm.com/) (with an unseful `.gitignore`).
