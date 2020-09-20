@@ -59,6 +59,29 @@ class PersonService(
         return persons
     }
 
+    fun delete(id: UUID) {
+        logger.debug { "Deleting person with ID '$id'..." }
+
+        if (personRepository.existsById(id)) {
+            personRepository.deleteById(id)
+        } else {
+            throw EntityNotFoundException(id)
+        }
+
+        logger.debug { "Deleted person with ID '$id'" }
+    }
+
+    fun deleteAll() {
+        logger.debug { "Deleting all persons..." }
+
+        val countBefore = personRepository.count()
+        personRepository.deleteAll() // CAVEAT: does not delete dependent entities; use this instead: personRepository.findAll().forEach { personRepository.delete(it) }
+        val countAfter = personRepository.count()
+        val countDeleted = countBefore - countAfter
+
+        logger.debug { "Deleted $countDeleted of $countBefore persons, $countAfter remaining" }
+    }
+
     private fun generateRandom(): Person {
         logger.debug { "Generating random person..." }
         val person = Person(UUID.randomUUID(), "${firstnames.random()} ${lastnames.random()}")

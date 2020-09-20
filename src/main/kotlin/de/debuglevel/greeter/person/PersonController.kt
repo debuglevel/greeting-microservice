@@ -2,10 +2,7 @@ package de.debuglevel.greeter.person
 
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
-import io.micronaut.http.annotation.Put
+import io.micronaut.http.annotation.*
 import io.micronaut.http.server.types.files.StreamedFile
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
@@ -109,6 +106,41 @@ class PersonController(private val personService: PersonService) {
         } catch (e: PersonService.EntityNotFoundException) {
             logger.debug { "Updating person $id failed: ${e.message}" }
             HttpResponse.notFound("Person $id does not exist.")
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError("Unhandled exception: ${e.message}")
+        }
+    }
+
+    /**
+     * Delete a person.
+     * @param id ID of the person
+     */
+    @Delete("/{id}")
+    fun deleteOne(id: UUID): HttpResponse<*> {
+        logger.debug("Called deleteOne($id)")
+        return try {
+            personService.delete(id)
+
+            HttpResponse.noContent<Any>()
+        } catch (e: PersonService.EntityNotFoundException) {
+            HttpResponse.notFound("Person $id not found.")
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError("Unhandled exception: ${e.message}")
+        }
+    }
+
+    /**
+     * Delete all person.
+     */
+    @Delete("/")
+    fun deleteAll(): HttpResponse<*> {
+        logger.debug("Called deleteAll()")
+        return try {
+            personService.deleteAll()
+
+            HttpResponse.noContent<Any>()
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
             HttpResponse.serverError("Unhandled exception: ${e.message}")
