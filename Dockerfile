@@ -16,12 +16,18 @@ RUN ./gradlew build
 ## Final image
 #FROM openjdk:11-jre # use OpenJDK 11 if desired
 FROM openjdk:8-jre-alpine
+
+# add curl for health check
+RUN apk add --no-cache curl
+
 WORKDIR /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 
 # set the default port to 80
 ENV MICRONAUT_SERVER_PORT 80
 EXPOSE 80
+
+HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --fail http://localhost/health || exit 1
 
 # -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap let the JVM respect CPU and RAM limits inside a Docker container
 CMD ["java", \
