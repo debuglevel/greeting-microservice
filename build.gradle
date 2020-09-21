@@ -82,7 +82,7 @@ dependencies {
 
     // Logging
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
-    implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
+    implementation "io.github.microutils:kotlin-logging-jvm:$kotlinLoggingVersion"
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 
 
