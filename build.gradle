@@ -84,6 +84,7 @@ dependencies {
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
     implementation "io.github.microutils:kotlin-logging-jvm:$kotlinLoggingVersion"
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
+    runtimeOnly "net.logstash.logback:logstash-logback-encoder:$logstashLogbackVersion"
 
 
     // Micronaut Bill of Materials, which defines dependency versions

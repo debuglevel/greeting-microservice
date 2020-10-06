@@ -27,6 +27,22 @@
         </encoder>
     </appender>
 
+    <appender name="json-stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- Slows down logging but includes where the logging was called from -->
+            <!-- <includeCallerData>true</includeCallerData> -->
+            
+            <!-- TODO: add custom fields with information about the microservice -->
+            <!-- <customFields>{"appname":"myWebservice","roles":["customerorder","auth"],"buildinfo":{"version":"Version 0.1.0-SNAPSHOT","lastcommit":"75473700d5befa953c45f630c6d9105413c16fe1"}}</customFields> -->
+
+            <!-- Pretty print JSON as it should not hurt performance but easens debugging -->
+            <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
+
+            <!-- Timestamp is already in ISO-8601, so no customization should be needed. -->
+            <!-- <timestampPattern>yyyy-MM-dd'T'HH:mm:ss.SSS</timestampPattern> -->
+        </encoder>
+    </appender>
+
     <root level="info">
         <appender-ref ref="colored-classic-stdout"/>
     </root>
