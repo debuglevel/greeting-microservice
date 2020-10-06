@@ -1,5 +1,5 @@
 <configuration>
-    <appender name="classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="colored-classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
         <!--
         Disable Jansi because on Windows, as it will throw a warning on logback initialization.
         Somehow, the output is colored nevertheless.
@@ -19,8 +19,16 @@
         </encoder>
     </appender>
 
+    <appender name="classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>false</withJansi>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
     <root level="info">
-        <appender-ref ref="classic-stdout"/>
+        <appender-ref ref="colored-classic-stdout"/>
     </root>
 
     <!-- loglevels should be configured via application.yml or corresponding environment variables, as this is way more flexible in productive use -->
