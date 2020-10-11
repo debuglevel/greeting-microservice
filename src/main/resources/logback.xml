@@ -1,4 +1,5 @@
 <configuration>
+    <!-- colored console log output which is usually nice during development -->
     <appender name="colored-timestamped-classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
         <!--
         Disable Jansi because on Windows, as it will throw a warning on logback initialization.
@@ -19,6 +20,7 @@
         </encoder>
     </appender>
 
+    <!-- console log output without colors, as their control characters might be confusing in further log processing -->
     <appender name="timestamped-classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>false</withJansi>
         <encoder>
@@ -27,7 +29,7 @@
         </encoder>
     </appender>
 
-    <!-- if another log processor adds a timestamp, you probably do not want you own timestamp written out -->
+    <!-- If further log processing adds a timestamp, you probably do not want your own timestamp written out. -->
     <appender name="classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>false</withJansi>
         <encoder>
@@ -36,6 +38,7 @@
         </encoder>
     </appender>
 
+    <!-- Logs in JSON, which can be useful in combination with e.g. Elasticstack -->
     <appender name="json-stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <!-- Slows down logging but includes where the logging was called from -->
