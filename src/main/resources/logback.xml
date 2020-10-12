@@ -56,7 +56,8 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="colored-timestamped-classic-stdout"/>
+        <!-- Use the appender defined by the environment variable LOG_APPENDER or use a default -->
+        <appender-ref ref="${LOG_APPENDER:-colored-timestamped-classic-stdout}"/>
     </root>
 
     <!-- loglevels should be configured via application.yml or corresponding environment variables, as this is way more flexible in productive use -->
