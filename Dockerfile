@@ -27,7 +27,7 @@ COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 ENV MICRONAUT_SERVER_PORT 80
 EXPOSE 80
 
-# use a log appender with no timestamps as Docker logs the timestamp itself
+# use a log appender with no timestamps as Docker logs the timestamp itself ("docker logs -t ID")
 ENV LOG_APPENDER classic-stdout
 
 HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --fail http://localhost/health || exit 1
