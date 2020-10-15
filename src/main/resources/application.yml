@@ -42,6 +42,7 @@ logger:
 
 jackson:
   serialization-inclusion: NON_ABSENT # omit null and Optional.empty() in JSON, but include empty collections and empty strings
+  # serialization-inclusion: ALWAYS # include empty collections, empty strings, null and Optional.empty(); see docs of com.fasterxml.jackson.annotation.JsonInclude.Include for other behaviors
   serialization:
     indentOutput: true
     writeDatesAsTimestamps: false # write DateTimes as ISO 8601 "2020-07-26T21:37:09.39" instead of an array of numbers
