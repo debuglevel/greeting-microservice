@@ -17,9 +17,9 @@ services:
 #      # search for services on Consul
 #      - CONSUL_CLIENT_DISCOVERY_ENABLED=true
 #      # Consul server
-#      - CONSUL_HOST=localhost
+#      - CONSUL_HOST=consul
 #      - CONSUL_PORT=8500
-
+#
 #  # Service registration and discovery with Consul
 #  consul:
 #    image: consul:1.8.4
