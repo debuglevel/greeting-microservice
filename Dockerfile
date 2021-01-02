@@ -1,6 +1,6 @@
 ## Building stage
 #FROM openjdk:11-jdk AS builder # use OpenJDK 11 if desired
-FROM openjdk:8-jdk-alpine AS builder
+FROM openjdk:8-jdk-alpine3.9 AS builder
 WORKDIR /src/
 
 # cache gradle
@@ -15,7 +15,7 @@ RUN ./gradlew build
 
 ## Final image
 #FROM openjdk:11-jre # use OpenJDK 11 if desired
-FROM openjdk:8-jre-alpine
+FROM openjdk:8-jre-alpine3.9
 
 # add curl for health check
 RUN apk add --no-cache curl
