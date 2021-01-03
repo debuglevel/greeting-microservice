@@ -1,3 +1,11 @@
+# Ignore Dockerfile and .dockerignore as they might change during development,
+# but their content should have no impact on the actual application.
+# If they change and in Dockerfile is a "COPY . /src", Docker would invalidate
+# caches for subsequent RUN statements (as it assumes something has changed).
+Dockerfile
+.dockerignore
+
+
 ## This file excludes files from being transfered to the Docker build context.
 ## There may be huge directories (e.g. npm_modules) in your project which are not needed by Docker,
 ## as they are not copied to the image or downloaded again anyway.
