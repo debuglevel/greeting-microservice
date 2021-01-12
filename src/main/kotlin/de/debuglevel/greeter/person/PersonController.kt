@@ -21,8 +21,8 @@ class PersonController(private val personService: PersonService) {
      * @return All persons
      */
     @Get("/")
-    fun getAll(): HttpResponse<*> {
-        logger.debug("Called getAll()")
+    fun getAllPersons(): HttpResponse<*> {
+        logger.debug("Called getAllPersons()")
         return try {
             val persons = personService.list()
             val getPersonResponses = persons
@@ -41,8 +41,8 @@ class PersonController(private val personService: PersonService) {
      * @return A person
      */
     @Get("/{id}")
-    fun getOne(id: UUID): HttpResponse<*> {
-        logger.debug("Called getOne($id)")
+    fun getOnePerson(id: UUID): HttpResponse<*> {
+        logger.debug("Called getOnePerson($id)")
         return try {
             val person = personService.get(id)
 
@@ -73,8 +73,8 @@ class PersonController(private val personService: PersonService) {
      * @return A person with their ID
      */
     @Post("/")
-    fun postOne(addPersonRequest: AddPersonRequest): HttpResponse<*> {
-        logger.debug("Called postOne($addPersonRequest)")
+    fun postOnePerson(addPersonRequest: AddPersonRequest): HttpResponse<*> {
+        logger.debug("Called postOnePerson($addPersonRequest)")
 
         return try {
             val person = addPersonRequest.toPerson()
@@ -94,8 +94,8 @@ class PersonController(private val personService: PersonService) {
      * @return The updated person
      */
     @Put("/{id}")
-    fun putOne(id: UUID, updatePersonRequest: UpdatePersonRequest): HttpResponse<*> {
-        logger.debug("Called putOne($id, $updatePersonRequest)")
+    fun putOnePerson(id: UUID, updatePersonRequest: UpdatePersonRequest): HttpResponse<*> {
+        logger.debug("Called putOnePerson($id, $updatePersonRequest)")
 
         return try {
             val person = updatePersonRequest.toPerson()
@@ -117,8 +117,8 @@ class PersonController(private val personService: PersonService) {
      * @param id ID of the person
      */
     @Delete("/{id}")
-    fun deleteOne(id: UUID): HttpResponse<*> {
-        logger.debug("Called deleteOne($id)")
+    fun deleteOnePerson(id: UUID): HttpResponse<*> {
+        logger.debug("Called deleteOnePerson($id)")
         return try {
             personService.delete(id)
 
@@ -135,8 +135,8 @@ class PersonController(private val personService: PersonService) {
      * Delete all person.
      */
     @Delete("/")
-    fun deleteAll(): HttpResponse<*> {
-        logger.debug("Called deleteAll()")
+    fun deleteAllPersons(): HttpResponse<*> {
+        logger.debug("Called deleteAllPersons()")
         return try {
             personService.deleteAll()
 

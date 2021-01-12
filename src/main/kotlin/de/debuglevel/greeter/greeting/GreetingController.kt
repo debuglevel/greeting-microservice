@@ -25,8 +25,8 @@ class GreetingController(private val greetingService: GreetingService) {
      */
     @Get("/{name}{?language}")
 //    fun getOne(@NotNull name: String, @Nullable language: String?): GreetingDTO {
-    fun getOne(name: String, language: String?): Greeting {
-        logger.debug("Called getOne($name, $language)")
+    fun getOneGreeting(name: String, language: String?): Greeting {
+        logger.debug("Called getOneGreeting($name, $language)")
         return greetingService.greet(name, language)
     }
 
@@ -35,8 +35,8 @@ class GreetingController(private val greetingService: GreetingService) {
      * @return A greeting for a person in a given language
      */
     @Post("/")
-    fun postOne(greetingRequest: GreetingRequest): Greeting {
-        logger.debug("Called postOne($greetingRequest)")
+    fun postOneGreeting(greetingRequest: GreetingRequest): Greeting {
+        logger.debug("Called postOneGreeting($greetingRequest)")
         return greetingService.greet(greetingRequest.name, greetingRequest.language)
     }
 
@@ -45,8 +45,8 @@ class GreetingController(private val greetingService: GreetingService) {
      * @return Some greetings
      */
     @Get("/")
-    fun getList(): Set<Greeting> {
-        logger.debug("Called getList()")
+    fun getAllGreetings(): Set<Greeting> {
+        logger.debug("Called getAllGreetings()")
         val greetings = setOf<Greeting>(
             Greeting("Servusla, %s", "Mozart"),
             Greeting("Wie schaut's, %s?", "Beethoven"),
