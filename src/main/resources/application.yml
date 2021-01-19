@@ -66,6 +66,9 @@ datasources:
     driverClassName: org.h2.Driver
     username: sa
     password: ""
+    # CREATE      Create the schema if it doesn't exist.
+    # CREATE_DROP Drop and recreate the schema.
+    # NONE        Do nothing.
     schema-generate: CREATE_DROP
     dialect: H2
 #  # Apache Derby
@@ -100,4 +103,5 @@ jpa:
         bytecode:
           provider: none
         hbm2ddl:
+          # See https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/tool/schema/Action.html
           auto: update
