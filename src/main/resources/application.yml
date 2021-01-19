@@ -84,6 +84,14 @@ datasources:
 #    password: ''
 #    schema-generate: CREATE_DROP
 #    dialect: HSQL
+#  # MariaDB
+#  default:
+#    url: jdbc:mariadb://localhost:3306/db
+#    driverClassName: org.mariadb.jdbc.Driver
+#    username: user
+#    password: password
+#    schema-generate: CREATE_DROP
+#    dialect: MariaDB103
 
 jpa:
   default:

@@ -19,15 +19,18 @@ services:
 #      # Consul server
 #      - CONSUL_HOST=consul
 #      - CONSUL_PORT=8500
-#
+
 #  # Service registration and discovery with Consul
 #  consul:
 #    image: consul:1.8.4
 #    ports:
 #      - "8500:8500"
-#
+
+#  # Database and admin tools
 #  db:
 #    image: mariadb:10.5.8-focal
+##    ports:
+##      - 3306:3306
 #    environment:
 #      - MYSQL_ROOT_PASSWORD=password
 #      # would not create a database if MYSQL_DATABASE is not set
