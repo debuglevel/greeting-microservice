@@ -22,10 +22,10 @@ plugins {
     // TODO: configure allopen to only open @Validated classes
     id 'org.jetbrains.kotlin.plugin.allopen'
 
-    // Check updated dependencies with "gradle dependencyUpdates".
+    // Check updated dependencies with "./gradlew dependencyUpdates".
     id 'com.github.ben-manes.versions'
 
-    // Release version with "gradle release"
+    // Release version with "./gradlew release"
     id 'net.researchgate.release'
 
     // Create start scripts
@@ -59,6 +59,10 @@ repositories {
 //    mavenLocal()
 //    maven {
 //        url "https://jitpack.io"
+////        // workaround to be able to specify a git hash as jitpack version
+////        metadataSources {
+////            artifact()
+////        }
 //    }
 }
 
@@ -66,8 +70,8 @@ dependencies {
     // If no specific version is defined, it might be provided by the Micronaut BOM
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    //implementation "org.jetbrains.kotlin:kotlin-reflect
+    //implementation "org.jetbrains.kotlin:kotlin-reflect"
+    //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
 
     // Tests
     /// JUnit
@@ -82,8 +86,9 @@ dependencies {
 
     // Logging
     // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
-    implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
+    implementation "io.github.microutils:kotlin-logging-jvm:$kotlinLoggingVersion"
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
+    runtimeOnly "net.logstash.logback:logstash-logback-encoder:$logstashLogbackVersion"
 
     // GraalVM
     annotationProcessor "io.micronaut:micronaut-graal"
@@ -124,10 +129,15 @@ dependencies {
     // Micronaut Persistence
     kapt "io.micronaut.data:micronaut-data-processor"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa"
-    implementation "io.micronaut.sql:micronaut-jdbc-hikari"
+    /// JDBC Connection Pooling
+    runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
+    //runtimeOnly "io.micronaut.sql:micronaut-jdbc-tomcat"
+    //runtimeOnly "io.micronaut.sql:micronaut-jdbc-dbcp"
+    /// Database drivers
     runtimeOnly "com.h2database:h2"
-    //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
-    //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
+    runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
+    //runtimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
+    //runtimeOnly "org.apache.derby:derby:$derbyVersion"
 
     // Micronaut Security
     kapt "io.micronaut.security:micronaut-security-annotations"
@@ -139,6 +149,14 @@ dependencies {
     // Micronaut OpenAPI integration
     kapt "io.micronaut.configuration:micronaut-openapi"
     implementation "io.swagger.core.v3:swagger-annotations"
+
+    // Micronaut Views
+    //implementation "io.micronaut.views:micronaut-views-thymeleaf"
+    //implementation "io.micronaut.views:micronaut-views-handlebars"
+    //implementation "io.micronaut.views:micronaut-views-velocity"
+    //implementation "io.micronaut.views:micronaut-views-freemarker"
+    //implementation "io.micronaut.views:micronaut-views-rocker"
+    //implementation "io.micronaut.views:micronaut-views-soy"
 }
 
 // Java configuration
@@ -198,9 +216,8 @@ tasks.shadowDistZip.enabled = false
 
 // Configuration of net.researchgate.release plugin
 release {
-    // TODO: maybe remove this because files will be committed automatically
-    failOnCommitNeeded = false
-    failOnUnversionedFiles = false
+    failOnCommitNeeded = true // changed files are committed automatically
+    failOnUnversionedFiles = false // unversioned files are not committed automatically
 }
 
 test {
@@ -249,9 +266,9 @@ tasks.withType(JavaExec) {
     jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
     if (gradle.startParameter.continuous) {
         systemProperties(
-                'micronaut.io.watch.restart':'true',
-                'micronaut.io.watch.enabled':'true',
-                "micronaut.io.watch.paths":"src/main"
+                'micronaut.io.watch.restart': 'true',
+                'micronaut.io.watch.enabled': 'true',
+                "micronaut.io.watch.paths": "src/main"
         )
     }
 }

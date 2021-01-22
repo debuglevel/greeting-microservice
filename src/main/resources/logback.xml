@@ -1,5 +1,6 @@
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- colored console log output which is usually nice during development -->
+    <appender name="colored-timestamped-classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
         <!--
         Disable Jansi because on Windows, as it will throw a warning on logback initialization.
         Somehow, the output is colored nevertheless.
@@ -9,16 +10,54 @@
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
+            <!-- Note: %date{ISO8691} is actually not ISO-8601 compliant (see https://jira.qos.ch/browse/LOGBACK-262) -->
+            <pattern>%cyan(%d{yyyy-MM-dd'T'HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n
+            </pattern>
 
             <!-- Do NOT use this formatter on production because the %L line number outputter is slow; use the above pattern instead. -->
-            <!-- <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}:%L) - %msg%n
+            <!-- <pattern>%cyan(%d{yyyy-MM-dd'T'HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}:%L) - %msg%n
             </pattern> -->
         </encoder>
     </appender>
 
+    <!-- console log output without colors, as their control characters might be confusing in further log processing -->
+    <appender name="timestamped-classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>false</withJansi>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- If further log processing adds a timestamp, you probably do not want your own timestamp written out. -->
+    <appender name="classic-stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>false</withJansi>
+        <encoder>
+            <pattern>[%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logs in JSON, which can be useful in combination with e.g. Elasticstack -->
+    <appender name="json-stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- Slows down logging but includes where the logging was called from -->
+            <!-- <includeCallerData>true</includeCallerData> -->
+            
+            <!-- TODO: add custom fields with information about the microservice -->
+            <!-- <customFields>{"appname":"myWebservice","roles":["customerorder","auth"],"buildinfo":{"version":"Version 0.1.0-SNAPSHOT","lastcommit":"75473700d5befa953c45f630c6d9105413c16fe1"}}</customFields> -->
+
+            <!-- Pretty print JSON as it should not hurt performance but easens debugging -->
+            <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
+
+            <!-- Timestamp is already in ISO-8601, so no customization should be needed. -->
+            <!-- <timestampPattern>yyyy-MM-dd'T'HH:mm:ss.SSS</timestampPattern> -->
+        </encoder>
+    </appender>
+
     <root level="info">
-        <appender-ref ref="STDOUT"/>
+        <!-- Use the appender defined by the environment variable LOG_APPENDER or use a default -->
+        <appender-ref ref="${LOG_APPENDER:-colored-timestamped-classic-stdout}"/>
     </root>
 
     <!-- loglevels should be configured via application.yml or corresponding environment variables, as this is way more flexible in productive use -->
@@ -27,4 +66,6 @@
     <logger name="io.micronaut.data.query" level="DEBUG"/>
     <logger name="de.debuglevel" level="DEBUG"/>
     -->
+    <!-- Log infos about loading conditional beans -->
+    <!-- <logger name="io.micronaut.context.condition" level="DEBUG"/> -->
 </configuration>

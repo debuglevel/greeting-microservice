@@ -1,6 +1,6 @@
 ## Building stage
 #FROM openjdk:11-jdk AS builder # use OpenJDK 11 if desired
-FROM openjdk:8-jdk-alpine AS builder
+FROM openjdk:8-jdk-alpine3.9 AS builder
 WORKDIR /src/
 
 # cache gradle
@@ -28,7 +28,19 @@ RUN ls -al /app
 
 ## Final image
 FROM frolvlad/alpine-glibc
-EXPOSE 8080
-COPY --from=graalvm /app/microservice .
-CMD ["./microservice"]
 
+# add curl for health check
+RUN apk add --no-cache curl
+
+COPY --from=graalvm /app/microservice .
+
+# set the default port to 80
+ENV MICRONAUT_SERVER_PORT 80
+EXPOSE 80
+
+# use a log appender with no timestamps as Docker logs the timestamp itself ("docker logs -t ID")
+ENV LOG_APPENDER classic-stdout
+
+HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --fail http://localhost/health || exit 1
+
+CMD ["./microservice"]
