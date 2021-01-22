@@ -4,7 +4,7 @@
 # caches for subsequent RUN statements (as it assumes something has changed).
 Dockerfile
 .dockerignore
-
+.git
 
 ## This file excludes files from being transfered to the Docker build context.
 ## There may be huge directories (e.g. npm_modules) in your project which are not needed by Docker,
