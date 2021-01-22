@@ -57,13 +57,13 @@ mainClassName = _mainClass
 repositories {
     jcenter()
 //    mavenLocal()
-    maven {
-        url "https://jitpack.io"
-//        // workaround to be able to specify a git hash as jitpack version
-//        metadataSources {
-//            artifact()
-//        }
-    }
+//    maven {
+//        url "https://jitpack.io"
+////        // workaround to be able to specify a git hash as jitpack version
+////        metadataSources {
+////            artifact()
+////        }
+//    }
 }
 
 dependencies {
