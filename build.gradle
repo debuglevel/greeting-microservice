@@ -126,14 +126,14 @@ dependencies {
     kapt "io.micronaut.data:micronaut-data-processor"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa"
     /// JDBC Connection Pooling
-    implementation "io.micronaut.sql:micronaut-jdbc-hikari"
-    //runtime "io.micronaut.sql:micronaut-jdbc-tomcat"
-    //runtime "io.micronaut.sql:micronaut-jdbc-dbcp"
+    runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
+    //runtimeOnly "io.micronaut.sql:micronaut-jdbc-tomcat"
+    //runtimeOnly "io.micronaut.sql:micronaut-jdbc-dbcp"
     /// Database drivers
     runtimeOnly "com.h2database:h2"
     runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
-    //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
-    //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
+    //runtimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
+    //runtimeOnly "org.apache.derby:derby:$derbyVersion"
 
     // Micronaut Security
     kapt "io.micronaut.security:micronaut-security-annotations"
