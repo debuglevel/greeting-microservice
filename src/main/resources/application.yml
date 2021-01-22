@@ -104,4 +104,10 @@ jpa:
           provider: none
         hbm2ddl:
           # See https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/tool/schema/Action.html
+          # From https://www.baeldung.com/spring-boot-data-sql-and-schema-sql#controlling-database-creation-using-hibernate
+          # create      Hibernate first drops existing tables, then creates new tables
+          # update      the object model created based on the mappings (annotations or XML) is compared with the existing schema, and then Hibernate updates the schema according to the diff. It never deletes the existing tables or columns even if they are no more required by the application
+          # create-drop similar to create, with the addition that Hibernate will drop the database after all operations are completed. Typically used for unit testing
+          # validate    Hibernate only validates whether the tables and columns exist, otherwise it throws an exception
+          # none        this value effectively turns off the DDL generation
           auto: update
