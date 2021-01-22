@@ -43,7 +43,7 @@ RUN apk add --no-cache curl
 
 # add openjdk8 as the image above needs it as a fallback for now
 RUN apk add openjdk8
-ENV JAVA_HOME="/usr/bin/java"
+ENV JAVA_HOME="/usr/lib/jvm/default-vm/"
 
 COPY --from=graalvm-builder /app/microservice .
 
