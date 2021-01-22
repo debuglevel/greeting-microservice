@@ -5,6 +5,10 @@
 Dockerfile
 .dockerignore
 
+# Ignore .git directory as it should *usually* not be needed and changes to git
+# would also invalidate caches.
+.git
+
 
 ## This file excludes files from being transfered to the Docker build context.
 ## There may be huge directories (e.g. npm_modules) in your project which are not needed by Docker,
