@@ -24,7 +24,7 @@ WORKDIR /app
 RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 20.3.0.r8-grl"
 ENV JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 ENV PATH="$JAVA_HOME/bin:$PATH"
-RUN gu install native-image
+RUN bash -c "/root/.sdkman/candidates/java/current/bin/gu install native-image"
 
 
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
