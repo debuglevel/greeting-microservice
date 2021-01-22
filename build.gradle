@@ -125,7 +125,11 @@ dependencies {
     // Micronaut Persistence
     kapt "io.micronaut.data:micronaut-data-processor"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa"
+    /// JDBC Connection Pooling
     implementation "io.micronaut.sql:micronaut-jdbc-hikari"
+    //runtime "io.micronaut.sql:micronaut-jdbc-tomcat"
+    //runtime "io.micronaut.sql:micronaut-jdbc-dbcp"
+    /// Database drivers
     runtimeOnly "com.h2database:h2"
     runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
     //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
