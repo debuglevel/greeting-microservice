@@ -48,6 +48,7 @@ echo "The following runs a 'git checkout --patch' command:"
 echo "  Press [y] to apply a patch."
 echo "  Press [n] to discard a patch."
 echo "  Press [e] to edit a patch."
+echo "  Press [s] to split into smaller hunks."
 echo "  Press [q] to quit that thing (maybe also useful if this script itself was updated to re-execute it)."
 echo "  Press [?] to get information about all that letters you can choose."
 
