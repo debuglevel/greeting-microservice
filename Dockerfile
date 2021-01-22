@@ -32,7 +32,7 @@ RUN java -version
 RUN native-image --version
 RUN native-image --no-server -cp /app/microservice.jar
 RUN ls -al /app
-RUN native-image --no-server --no-fallback --class-path /app/microservice.jar
+#RUN native-image --no-server --no-fallback --class-path /app/microservice.jar
 RUN ls -al /app
 
 ## Final image
@@ -40,6 +40,9 @@ FROM frolvlad/alpine-glibc
 
 # add curl for health check
 RUN apk add --no-cache curl
+
+# add openjdk8 as the image above needs it as a fallback for now
+RUN apk add openjdk8
 
 COPY --from=graalvm-builder /app/microservice .
 
