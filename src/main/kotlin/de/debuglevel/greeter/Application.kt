@@ -27,12 +27,13 @@ object Application {
 
     lateinit var applicationContext: ApplicationContext
 
+    @JvmStatic
+    fun main(args: Array<String>) {
+        logger.info { "Starting up..." }
+        applicationContext = Micronaut.run(Application.javaClass)
 
+        // TODO: how to do API versioning? (or do it at all?)
+    }
 }
 
-fun main(args: Array<String>) {
-    //Application.logger.info { "Starting up..." }
-    Application.applicationContext = Micronaut.run(Application.javaClass)
 
-    // TODO: how to do API versioning? (or do it at all?)
-}
