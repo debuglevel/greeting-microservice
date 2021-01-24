@@ -135,7 +135,7 @@ dependencies {
     //runtimeOnly "io.micronaut.sql:micronaut-jdbc-dbcp"
     /// Database drivers
     runtimeOnly "com.h2database:h2"
-    //runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
+    runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
     //runtimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //runtimeOnly "org.apache.derby:derby:$derbyVersion"
 
