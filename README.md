@@ -39,7 +39,7 @@ If you use the "Use this template" on GitHub, this is not needed.
 
 ### Updating dependencies
 
-The libraries used in this template might be out-of-date. To identify those dependencies, run `./gradlew dependencyUpdates`. Furthermore, you might want to update gradle-wrapper.
+The libraries used in this template might be out-of-date. To identify those dependencies, run `./gradlew dependencyUpdates`. Once in a while, `./gradlew wrapper` should be run.
 
 # HTTP API
 
