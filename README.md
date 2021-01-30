@@ -41,7 +41,7 @@ The libraries used in this template might be out-of-date. To identify those depe
 
 # HTTP API
 
-## Swagger / OpenAPI
+## OpenAPI / Swagger
 
 There is an OpenAPI (former: Swagger) specification created, which is available at <http://localhost:8080/swagger/greeter-microservice-0.1.yml>, `build/tmp/kapt3/classes/main/META-INF/swagger/` in the source directory and `META-INF/swagger/` in the jar file. It can easily be pasted into the [Swagger Editor](https://editor.swagger.io) which provides a live demo for [Swagger UI](https://swagger.io/tools/swagger-ui/), but also offers to create client libraries via [OpenAPI Generator](https://openapi-generator.tech).
 
