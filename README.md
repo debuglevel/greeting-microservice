@@ -35,6 +35,8 @@ $ git tag -d $(git tag -l) && git fetch && git push origin --delete $(git tag -l
 
 - and reset your `version` to `version=0.0.1-SNAPSHOT` in `gradle.properties`
 
+If you use the "Use this template" on GitHub, this is not needed.
+
 ### Updating dependencies
 
 The libraries used in this template might be out-of-date. To identify those dependencies, run `./gradlew dependencyUpdates`. Furthermore, you might want to update gradle-wrapper.
