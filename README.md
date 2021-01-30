@@ -45,32 +45,28 @@ The libraries used in this template might be out-of-date. To identify those depe
 
 There is an OpenAPI (former: Swagger) specification created, which is available at <http://localhost:8080/swagger/greeter-microservice-0.1.yml>, `build/tmp/kapt3/classes/main/META-INF/swagger/` in the source directory and `META-INF/swagger/` in the jar file. It can easily be pasted into the [Swagger Editor](https://editor.swagger.io) which provides a live demo for [Swagger UI](https://swagger.io/tools/swagger-ui/), but also offers to create client libraries via [OpenAPI Generator](https://openapi-generator.tech).
 
-## Get greeting
+## Add person
+```bash
+$ curl --location --request POST 'http://localhost:8080/persons/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Foo Bar"
+}'
 
-To get an appropriate greeting for a person, send a GET request to the service:
-
-```
-$ curl -X GET http://localhost/greetings/Johnny%20Knoxville
 {
-  "greeting" : "You did not provide a language, but I'll try english: Hello, Johnny Knoxville!"
+    "id": "3e266d3b-df74-4918-9d5d-22a5983e9dc2",
+    "name": "Foo Bar"
 }
 ```
 
-You can also define a language as query parameter:
+## Get person
+```bash
+$ curl --location --request GET 'http://localhost:8080/persons/3e266d3b-df74-4918-9d5d-22a5983e9dc2'
 
-```
-$ curl -X GET http://localhost/greetings/Johnny%20Knoxville?language=de_DE
 {
-  "greeting" : "Grüß Gott, Johnny Knoxville"
+    "id": "3e266d3b-df74-4918-9d5d-22a5983e9dc2",
+    "name": "Foo Bar"
 }
-```
-
-## Add greeting
-
-In this example, a greeting can also be POSTed. This way, the payload is transferred in the body as JSON (which is often a better idea than putting it in the URL or parameters, due to URL encoding issues).
-
-```
-$ curl -X POST -d '{"name":"Max", "language":"de_DE"}' -H "Content-Type: application/json" http://localhost/greetings/
 ```
 
 # Configuration
