@@ -157,7 +157,7 @@ class PersonController(private val personService: PersonService) {
         logger.debug("Called getVIPs()")
         return setOf(
             GetPersonResponse(UUID.randomUUID(), "Harry Potter"),
-            GetPersonResponse(UUID.randomUUID(), "Hermoine Granger"),
+            GetPersonResponse(UUID.randomUUID(), "Hermione Granger"),
             GetPersonResponse(UUID.randomUUID(), "Ronald Weasley")
         )
     }
