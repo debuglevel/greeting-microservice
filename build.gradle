@@ -230,6 +230,8 @@ test {
 
 allOpen {
     annotation("io.micronaut.aop.Around")
+    //// open @Singleton for Mockito
+    //annotation("javax.inject.Singleton")
 }
 
 // enhance Hibernate entities in bytecode
