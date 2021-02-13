@@ -120,7 +120,7 @@ class PersonControllerTests {
         val getPersons = personClient.getVIPs(basicAuthenticationHeader)
 
         // Assert
-        Assertions.assertThat(getPersons).anyMatch { it.name == "Hermoine Granger" }
+        Assertions.assertThat(getPersons).anyMatch { it.name == "Hermione Granger" }
         Assertions.assertThat(getPersons).anyMatch { it.name == "Harry Potter" }
         Assertions.assertThat(getPersons).anyMatch { it.name == "Ronald Weasley" }
     }
