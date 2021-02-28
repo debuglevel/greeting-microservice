@@ -212,8 +212,8 @@ tasks.shadowDistZip.enabled = false
 
 // Configuration of net.researchgate.release plugin
 release {
-    failOnCommitNeeded = true // changed files are committed automatically
-    failOnUnversionedFiles = false // unversioned files are not committed automatically
+    failOnCommitNeeded = true // fail because changed files would be committed automatically
+    failOnUnversionedFiles = false // don't fail because unversioned files would not be committed automatically
 }
 
 test {
