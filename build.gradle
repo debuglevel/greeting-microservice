@@ -132,6 +132,7 @@ dependencies {
     /// Database drivers
     runtimeOnly "com.h2database:h2"
     runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
+    //runtimeOnly "org.postgresql:postgresql:$postgresqlVersion"
     //runtimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //runtimeOnly "org.apache.derby:derby:$derbyVersion"
 
