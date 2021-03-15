@@ -37,6 +37,16 @@ services:
 #      - MYSQL_DATABASE=db
 #      - MYSQL_USER=user
 #      - MYSQL_PASSWORD=password
+#  postgres:
+#    image: postgres:13.2-alpine
+#    ports:
+#      - 5432:5432
+#    environment:
+#      # does not seem to work
+#      - POSTGRES_DATABASE=db
+#      # is (in contrast to mariadb) the superuser
+#      - POSTGRES_USER=user
+#      - POSTGRES_PASSWORD=password
 #  phpmyadmin:
 #    image: phpmyadmin:5.0.4
 #    ports:
