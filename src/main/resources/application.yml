@@ -2,6 +2,12 @@ app:
   greetings:
     default-language: "null" # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
     unknown-language: "unknown" # note that key should not be camelCase, as uppercase characters may lead to problems in configuration binding
+    persons:
+      some-duration: 42m
+      some-text: "foo"
+      some-integer: 12
+      some-double: 12.3
+
   security:
     configurable-credential-authentication:
       username: "SECRET_USERNAME"
