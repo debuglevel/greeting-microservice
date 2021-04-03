@@ -1,6 +1,5 @@
 ## Building stage
-#FROM openjdk:11-jdk AS builder # use OpenJDK 11 if desired
-FROM openjdk:8-jdk-alpine3.9 AS builder
+FROM azul/zulu-openjdk-alpine:11.0.7 AS builder
 WORKDIR /src/
 
 # cache gradle
@@ -14,8 +13,7 @@ COPY . /src/
 RUN ./gradlew build
 
 ## Final image
-#FROM openjdk:11-jre # use OpenJDK 11 if desired
-FROM openjdk:8-jre-alpine3.9
+FROM azul/zulu-openjdk-alpine:11.0.7-jre
 
 # add a group and an user with specified IDs
 RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser 
@@ -43,7 +41,7 @@ HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --
 # "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" lets the JVM respect CPU and RAM limits inside a Docker container
 CMD ["java", \
      "-XX:+UnlockExperimentalVMOptions", \
-     "-XX:+UseCGroupMemoryLimitForHeap", \
+     "-XX:+UseContainerSupport", \
      "-noverify", \
      "-XX:TieredStopAtLevel=1", \
      "-Dcom.sun.management.jmxremote", \
