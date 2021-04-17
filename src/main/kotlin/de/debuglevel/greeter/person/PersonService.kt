@@ -16,6 +16,16 @@ class PersonService(
 ) {
     private val logger = KotlinLogging.logger {}
 
+    val count: Long
+        get() {
+            logger.debug { "Getting persons count..." }
+
+            val count = personRepository.count()
+
+            logger.debug { "Got persons count: $count" }
+            return count
+        }
+
     fun exists(id: UUID): Boolean {
         logger.debug { "Checking if person $id exists..." }
 
