@@ -71,7 +71,7 @@ class PersonService(
         return updatedPerson
     }
 
-    fun list(): Set<Person> {
+    fun getAll(): Set<Person> {
         logger.debug { "Getting all persons ..." }
 
         val persons = personRepository.findAll().toSet()

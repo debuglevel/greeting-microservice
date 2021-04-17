@@ -25,7 +25,7 @@ class PersonController(private val personService: PersonService) {
     fun getAllPersons(): HttpResponse<List<GetPersonResponse>> {
         logger.debug("Called getAllPersons()")
         return try {
-            val persons = personService.list()
+            val persons = personService.getAll()
             val getPersonResponses = persons
                 .map { GetPersonResponse(it) }
 
