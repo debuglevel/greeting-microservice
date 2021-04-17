@@ -16,6 +16,15 @@ class PersonService(
 ) {
     private val logger = KotlinLogging.logger {}
 
+    fun exists(id: UUID): Boolean {
+        logger.debug { "Checking if person $id exists..." }
+
+        val isExisting = personRepository.existsById(id)
+
+        logger.debug { "Checked if person $id exists: $isExisting" }
+        return isExisting
+    }
+
     fun get(id: UUID): Person {
         logger.debug { "Getting person with ID '$id'..." }
 
