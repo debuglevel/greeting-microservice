@@ -1,6 +1,6 @@
 package de.debuglevel.greeter.greeting
 
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
