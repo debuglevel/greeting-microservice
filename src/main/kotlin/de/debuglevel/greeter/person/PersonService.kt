@@ -57,7 +57,7 @@ class PersonService(
 
         val persons = personRepository.findAll().toSet()
 
-        logger.debug { "Got all persons" }
+        logger.debug { "Got ${persons.size} persons" }
         return persons
     }
 
