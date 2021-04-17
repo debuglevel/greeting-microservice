@@ -8,6 +8,7 @@ import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import io.swagger.v3.oas.annotations.tags.Tag
 import mu.KotlinLogging
+import java.net.URI
 import java.util.*
 
 @Secured(SecurityRule.IS_ANONYMOUS)
@@ -81,7 +82,7 @@ class PersonController(private val personService: PersonService) {
             val addedPerson = personService.add(person)
 
             val addPersonResponse = AddPersonResponse(addedPerson)
-            HttpResponse.created(addPersonResponse)
+            HttpResponse.created(addPersonResponse, URI(addedPerson.id.toString()))
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
             HttpResponse.serverError()
