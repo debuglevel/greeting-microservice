@@ -280,7 +280,7 @@ task stage(dependsOn: ['clean', 'build'])
 tasks.build.mustRunAfter clean
 
 task copyOpenAPI(dependsOn: ['kaptKotlin'], type: Copy) {
-    description "Copies the generated OpenAPI yml file into the project base directory."
+    description "Copies the generated OpenAPI YAML file into the project base directory."
     from "build/tmp/kapt3/classes/main/META-INF/swagger"
     into "."
     include "*.yml"
