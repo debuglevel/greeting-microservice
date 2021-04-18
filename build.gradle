@@ -154,6 +154,9 @@ dependencies {
     //implementation "io.micronaut.views:micronaut-views-freemarker"
     //implementation "io.micronaut.views:micronaut-views-rocker"
     //implementation "io.micronaut.views:micronaut-views-soy"
+
+    // Debuglevel Microservice Commons
+    //implementation "com.github.debuglevel:microservice-commons:f24dd3964f"
 }
 
 // Java configuration
