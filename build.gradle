@@ -38,6 +38,9 @@ plugins {
 
     // add no-argument constructors as they are needed for JPA (see https://kotlinlang.org/docs/reference/compiler-plugins.html#jpa-support)
     id "org.jetbrains.kotlin.plugin.jpa"
+
+    // plugin for gRPC protobuf generation
+    id 'com.google.protobuf'
 }
 // Enhance Hibernate entities (see configuration block below)
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
@@ -155,6 +158,12 @@ dependencies {
     //implementation "io.micronaut.views:micronaut-views-rocker"
     //implementation "io.micronaut.views:micronaut-views-soy"
 
+    // Micronaut gRPC
+    implementation "io.micronaut.grpc:micronaut-grpc-server-runtime"
+    implementation "io.micronaut.grpc:micronaut-grpc-client-runtime"
+    implementation "io.grpc:grpc-services:$grpcVersion"
+    implementation "io.grpc:grpc-kotlin-stub:$grpcKotlinVersion"
+
     // Debuglevel Microservice Commons
     //implementation "com.github.debuglevel:microservice-commons:f24dd3964f"
 }
@@ -247,6 +256,32 @@ hibernate {
         enableLazyInitialization = true
         enableDirtyTracking = true
         enableAssociationManagement = true
+    }
+}
+
+// gRPC
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/grpckt'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+// gRPC
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:$protocVersion" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion" }
+        grpckt { artifact = "io.grpc:protoc-gen-grpc-kotlin:$grpcKotlinVersion" }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+            grpckt {}
+        }
     }
 }
 

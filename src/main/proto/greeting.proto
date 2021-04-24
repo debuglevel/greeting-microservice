@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "de.debuglevel.greeter.greeting";
+option java_outer_classname = "GreetingProto";
+
+package greeting;
+
+// The greeting service definition.
+service Greeting {
+  // Sends a greeting
+  rpc Greet (GreetRequest) returns (GreetReply) {}
+}
+
+// The request message containing the user's name.
+message GreetRequest {
+  string name = 1;
+  string locale = 2;
+}
+
+// The response message containing the greetings
+message GreetReply {
+  string message = 1;
+}
