@@ -31,6 +31,9 @@ RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser
 RUN apk add --no-cache curl
 #RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* # if based on Debian/Ubuntu
 
+# add /data directory with correct rights
+RUN mkdir /data && chown 1111:1111 /data
+
 WORKDIR /app
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 
