@@ -18,7 +18,7 @@ COPY . /src/
 RUN ./gradlew build
 
 ## Final image
-FROM azul/zulu-openjdk-alpine:11.0.7-jre
+FROM azul/zulu-openjdk-alpine:11.0.7-jre AS runtime
 
 # add a group and an user with specified IDs
 RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser 
