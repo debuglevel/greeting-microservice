@@ -3,9 +3,10 @@ FROM azul/zulu-openjdk-alpine:11.0.7 AS builder
 WORKDIR /src/
 
 # add glibc for gRPC protoc
+ARG GLIBC_VERSION=2.33-r0
 RUN wget -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.33-r0/glibc-2.33-r0.apk && \
-  apk add glibc-2.33-r0.apk
+  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-$GLIBC_VERSION.apk && \
+  apk add glibc-$GLIBC_VERSION.apk
 
 # cache gradle
 COPY gradle /src/gradle
