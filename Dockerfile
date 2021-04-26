@@ -1,5 +1,7 @@
+ARG OPENJDK_VERSION=11.0.11
+
 ## Building stage
-FROM azul/zulu-openjdk-alpine:11.0.7 AS builder
+FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
 WORKDIR /src/
 
 # add glibc for gRPC protoc
@@ -19,7 +21,7 @@ COPY . /src/
 RUN ./gradlew build
 
 ## Final image
-FROM azul/zulu-openjdk-alpine:11.0.7-jre AS runtime
+FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
 
 # add a group and an user with specified IDs
 RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser 
