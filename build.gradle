@@ -41,6 +41,9 @@ plugins {
 
     // plugin for gRPC protobuf generation
     id 'com.google.protobuf'
+
+    // List all licenses in "build/reports/dependency-license" with "./gradlew generateLicenseReport"
+    id 'com.github.jk1.dependency-license-report'
 }
 // Enhance Hibernate entities (see configuration block below)
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
