@@ -57,6 +57,11 @@ If you use the "Use this template" on GitHub, this is not needed.
 The libraries used in this template might be out-of-date. To identify those dependencies,
 run `./gradlew dependencyUpdates`. Once in a while, `./gradlew wrapper` should be run.
 
+### List licenses of dependencies
+
+With `./gradlew generateLicenseReport` you can generate a list (at `build/reports/dependency-license`) of all licenses
+used in dependencies.
+
 ## HTTP API
 
 ### OpenAPI / Swagger
