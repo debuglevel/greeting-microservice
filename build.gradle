@@ -75,7 +75,8 @@ dependencies {
     // If no specific version is defined, it might be provided by the Micronaut BOM
 
     // Kotlin
-    //implementation "org.jetbrains.kotlin:kotlin-reflect"
+    /// provide kotlin-reflect although not used, as the jackson-kotlin module might provide its own, but maybe for an earlier Kotlin version, which would mess up things (or at least yield warnings).
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
 
     // Tests
