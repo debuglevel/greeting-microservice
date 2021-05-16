@@ -57,9 +57,9 @@ If you use the "Use this template" on GitHub, this is not needed.
 The libraries used in this template might be out-of-date. To identify those dependencies,
 run `./gradlew dependencyUpdates`. Once in a while, `./gradlew wrapper` should be run.
 
-# HTTP API
+## HTTP API
 
-## OpenAPI / Swagger
+### OpenAPI / Swagger
 
 There is an OpenAPI (former: Swagger) specification created, which is available
 at <http://localhost:8080/swagger/greeter-microservice-0.1.yml>, `build/tmp/kapt3/classes/main/META-INF/swagger/` in the
@@ -68,7 +68,7 @@ the [Swagger Editor](https://editor.swagger.io) which provides a live demo
 for [Swagger UI](https://swagger.io/tools/swagger-ui/), but also offers to create client libraries
 via [OpenAPI Generator](https://openapi-generator.tech).
 
-## Add person
+### Add person
 
 ```bash
 $ curl --location --request POST 'http://localhost:8080/persons/' \
@@ -83,7 +83,7 @@ $ curl --location --request POST 'http://localhost:8080/persons/' \
 }
 ```
 
-## Get person
+### Get person
 
 ```bash
 $ curl --location --request GET 'http://localhost:8080/persons/3e266d3b-df74-4918-9d5d-22a5983e9dc2'
@@ -94,26 +94,26 @@ $ curl --location --request GET 'http://localhost:8080/persons/3e266d3b-df74-491
 }
 ```
 
-# gRPC API
+## gRPC API
 
 For services that primarily handle RPC-style requests (in contrast to resource-orientated REST)
 , [gRPC](https://grpc.io/) might be a better approach.
 
-## Protocol buffer and Service definitions
+### Protocol buffer and Service definitions
 
 `*.proto` files in `src/main/proto/` describe the gRPC services and their protobuf.
 
-## Generation
+### Generation
 
 `./gradlew generateProto` generates Java/Kotlin files from the service and protobuf definitions
 at `src/main/proto/*.proto`. They will be placed at `build/generated/source/proto/main/` and contain classes for
 the `message`s and functions for the `service` `rpc`s.
 
-## Endpoint implementation
+### Endpoint implementation
 
 Implementing endpoints is quite simple and demonstrated in `GreetingEndpoint`.
 
-## List services
+### List services
 
 As gRPC server reflection is provided by the `ReflectionFactory`, `grpcurl` can list all available services:
 
@@ -123,7 +123,7 @@ greeting.Greeting
 grpc.reflection.v1alpha.ServerReflection
 ```
 
-## Call
+### Call
 
 A gRPC call can be made with:
 
@@ -134,7 +134,7 @@ $ ./grpcurl -plaintext -d '{"name":"Hans", "locale":"de_DE"}' localhost:50051 gr
 }
 ```
 
-# Configuration
+## Configuration
 
 There is a `application.yml` included in the jar file. Its content can be modified and saved as a
 separate `application.yml` on the level of the jar file. Configuration can also be applied via the other supported ways
