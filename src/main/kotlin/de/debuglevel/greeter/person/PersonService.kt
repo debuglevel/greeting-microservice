@@ -48,7 +48,7 @@ class PersonService(
     }
 
     fun getAll(): Set<Person> {
-        logger.debug { "Getting all persons ..." }
+        logger.debug { "Getting all persons..." }
 
         val persons = personRepository.findAll().toSet()
 
