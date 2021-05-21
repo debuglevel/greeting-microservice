@@ -47,6 +47,15 @@ class PersonService(
         return person
     }
 
+    fun getAll(): Set<Person> {
+        logger.debug { "Getting all persons ..." }
+
+        val persons = personRepository.findAll().toSet()
+
+        logger.debug { "Got ${persons.size} persons" }
+        return persons
+    }
+
     fun add(person: Person): Person {
         logger.debug { "Adding person '$person'..." }
 
@@ -69,15 +78,6 @@ class PersonService(
 
         logger.debug { "Updated person: $updatedPerson with ID '$id'" }
         return updatedPerson
-    }
-
-    fun getAll(): Set<Person> {
-        logger.debug { "Getting all persons ..." }
-
-        val persons = personRepository.findAll().toSet()
-
-        logger.debug { "Got ${persons.size} persons" }
-        return persons
     }
 
     fun delete(id: UUID) {
