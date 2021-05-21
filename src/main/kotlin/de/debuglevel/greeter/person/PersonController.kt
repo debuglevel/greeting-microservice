@@ -59,17 +59,6 @@ class PersonController(private val personService: PersonService) {
     }
 
     /**
-     * Download a never ending file of random names
-     */
-    @Get("/endlessRandom")
-    fun downloadRandomEndless(): StreamedFile {
-        logger.debug("Called downloadRandomEndless()")
-
-        val inputStream = personService.randomStream()
-        return StreamedFile(inputStream, MediaType.TEXT_PLAIN_TYPE)
-    }
-
-    /**
      * Create a person.
      * @return A person with their ID
      */
@@ -146,6 +135,17 @@ class PersonController(private val personService: PersonService) {
             logger.error(e) { "Unhandled exception" }
             HttpResponse.serverError()
         }
+    }
+
+    /**
+     * Download a never ending file of random names
+     */
+    @Get("/endlessRandom")
+    fun downloadRandomEndless(): StreamedFile {
+        logger.debug("Called downloadRandomEndless()")
+
+        val inputStream = personService.randomStream()
+        return StreamedFile(inputStream, MediaType.TEXT_PLAIN_TYPE)
     }
 
     /**
