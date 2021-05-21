@@ -49,7 +49,7 @@ class PersonController(private val personService: PersonService) {
 
             val getPersonResponse = GetPersonResponse(person)
             HttpResponse.ok(getPersonResponse)
-        } catch (e: PersonService.EntityNotFoundException) {
+        } catch (e: PersonService.ItemNotFoundException) {
             logger.debug { "Getting person $id failed: ${e.message}" }
             HttpResponse.notFound()
         } catch (e: Exception) {
@@ -104,7 +104,7 @@ class PersonController(private val personService: PersonService) {
 
             val updatePersonResponse = UpdatePersonResponse(updatedPerson)
             HttpResponse.ok(updatePersonResponse)
-        } catch (e: PersonService.EntityNotFoundException) {
+        } catch (e: PersonService.ItemNotFoundException) {
             logger.debug { "Updating person $id failed: ${e.message}" }
             HttpResponse.notFound()
         } catch (e: Exception) {
@@ -124,7 +124,7 @@ class PersonController(private val personService: PersonService) {
             personService.delete(id)
 
             HttpResponse.noContent()
-        } catch (e: PersonService.EntityNotFoundException) {
+        } catch (e: PersonService.ItemNotFoundException) {
             HttpResponse.notFound()
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }

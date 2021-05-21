@@ -40,7 +40,7 @@ class PersonService(
 
         val person: Person = personRepository.findById(id).orElseThrow {
             logger.debug { "Getting person with ID '$id' failed" }
-            EntityNotFoundException(id)
+            ItemNotFoundException(id)
         }
 
         logger.debug { "Got person with ID '$id': $person" }
@@ -86,7 +86,7 @@ class PersonService(
         if (personRepository.existsById(id)) {
             personRepository.deleteById(id)
         } else {
-            throw EntityNotFoundException(id)
+            throw ItemNotFoundException(id)
         }
 
         logger.debug { "Deleted person with ID '$id'" }
@@ -136,5 +136,5 @@ class PersonService(
         return inputStream
     }
 
-    class EntityNotFoundException(criteria: Any) : Exception("Entity '$criteria' does not exist.")
+    class ItemNotFoundException(criteria: Any) : Exception("Item '$criteria' does not exist.")
 }
