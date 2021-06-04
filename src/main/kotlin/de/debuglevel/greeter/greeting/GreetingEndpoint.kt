@@ -14,6 +14,8 @@ class GreetingEndpoint(
 
         val greeting = greetingService.greet(request.name, request.locale)
         val greetReply = GreetReply.newBuilder().setMessage(greeting.greeting).build()
+
+        logger.debug("Called greet($request): $greetReply")
         return greetReply
     }
 }
