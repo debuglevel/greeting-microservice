@@ -2,8 +2,8 @@ package de.debuglevel.greeter.greeting
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Value
+import jakarta.inject.Singleton
 import mu.KotlinLogging
-import javax.inject.Singleton
 
 /**
  * Greets persons

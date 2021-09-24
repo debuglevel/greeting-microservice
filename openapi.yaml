@@ -262,6 +262,34 @@ components:
           format: uuid
         name:
           type: string
+    AddPersonResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    AddPersonRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    UpdatePersonResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    UpdatePersonRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    Unit:
+      type: object
     StreamedFile:
       type: object
       properties:
@@ -312,32 +340,4 @@ components:
           items:
             type: string
     InputStream:
-      type: object
-    AddPersonResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    AddPersonRequest:
-      type: object
-      properties:
-        name:
-          type: string
-    UpdatePersonResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    UpdatePersonRequest:
-      type: object
-      properties:
-        name:
-          type: string
-    Unit:
       type: object

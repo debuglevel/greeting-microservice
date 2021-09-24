@@ -1,7 +1,7 @@
 package de.debuglevel.greeter.greeting
 
+import jakarta.inject.Singleton
 import mu.KotlinLogging
-import javax.inject.Singleton
 
 @Singleton
 class GreetingEndpoint(

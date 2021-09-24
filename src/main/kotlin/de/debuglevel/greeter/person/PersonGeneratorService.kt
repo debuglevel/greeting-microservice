@@ -1,8 +1,8 @@
 package de.debuglevel.greeter.person
 
+import jakarta.inject.Singleton
 import mu.KotlinLogging
 import java.util.*
-import javax.inject.Singleton
 
 @Singleton
 class PersonGeneratorService {

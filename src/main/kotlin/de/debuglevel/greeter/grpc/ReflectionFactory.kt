@@ -3,7 +3,7 @@ package de.debuglevel.greeter.grpc
 import io.grpc.BindableService
 import io.grpc.protobuf.services.ProtoReflectionService
 import io.micronaut.context.annotation.Factory
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 @Factory
 internal class ReflectionFactory {

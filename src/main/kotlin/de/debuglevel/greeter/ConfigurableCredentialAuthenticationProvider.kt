@@ -6,10 +6,10 @@ import io.micronaut.security.authentication.*
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
+import jakarta.inject.Singleton
 import mu.KotlinLogging
 import org.reactivestreams.Publisher
 import java.util.*
-import javax.inject.Singleton
 
 /**
  * Example for an AuthenticationProvider, which just checks for a single configured credential
@@ -32,7 +32,7 @@ class ConfigurableCredentialAuthenticationProvider(
                 authenticationRequest.secret == password
             ) {
                 logger.debug { "Authentication succeeded for user '${authenticationRequest.identity}'" }
-                emitter.onNext(UserDetails(authenticationRequest.identity as String, ArrayList()))
+                emitter.onNext(AuthenticationResponse.success(authenticationRequest.identity as String))
             } else {
                 logger.debug { "Authentication failed for user '${authenticationRequest.identity}'" }
                 emitter.onError(AuthenticationException(AuthenticationFailed()))

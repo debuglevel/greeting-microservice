@@ -107,6 +107,7 @@ dependencies {
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
     implementation "javax.annotation:javax.annotation-api"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion"
+    implementation 'org.reactivestreams:reactive-streams' // seems to be needed in Micronaut 3.0.1
 
     // Micronaut Inversion of Control / Dependency Injection
     kapt "io.micronaut:micronaut-inject-java"
@@ -147,10 +148,10 @@ dependencies {
     implementation "io.micronaut.security:micronaut-security"
 
     // Micronaut Service registration and discovery
-    implementation "io.micronaut:micronaut-discovery-client"
+    implementation "io.micronaut.discovery:micronaut-discovery-client"
 
     // Micronaut OpenAPI integration
-    kapt "io.micronaut.configuration:micronaut-openapi"
+    kapt "io.micronaut.openapi:micronaut-openapi"
     implementation "io.swagger.core.v3:swagger-annotations"
 
     // Micronaut Views
