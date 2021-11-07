@@ -1,5 +1,21 @@
 # Development notes
 
+# Release a version
+
+With `./gradlew release` a new version is released. Before running the command, you must `git push`. It's also a good
+idea to commit everything or to rollback pending changes (although the configuration in `build.gradle` should ensure
+nothing is committed that was not intended).
+
+If the default branch is changed from `master` to `main`, it has to be changed in `build.gradle`.
+
+```groovy
+git {
+  // depends on old vs. new default branch
+  requireBranch = 'master'
+  // requireBranch = 'main'
+}
+```
+
 # Liquibase
 
 Liquibase is a tool to migrate a service's database between releases. Often Hibernate creates or alters (if possible)
