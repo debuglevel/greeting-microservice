@@ -1,5 +1,14 @@
 # Development notes
 
+## Update dependencies
+
+Run `./gradlew dependencyUpdates` to list all dependencies which have newer versions available.
+
+## Report licenses
+
+`./gradlew generateLicenseReport` creates a report about all licenses of all dependencies
+in `build/reports/dependency-license/index.html`.
+
 ## Release a version
 
 With `./gradlew release` a new version is released. Before running the command, you must `git push`. It's also a good
