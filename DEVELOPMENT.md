@@ -1,6 +1,6 @@
 # Development notes
 
-# Release a version
+## Release a version
 
 With `./gradlew release` a new version is released. Before running the command, you must `git push`. It's also a good
 idea to commit everything or to rollback pending changes (although the configuration in `build.gradle` should ensure
@@ -16,7 +16,7 @@ git {
 }
 ```
 
-# Liquibase
+## Liquibase
 
 Liquibase is a tool to migrate a service's database between releases. Often Hibernate creates or alters (if possible)
 the database structure on startup (usually via `jpa.default.properties.hibernate.hbm2ddl.auto=update`).
@@ -29,7 +29,7 @@ accomplishes with a set of changelogs instead. A changelog (
 e.g. `src/main/resources/liquibase-changelogs/changelogs/1.0.2.xml`) might span all changes needed to migrate from a
 version 1.0.1 to 1.0.2 (which we assume as an example here).
 
-## Example changelog
+### Example changelog
 
 The following changelog `1.0.2.xml` would add a new column `color` to the `animals` table.
 
@@ -47,14 +47,14 @@ The following changelog `1.0.2.xml` would add a new column `color` to the `anima
 </databaseChangeLog>
 ```
 
-## Liquibase command
+### Liquibase command
 
 Liquibase documentation usually says that configuration should be put in `liquibase.properties`. But while working on
 different microservices, it might be easier to just pass credentials and connection string as parameters:
 
 ```liquibase generate-changelog --changelog-file=2.0.0.xml --url=jdbc:mariadb://localhost:3306/greeting_old --username=root --password=root```
 
-## Generating the initial changelog
+### Generating the initial changelog
 
 Creating the initial tables (in contrast to alter them in all subsequent changelogs) should also be done via a first
 changelog. It just creates all tables on the first startup.
@@ -89,7 +89,7 @@ known deployed version (or the oldest one you want to support - if you're develo
 initial changelog for 1.0.0 and diff changelogs for 1.0.1 and 1.0.2 (if there were database changes at all) but not
 bother about migrating your alpha 0.x.y versions).
 
-## Introducing Liquibase to an existing project
+### Introducing Liquibase to an existing project
 
 If there are already some deployments with production databases, Liquibase would try to apply this changelog and fail as
 the tables already exist. It should therefore check whether those tables already exist and mark this changelog as "
@@ -139,7 +139,7 @@ use Liquibase from the beginning - because there *will* be database changes.)
 
 For new deployments, the `<preConditions>` check will simply succeed and therefore create the database structure.
 
-## Creating diffs
+### Creating diffs
 
 To create a migration for the 1.0.2 version, run `./liquibase diff-changelog --changelog-file=1.0.2.xml`. The actual
 command (see Liquibase documentation and `liquibase.properties` in the Liquibase distribution for now) has to be run
@@ -168,7 +168,7 @@ wanted database structure during development, and then just create a diff.
 
 But creating a changelog on your own is probably also a good way, considering they are usually not that complex.
 
-## Removing file path as Liquibase identifier
+### Removing file path as Liquibase identifier
 
 Liquibase identifies ran changeSets by the file path, the author and the id. If one of those changes, the changeSet
 would be applied again. While author and id might be quite obvious identifiers, the file path might be changed too
@@ -185,7 +185,7 @@ e.g. `logicalFilePath="path-independent"`.
 </databaseChangeLog>
 ```
 
-## Dockerized MariaDB for database diffs
+### Dockerized MariaDB for database diffs
 
 To create a diff with `liquibase diff-changelog`, you need two databases with the old and new structure. To create the
 database, validate things or just to look at it, phpmyadmin is usually a nice choice.
@@ -237,7 +237,7 @@ datasources:
 
 For `liquibase generate-changelog`, only the `old` database is used.
 
-## Deactivate Liquibase during development
+### Deactivate Liquibase during development
 
 If you want to use Hibernate database structure generation during development, you can set in `application.yml`:
 
