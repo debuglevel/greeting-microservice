@@ -1,6 +1,8 @@
 package de.debuglevel.greeter.person
 
+import org.hibernate.annotations.GenericGenerator
 import java.util.*
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
