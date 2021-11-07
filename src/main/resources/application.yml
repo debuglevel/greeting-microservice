@@ -126,4 +126,11 @@ jpa:
           # create-drop similar to create, with the addition that Hibernate will drop the database after all operations are completed. Typically used for unit testing
           # validate    Hibernate only validates whether the tables and columns exist, otherwise it throws an exception
           # none        this value effectively turns off the DDL generation
-          auto: update
+          # Set to "none" because Liquibase creates the database structure on first startup.
+          auto: none
+
+liquibase:
+  enabled: true
+  datasources:
+    default:
+      change-log: 'liquibase-changelogs/root.xml'
