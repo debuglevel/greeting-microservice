@@ -116,6 +116,10 @@ dependencies {
     kaptTest "io.micronaut:micronaut-inject-java"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 
+    // Micronaut Reactive
+    // use RxJava2 for existing implementations (e.g. ConfigurableCredentialAuthenticationProvider)
+    implementation "io.micronaut.rxjava2:micronaut-rxjava2"
+
     // Micronaut Validation
     kapt "io.micronaut:micronaut-validation"
     //implementation 'io.micronaut.configuration:micronaut-hibernate-validator' // if full Bean Validator 2.0 compliance is needed
