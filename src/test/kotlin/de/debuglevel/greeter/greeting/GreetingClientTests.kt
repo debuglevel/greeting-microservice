@@ -20,7 +20,7 @@ class GreetingClientTests {
         // Arrange
 
         // Act
-        val greeting = greetingClient.getOne(testData.name, testData.language).blockingGet()
+        val greeting = greetingClient.getOne(testData.name, testData.language).block()
 
         // Assert
         Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)
@@ -33,7 +33,7 @@ class GreetingClientTests {
         val greetingRequest = GreetingRequest(testData.name, testData.language)
 
         // Act
-        val greeting = greetingClient.postOne(greetingRequest).blockingGet()
+        val greeting = greetingClient.postOne(greetingRequest).block()
 
         // Assert
         Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)

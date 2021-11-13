@@ -1,6 +1,5 @@
 package de.debuglevel.greeter.person
 
-import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -25,7 +24,7 @@ class PersonControllerTests {
         val addPersonRequest = AddPersonRequest(person)
 
         // Act
-        val addedPerson = personClient.add(addPersonRequest).blockingGet()
+        val addedPerson = personClient.add(addPersonRequest).block()
 
         // Assert
         Assertions.assertThat(addedPerson.name).isEqualTo(person.name)
@@ -37,10 +36,10 @@ class PersonControllerTests {
     fun `get person`(person: Person) {
         // Arrange
         val addPersonRequest = AddPersonRequest(person)
-        val addedPerson = personClient.add(addPersonRequest).blockingGet()
+        val addedPerson = personClient.add(addPersonRequest).block()
 
         // Act
-        val getPerson = personClient.get(addedPerson.id).blockingGet()
+        val getPerson = personClient.get(addedPerson.id).block()
 
         // Assert
         Assertions.assertThat(getPerson.id).isEqualTo(addedPerson.id)
@@ -53,25 +52,22 @@ class PersonControllerTests {
         // Arrange
 
         // Act
-        val httpClientResponseException = Assertions.catchThrowableOfType(
-            { personClient.get(UUID.randomUUID()).blockingGet() },
-            HttpClientResponseException::class.java
-        )
+        val getPersonResponse = personClient.get(UUID.randomUUID()).block()
 
         // Assert
-        Assertions.assertThat(httpClientResponseException.status).isEqualTo(HttpStatus.NOT_FOUND)
+        Assertions.assertThat(getPersonResponse).isNull()
     }
 
     @Test
     fun `update person`() {
         // Arrange
         val addPersonRequest = AddPersonRequest("Original Name")
-        val addedPerson = personClient.add(addPersonRequest).blockingGet()
+        val addedPerson = personClient.add(addPersonRequest).block()
         val updatePersonRequest = UpdatePersonRequest("Updated Name")
 
         // Act
-        val updatedPerson = personClient.update(addedPerson.id, updatePersonRequest).blockingGet()
-        val getPerson = personClient.get(addedPerson.id).blockingGet()
+        val updatedPerson = personClient.update(addedPerson.id, updatePersonRequest).block()
+        val getPerson = personClient.get(addedPerson.id).block()
 
         // Assert
         Assertions.assertThat(updatedPerson.id).isEqualTo(addedPerson.id)
@@ -85,20 +81,17 @@ class PersonControllerTests {
         val updatePersonRequest = UpdatePersonRequest("Updated Name")
 
         // Act
-        val httpClientResponseException = Assertions.catchThrowableOfType(
-            { personClient.update(UUID.randomUUID(), updatePersonRequest).blockingGet() },
-            HttpClientResponseException::class.java
-        )
+        val getPersonResponse = personClient.update(UUID.randomUUID(), updatePersonRequest).block()
 
         // Assert
-        Assertions.assertThat(httpClientResponseException.status).isEqualTo(HttpStatus.NOT_FOUND)
+        Assertions.assertThat(getPersonResponse).isNull()
     }
 
     @Test
     fun `list persons`() {
         // Arrange
         personProvider().forEach {
-            personClient.add(AddPersonRequest(it)).blockingGet()
+            personClient.add(AddPersonRequest(it)).block()
         }
 
         // Act

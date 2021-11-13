@@ -3,13 +3,13 @@ package de.debuglevel.greeter
 import io.micronaut.context.annotation.Property
 import io.micronaut.http.HttpRequest
 import io.micronaut.security.authentication.*
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.FlowableEmitter
 import jakarta.inject.Singleton
 import mu.KotlinLogging
 import org.reactivestreams.Publisher
-import java.util.*
+import reactor.core.publisher.Mono
+import reactor.core.publisher.MonoSink
+import java.util.function.Consumer
+
 
 /**
  * Example for an AuthenticationProvider, which just checks for a single configured credential
@@ -24,20 +24,19 @@ class ConfigurableCredentialAuthenticationProvider(
     override fun authenticate(
         httpRequest: HttpRequest<*>?,
         authenticationRequest: AuthenticationRequest<*, *>
-    ): Publisher<AuthenticationResponse> {
+    ): Publisher<AuthenticationResponse?>? {
         logger.debug { "Authenticating user '${authenticationRequest.identity}'..." }
 
-        return Flowable.create({ emitter: FlowableEmitter<AuthenticationResponse> ->
+        return Mono.create<AuthenticationResponse>(Consumer<MonoSink<AuthenticationResponse?>> { emitter: MonoSink<AuthenticationResponse?> ->
             if (authenticationRequest.identity == username &&
                 authenticationRequest.secret == password
             ) {
                 logger.debug { "Authentication succeeded for user '${authenticationRequest.identity}'" }
-                emitter.onNext(AuthenticationResponse.success(authenticationRequest.identity as String))
+                emitter.success(AuthenticationResponse.success(authenticationRequest.identity as String))
             } else {
                 logger.debug { "Authentication failed for user '${authenticationRequest.identity}'" }
-                emitter.onError(AuthenticationException(AuthenticationFailed()))
+                emitter.error(AuthenticationException(AuthenticationFailed()))
             }
-            emitter.onComplete()
-        }, BackpressureStrategy.ERROR)
+        })
     }
 }
