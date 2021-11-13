@@ -22,7 +22,7 @@ services:
 
 #  # Service registration and discovery with Consul
 #  consul:
-#    image: consul:1.8.4
+#    image: consul:1.10.3
 #    ports:
 #      - "8500:8500"
 

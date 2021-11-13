@@ -16,3 +16,15 @@ consul:
       enabled: false # do not register this service on Consul
     discovery:
       enabled: false # do not search for services on Consul
+# Disable HealthMonitor; see https://github.com/micronaut-projects/micronaut-core/issues/3546
+micronaut.health.monitor.enabled: false
+
+## Uncomment to use Hibernate database structure creation instead of Liquibase during tests.
+#jpa:
+#  default:
+#    properties:
+#      hibernate:
+#        hbm2ddl:
+#          auto: update
+#liquibase:
+#  enabled: false

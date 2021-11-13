@@ -95,6 +95,8 @@ dependencies {
     implementation "io.github.microutils:kotlin-logging-jvm:$kotlinLoggingVersion"
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
     runtimeOnly "net.logstash.logback:logstash-logback-encoder:$logstashLogbackVersion"
+    runtimeOnly "com.mattbertolini:liquibase-slf4j:$liquibaseSlf4jVersion" // makes Liquibase use SLF4J instead of java.util.logging
+    runtimeOnly "org.slf4j:jcl-over-slf4j:$jclOverSlf4jVersion" // redirect Jakarta/Apache Commons Logging to SLF4J
 
 
     // Micronaut Bill of Materials, which defines dependency versions
@@ -142,6 +144,8 @@ dependencies {
     //runtimeOnly "org.postgresql:postgresql:$postgresqlVersion"
     //runtimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //runtimeOnly "org.apache.derby:derby:$derbyVersion"
+    /// Database Migration
+    implementation "io.micronaut.liquibase:micronaut-liquibase"
 
     // Micronaut Security
     kapt "io.micronaut.security:micronaut-security-annotations"
@@ -232,7 +236,9 @@ release {
     failOnCommitNeeded = true // fail because changed files would be committed automatically
     failOnUnversionedFiles = false // don't fail because unversioned files would not be committed automatically
     git {
-        requireBranch = 'master' // depends on old vs. new default branch
+        // depends on old vs. new default branch
+        requireBranch = 'master'
+        // requireBranch = 'main'
     }
 }
 
