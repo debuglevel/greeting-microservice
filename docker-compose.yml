@@ -19,6 +19,22 @@ services:
 #      # Consul server
 #      - CONSUL_HOST=consul
 #      - CONSUL_PORT=8500
+#      # Data source (H2 example)
+#      - DATASOURCES_DEFAULT_URL=jdbc:h2:file:/data/greeting;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#      - DATASOURCES_DEFAULT_DRIVER_CLASS_NAME=org.h2.Driver
+#      - DATASOURCES_DEFAULT_USERNAME=sa
+#      - DATASOURCES_DEFAULT_PASSWORD=
+#      - DATASOURCES_DEFAULT_SCHEMA_GENERATE=NONE
+#      - DATASOURCES_DEFAULT_DIALECT=H2
+#      # Data source (MariaDB example)
+#      - DATASOURCES_DEFAULT_URL=jdbc:mariadb://db:3306/db
+#      - DATASOURCES_DEFAULT_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+#      - DATASOURCES_DEFAULT_USERNAME=user
+#      - DATASOURCES_DEFAULT_PASSWORD=password
+#      - DATASOURCES_DEFAULT_SCHEMA_GENERATE=NONE
+#      - DATASOURCES_DEFAULT_DIALECT=MariaDB103
+#    volumes:
+#      - greeting-data:/data
 
 #  # Service registration and discovery with Consul
 #  consul:
@@ -37,6 +53,8 @@ services:
 #      - MYSQL_DATABASE=db
 #      - MYSQL_USER=user
 #      - MYSQL_PASSWORD=password
+#    volumes:
+#      - greeting-mariadb-data:/var/lib/mysql
 #  postgres:
 #    image: postgres:13.2-alpine
 #    ports:
@@ -60,3 +78,7 @@ services:
 #      - 8091:8080
 #    environment:
 #      - ADMINER_DEFAULT_SERVER=db
+
+# volumes:
+#  greeting-data:
+#  greeting-mariadb-data:
