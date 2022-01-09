@@ -47,6 +47,10 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          # TODO: temporary fix until a new docker image of template is released (which defaults to 8080 instead of 80)
+          env:
+          - name: MICRONAUT_SERVER_PORT
+            value: "8080"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
