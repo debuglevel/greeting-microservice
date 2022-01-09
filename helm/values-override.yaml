@@ -1,0 +1,12 @@
+# This file overrides the default values.yaml
+# The most common use case is probably to provide your own host.
+
+replicaCount: 2
+
+ingress:
+  enabled: true
+  hosts:
+    - host: greeting.metis.sol.lan
+      paths:
+        - path: /
+          pathType: Prefix
