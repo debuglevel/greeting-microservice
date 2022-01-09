@@ -37,13 +37,21 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-          # A pod failing liveness probes of any of its containers will be restarted
-          # In case of long startup times, startupProbe can be used additionally.
+          # A startup probe is used initially on container startup.
+          # Once it succeeds, liveness and readiness take over.
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          # A pod failing liveness probes of any of its containers will be restarted.
           livenessProbe:
             httpGet:
               path: /health
               port: http
-          # A pod failing readiness probes of any of its containers will not receive traffic
+          # A pod failing readiness probes of any of its containers will not receive traffic.
+          # It will therefore only receive traffic once it is ready.
           readinessProbe:
             httpGet:
               path: /health
