@@ -12,3 +12,11 @@ Use `--atomic` to rollback installation on failure.
 ```
 helm install testing helm --create-namespace --namespace greeting -f helm/values-override.yaml --kubeconfig /var/lib/rancher/k3s/server/cred/admin.kubeconfig
 ```
+
+## Upgrade chart
+
+To upgrade an already installed helm chart, use this:
+
+```
+helm upgrade testing helm --create-namespace --namespace greeting -f helm/values-override.yaml --kubeconfig /var/lib/rancher/k3s/server/cred/admin.kubeconfig
+```
