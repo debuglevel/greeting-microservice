@@ -42,7 +42,7 @@ build:
       # Reports (e.g. about failed tests)
       - "build/reports"
 
-## Build & Push Docker Images ##
+## Build and push docker images
 # Build docker image and push it to the registry as "debuglevel/greeting-microservice:branch-97dd42c"
 build-docker-master:
   stage: build
@@ -53,7 +53,7 @@ build-docker-master:
     - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" .
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
-# Release branch docker image by pushing it to the registry as "debuglevel/greeting-microservice:branch"
+# Release (branch) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice:branch"
 release-docker:
   stage: release
   image: docker:latest
@@ -63,7 +63,7 @@ release-docker:
     - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
 
-# Release master docker image by pushing it to the registry as "debuglevel/greeting-microservice" (which automatically also becomes "debuglevel/greeting-microservice:latest")
+# Release (master) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice" (which automatically also becomes "debuglevel/greeting-microservice:latest")
 release-docker-master:
   stage: release
   image: docker:latest
