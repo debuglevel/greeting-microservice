@@ -183,14 +183,14 @@ dependencies {
 
 // Java configuration
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8 // Source code is this Java version
-    targetCompatibility = JavaVersion.VERSION_1_8 // Byte code will be this JVM version
+    sourceCompatibility = JavaVersion.VERSION_17 // Source code is this Java version
+    targetCompatibility = JavaVersion.VERSION_17 // Byte code will be this JVM version
 }
 
 // Kotlin configuration (implies compileKotlin and compileTestKotlin)
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8 // Byte code will be this JVM version
+        jvmTarget = JavaVersion.VERSION_17 // Byte code will be this JVM version
         // retain parameter names for Java reflection
         javaParameters = true
     }
