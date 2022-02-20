@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y bash curl git zip gcc build-essential l
 RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk version"
 
 WORKDIR /app
-RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 20.3.0.r8-grl"
+RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 22.0.0.2.r17-grl"
 ENV JAVA_HOME="/root/.sdkman/candidates/java/current"
 ENV PATH="$JAVA_HOME/bin:$PATH"
 RUN bash -c "/root/.sdkman/candidates/java/current/bin/gu install native-image"
