@@ -52,7 +52,6 @@ HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --
 # "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" lets the JVM respect CPU and RAM limits inside a Docker container
 CMD ["java", \
      "-XX:+UnlockExperimentalVMOptions", \
-     "-XX:+UseContainerSupport", \
      "-XX:TieredStopAtLevel=1", \
      "-Dcom.sun.management.jmxremote", \
      "-jar", "/app/microservice.jar"]
