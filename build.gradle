@@ -55,7 +55,7 @@ ext {
     _title = applicationTitle
 }
 
-// application plugin configuration
+// Application plugin configuration
 applicationName = _title
 mainClassName = _mainClass
 
@@ -64,7 +64,7 @@ repositories {
 //    mavenLocal()
 //    maven {
 //        url "https://jitpack.io"
-////        // workaround to be able to specify a git hash as jitpack version
+////        // Workaround to be able to specify a git hash as jitpack version
 ////        metadataSources {
 ////            artifact()
 ////        }
@@ -75,7 +75,7 @@ dependencies {
     // If no specific version is defined, it might be provided by the Micronaut BOM
 
     // Kotlin
-    /// provide kotlin-reflect although not used, as the jackson-kotlin module might provide its own, but maybe for an earlier Kotlin version, which would mess up things (or at least yield warnings).
+    /// Provide kotlin-reflect although not used, as the jackson-kotlin module might provide its own, but maybe for an earlier Kotlin version, which would mess up things (or at least yield warnings).
     implementation "org.jetbrains.kotlin:kotlin-reflect"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
 
@@ -132,7 +132,7 @@ dependencies {
     implementation "io.micronaut:micronaut-http-client"
 
     // Micronaut Management & Monitoring
-    /// automatically provides the /health endpoint publicly, and some other with authentication
+    /// Automatically provides the /health endpoint publicly, and some other with authentication
     implementation 'io.micronaut:micronaut-management'
     //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
 
@@ -191,7 +191,7 @@ java {
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17 // Byte code will be this JVM version
-        // retain parameter names for Java reflection
+        // Retain parameter names for Java reflection
         javaParameters = true
     }
 }
@@ -238,10 +238,10 @@ tasks.shadowDistZip.enabled = false
 
 // Configuration of net.researchgate.release plugin
 release {
-    failOnCommitNeeded = true // fail because changed files would be committed automatically
-    failOnUnversionedFiles = false // don't fail because unversioned files would not be committed automatically
+    failOnCommitNeeded = true // Fail because changed files would be committed automatically
+    failOnUnversionedFiles = false // Don't fail because non-versioned files would not be committed automatically
     git {
-        // depends on old vs. new default branch
+        // Depends on old vs. new default branch
         requireBranch = 'master'
         // requireBranch = 'main'
     }
@@ -265,7 +265,7 @@ allOpen {
     //annotation("javax.inject.Singleton")
 }
 
-// Enhance Hibernate entities in bytecode.
+// Enhance Hibernate entities in byte code.
 hibernate {
     enhance {
         enableLazyInitialization = true
