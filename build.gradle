@@ -312,11 +312,10 @@ dependencyUpdates.resolutionStrategy {
     }
 }
 
-// -noverify skips verifying JAR files (reduce startup time)
 // -XX:TieredStopAtLevel=1 limits optimizations of the HotSpot compiler and its runtime overhead (reduce startup time)
 tasks.withType(JavaExec) {
     //classpath += configurations.developmentOnly
-    jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+    jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
     if (gradle.startParameter.continuous) {
         systemProperties(
                 'micronaut.io.watch.restart': 'true',
