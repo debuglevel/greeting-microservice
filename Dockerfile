@@ -53,7 +53,6 @@ HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --
 CMD ["java", \
      "-XX:+UnlockExperimentalVMOptions", \
      "-XX:+UseContainerSupport", \
-     "-noverify", \
      "-XX:TieredStopAtLevel=1", \
      "-Dcom.sun.management.jmxremote", \
      "-jar", "/app/microservice.jar"]
