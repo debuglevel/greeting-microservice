@@ -37,7 +37,7 @@ RUN bash -c "/root/.sdkman/candidates/java/current/bin/gu install native-image"
 COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 RUN java -version
 RUN native-image --version
-RUN native-image --no-server -H:-DeadlockWatchdogExitOnTimeout -H:DeadlockWatchdogInterval=0 -jar /app/microservice.jar
+RUN native-image --no-server --no-fallback -J-Xmx6G -H:-DeadlockWatchdogExitOnTimeout -H:DeadlockWatchdogInterval=0 -jar /app/microservice.jar
 RUN ls -al /app
 #RUN native-image --no-server --no-fallback --class-path /app/microservice.jar
 RUN ls -al /app
