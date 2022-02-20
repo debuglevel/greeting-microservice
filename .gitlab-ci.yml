@@ -31,7 +31,7 @@ stages:
 # Traditional build with gradle and generate artifacts
 build:
   stage: build
-  image: openjdk:8-jdk-alpine
+  image: openjdk:17-jdk-alpine
   script:
     - ./gradlew build
   artifacts:
