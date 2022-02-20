@@ -1,4 +1,4 @@
-ARG OPENJDK_VERSION=11.0.11
+ARG OPENJDK_VERSION=17.0.2
 
 ## Building stage
 FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
