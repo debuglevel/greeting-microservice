@@ -1,11 +1,11 @@
 package de.debuglevel.greeter.greeting
 
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import javax.inject.Inject
 
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -20,7 +20,7 @@ class GreetingClientTests {
         // Arrange
 
         // Act
-        val greeting = greetingClient.getOne(testData.name, testData.language).blockingGet()
+        val greeting = greetingClient.getOne(testData.name, testData.language).block()
 
         // Assert
         Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)
@@ -33,7 +33,7 @@ class GreetingClientTests {
         val greetingRequest = GreetingRequest(testData.name, testData.language)
 
         // Act
-        val greeting = greetingClient.postOne(greetingRequest).blockingGet()
+        val greeting = greetingClient.postOne(greetingRequest).block()
 
         // Assert
         Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)

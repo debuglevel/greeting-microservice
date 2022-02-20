@@ -4,10 +4,10 @@ services:
     build: .
     image: greeter-microservice
     ports:
-      - "80:80"
+      - "8080:8080"
     environment:
-      # port 80 is actually already defined as default for docker as ENV in Dockerfile
-      - MICRONAUT_SERVER_PORT=80
+      # port 8080 is actually already defined as default for docker as ENV in Dockerfile
+      - MICRONAUT_SERVER_PORT=8080
 #      # log as JSON
 #      - LOG_APPENDER=json-stdout
 #      # enable health check if Consul is used
@@ -19,10 +19,26 @@ services:
 #      # Consul server
 #      - CONSUL_HOST=consul
 #      - CONSUL_PORT=8500
+#      # Data source (H2 example)
+#      - DATASOURCES_DEFAULT_URL=jdbc:h2:file:/data/greeting;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#      - DATASOURCES_DEFAULT_DRIVER_CLASS_NAME=org.h2.Driver
+#      - DATASOURCES_DEFAULT_USERNAME=sa
+#      - DATASOURCES_DEFAULT_PASSWORD=
+#      - DATASOURCES_DEFAULT_SCHEMA_GENERATE=NONE
+#      - DATASOURCES_DEFAULT_DIALECT=H2
+#      # Data source (MariaDB example)
+#      - DATASOURCES_DEFAULT_URL=jdbc:mariadb://db:3306/db
+#      - DATASOURCES_DEFAULT_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+#      - DATASOURCES_DEFAULT_USERNAME=user
+#      - DATASOURCES_DEFAULT_PASSWORD=password
+#      - DATASOURCES_DEFAULT_SCHEMA_GENERATE=NONE
+#      - DATASOURCES_DEFAULT_DIALECT=MariaDB103
+#    volumes:
+#      - greeting-data:/data
 
 #  # Service registration and discovery with Consul
 #  consul:
-#    image: consul:1.8.4
+#    image: consul:1.10.3
 #    ports:
 #      - "8500:8500"
 
@@ -37,6 +53,18 @@ services:
 #      - MYSQL_DATABASE=db
 #      - MYSQL_USER=user
 #      - MYSQL_PASSWORD=password
+#    volumes:
+#      - greeting-mariadb-data:/var/lib/mysql
+#  postgres:
+#    image: postgres:13.2-alpine
+#    ports:
+#      - 5432:5432
+#    environment:
+#      # does not seem to work
+#      - POSTGRES_DATABASE=db
+#      # is (in contrast to mariadb) the superuser
+#      - POSTGRES_USER=user
+#      - POSTGRES_PASSWORD=password
 #  phpmyadmin:
 #    image: phpmyadmin:5.0.4
 #    ports:
@@ -50,3 +78,7 @@ services:
 #      - 8091:8080
 #    environment:
 #      - ADMINER_DEFAULT_SERVER=db
+
+# volumes:
+#  greeting-data:
+#  greeting-mariadb-data:

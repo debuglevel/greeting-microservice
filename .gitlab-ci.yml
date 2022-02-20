@@ -5,7 +5,7 @@ services:
 variables:
 ## Uncomment this to inject a self-signed certificate into the docker:dind service
 #  CERTIFICATE_URL: http://my_server/my_corp.crt
-#  # disable TLS; see: https://gitlab.com/gitlab-org/gitlab-runner/issues/1350#note_199840999 and https://about.gitlab.com/2019/07/31/docker-in-docker-with-docker-19-dot-03/
+#  # Disable TLS; see: https://gitlab.com/gitlab-org/gitlab-runner/issues/1350#note_199840999 and https://about.gitlab.com/2019/07/31/docker-in-docker-with-docker-19-dot-03/
 #  DOCKER_TLS_CERTDIR: ""
 
 before_script:
@@ -31,18 +31,18 @@ stages:
 # Traditional build with gradle and generate artifacts
 build:
   stage: build
-  image: openjdk:8-jdk-alpine
+  image: openjdk:17-jdk
   script:
     - ./gradlew build
   artifacts:
     paths:
-      # use all distribution tar files
+      # Use all distribution tar files
       - "build/distributions/*.tar"
 
-      # reports (e.g. about failed tests)
+      # Reports (e.g. about failed tests)
       - "build/reports"
 
-## Build & Push Docker Images ##
+## Build and push docker images
 # Build docker image and push it to the registry as "debuglevel/greeting-microservice:branch-97dd42c"
 build-docker-master:
   stage: build
@@ -53,7 +53,7 @@ build-docker-master:
     - docker build --pull -t "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" .
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
-# Release branch docker image by pushing it to the registry as "debuglevel/greeting-microservice:branch"
+# Release (branch) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice:branch"
 release-docker:
   stage: release
   image: docker:latest
@@ -63,7 +63,7 @@ release-docker:
     - docker tag "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
 
-# Release master docker image by pushing it to the registry as "debuglevel/greeting-microservice" (which automatically also becomes "debuglevel/greeting-microservice:latest")
+# Release (master) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice" (which automatically also becomes "debuglevel/greeting-microservice:latest")
 release-docker-master:
   stage: release
   image: docker:latest

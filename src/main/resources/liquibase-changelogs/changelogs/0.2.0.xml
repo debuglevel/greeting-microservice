@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd"
+                   logicalFilePath="path-independent">
+    <changeSet author="debuglevel" id="1636237744027-1">
+        <!-- Check whether table "person" does exist in its 0.2.0 structure.
+             Marks this ChangeSet as run, if it already exists.
+             This avoids manually running "liquibase changelog-sync" before migrating to versions after 0.2.1 -->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="person"/>
+                <columnExists tableName="person" columnName="id"/>
+                <columnExists tableName="person" columnName="name"/>
+            </not>
+        </preConditions>
+        <createTable tableName="person">
+            <column name="id" type="BINARY(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

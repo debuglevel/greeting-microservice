@@ -8,6 +8,8 @@ pluginManagement {
         id 'net.researchgate.release' version "$releasePluginVersion"
         id 'com.github.johnrengelman.shadow' version "$shadowVersion"
         id "org.jetbrains.kotlin.plugin.jpa" version "$kotlinVersion"
+        id 'com.google.protobuf' version "$protobufPluginVersion"
+        id 'com.github.jk1.dependency-license-report' version "$dependencyLicenseReportVersion"
     }
 }
 

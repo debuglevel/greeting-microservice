@@ -2,20 +2,20 @@ package de.debuglevel.greeter.person
 
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
-import io.reactivex.Single
+import reactor.core.publisher.Mono
 import java.util.*
 import javax.validation.constraints.NotBlank
 
 @Client("/persons")
 interface PersonClient {
     @Get("/{id}")
-    fun get(@NotBlank id: UUID): Single<GetPersonResponse>
+    fun get(@NotBlank id: UUID): Mono<GetPersonResponse>
 
     @Post("/")
-    fun add(@Body person: AddPersonRequest): Single<AddPersonResponse>
+    fun add(@Body person: AddPersonRequest): Mono<AddPersonResponse>
 
     @Put("/{id}")
-    fun update(@NotBlank id: UUID, @Body person: UpdatePersonRequest): Single<UpdatePersonResponse>
+    fun update(@NotBlank id: UUID, @Body person: UpdatePersonRequest): Mono<UpdatePersonResponse>
 
     @Get("/")
     fun list(): List<GetPersonResponse>

@@ -1,0 +1,343 @@
+openapi: 3.0.1
+info:
+  title: Greeter Microservice
+  description: Microservice for greeting people
+  contact:
+    name: Marc Kohaupt
+    url: http://debuglevel.de
+  license:
+    name: Unlicense
+    url: https://unlicense.org/
+  version: "0.1"
+paths:
+  /greetings/{name}:
+    get:
+      tags:
+        - greetings
+      summary: "Get a greeting for a person. If given, the greeting is localized in\
+        \ a language."
+      description: "Get a greeting for a person. If given, the greeting is localized\
+        \ in a language."
+      operationId: getOneGreeting
+      parameters:
+        - name: name
+          in: path
+          description: Name of the person to greet
+          required: true
+          schema:
+            type: string
+        - name: language
+          in: query
+          description: The language to greet the person in
+          required: false
+          schema:
+            type: string
+            nullable: true
+      responses:
+        default:
+          description: A greeting for a person in a given language
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Greeting'
+  /greetings:
+    get:
+      tags:
+        - greetings
+      summary: Gets some greetings.
+      description: Gets some greetings.
+      operationId: getAllGreetings
+      parameters: [ ]
+      responses:
+        default:
+          description: Some greetings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Greeting'
+    post:
+      tags:
+        - greetings
+      summary: "Get a greeting for a person. If given, the greeting is localized in\
+        \ a language."
+      description: "Get a greeting for a person. If given, the greeting is localized\
+        \ in a language."
+      operationId: postOneGreeting
+      parameters: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                greetingRequest:
+                  $ref: '#/components/schemas/GreetingRequest'
+        required: true
+      responses:
+        default:
+          description: A greeting for a person in a given language
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Greeting'
+  /persons:
+    get:
+      tags:
+        - persons
+      summary: Get all persons
+      description: Get all persons
+      operationId: getAllPersons
+      parameters: [ ]
+      responses:
+        default:
+          description: All persons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetPersonResponse'
+    post:
+      tags:
+        - persons
+      summary: Create a person.
+      description: Create a person.
+      operationId: postOnePerson
+      parameters: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                addPersonRequest:
+                  $ref: '#/components/schemas/AddPersonRequest'
+        required: true
+      responses:
+        default:
+          description: A person with their ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddPersonResponse'
+    delete:
+      tags:
+        - persons
+      summary: Delete all person.
+      description: Delete all person.
+      operationId: deleteAllPersons
+      parameters: [ ]
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unit'
+  /persons/{id}:
+    get:
+      tags:
+        - persons
+      summary: Get a person
+      description: Get a person
+      operationId: getOnePerson
+      parameters:
+        - name: id
+          in: path
+          description: ID of the person
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        default:
+          description: A person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPersonResponse'
+    put:
+      tags:
+        - persons
+      summary: Update a person.
+      description: Update a person.
+      operationId: putOnePerson
+      parameters:
+        - name: id
+          in: path
+          description: ID of the person
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                updatePersonRequest:
+                  $ref: '#/components/schemas/UpdatePersonRequest'
+        required: true
+      responses:
+        default:
+          description: The updated person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatePersonResponse'
+    delete:
+      tags:
+        - persons
+      summary: Delete a person.
+      description: Delete a person.
+      operationId: deleteOnePerson
+      parameters:
+        - name: id
+          in: path
+          description: ID of the person
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unit'
+  /persons/endlessRandom:
+    get:
+      tags:
+        - persons
+      summary: Download a never ending file of random names
+      description: Download a never ending file of random names
+      operationId: downloadRandomEndless
+      parameters: [ ]
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamedFile'
+  /persons/VIPs:
+    get:
+      tags:
+        - persons
+      summary: Get all VIPs
+      description: Get all VIPs
+      operationId: getVIPs
+      parameters: [ ]
+      responses:
+        default:
+          description: All VIPs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetPersonResponse'
+components:
+  schemas:
+    Greeting:
+      type: object
+      properties:
+        greeting:
+          type: string
+      description: A greeting
+    GreetingRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        language:
+          type: string
+          nullable: true
+    GetPersonResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    AddPersonResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    AddPersonRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    UpdatePersonResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    UpdatePersonRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    Unit:
+      type: object
+    StreamedFile:
+      type: object
+      properties:
+        lastModified:
+          type: integer
+          format: int64
+        length:
+          type: integer
+          format: int64
+        mediaType:
+          $ref: '#/components/schemas/MediaType'
+        inputStream:
+          $ref: '#/components/schemas/InputStream'
+    MediaType:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        subtype:
+          type: string
+        extension:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: string
+        quality:
+          type: string
+        qualityAsNumber:
+          type: number
+        version:
+          type: string
+        charset:
+          $ref: '#/components/schemas/Charset'
+        textBased:
+          type: boolean
+    Charset:
+      type: object
+      properties:
+        registered:
+          type: boolean
+        name:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+    InputStream:
+      type: object

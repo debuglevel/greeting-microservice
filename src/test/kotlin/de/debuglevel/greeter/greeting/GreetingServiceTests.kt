@@ -1,12 +1,12 @@
 package de.debuglevel.greeter.greeting
 
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import javax.inject.Inject
 
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

@@ -8,6 +8,7 @@ import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import io.swagger.v3.oas.annotations.tags.Tag
 import mu.KotlinLogging
+import java.net.URI
 import java.util.*
 
 @Secured(SecurityRule.IS_ANONYMOUS)
@@ -21,17 +22,17 @@ class PersonController(private val personService: PersonService) {
      * @return All persons
      */
     @Get("/")
-    fun getAllPersons(): HttpResponse<*> {
+    fun getAllPersons(): HttpResponse<List<GetPersonResponse>> {
         logger.debug("Called getAllPersons()")
         return try {
-            val persons = personService.list()
+            val persons = personService.getAll()
             val getPersonResponses = persons
                 .map { GetPersonResponse(it) }
 
             HttpResponse.ok(getPersonResponses)
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.message}")
+            HttpResponse.serverError()
         }
     }
 
@@ -41,19 +42,98 @@ class PersonController(private val personService: PersonService) {
      * @return A person
      */
     @Get("/{id}")
-    fun getOnePerson(id: UUID): HttpResponse<*> {
+    fun getOnePerson(id: UUID): HttpResponse<GetPersonResponse> {
         logger.debug("Called getOnePerson($id)")
         return try {
             val person = personService.get(id)
 
             val getPersonResponse = GetPersonResponse(person)
             HttpResponse.ok(getPersonResponse)
-        } catch (e: PersonService.EntityNotFoundException) {
+        } catch (e: PersonService.ItemNotFoundException) {
             logger.debug { "Getting person $id failed: ${e.message}" }
-            HttpResponse.notFound("Person $id does not exist.")
+            HttpResponse.notFound()
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.message}")
+            HttpResponse.serverError()
+        }
+    }
+
+    /**
+     * Create a person.
+     * @return A person with their ID
+     */
+    @Post("/")
+    fun postOnePerson(addPersonRequest: AddPersonRequest): HttpResponse<AddPersonResponse> {
+        logger.debug("Called postOnePerson($addPersonRequest)")
+
+        return try {
+            val person = addPersonRequest.toPerson()
+            val addedPerson = personService.add(person)
+
+            val addPersonResponse = AddPersonResponse(addedPerson)
+            HttpResponse.created(addPersonResponse, URI(addedPerson.id.toString()))
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError()
+        }
+    }
+
+    /**
+     * Update a person.
+     * @param id ID of the person
+     * @return The updated person
+     */
+    @Put("/{id}")
+    fun putOnePerson(id: UUID, updatePersonRequest: UpdatePersonRequest): HttpResponse<UpdatePersonResponse> {
+        logger.debug("Called putOnePerson($id, $updatePersonRequest)")
+
+        return try {
+            val person = updatePersonRequest.toPerson()
+            val updatedPerson = personService.update(id, person)
+
+            val updatePersonResponse = UpdatePersonResponse(updatedPerson)
+            HttpResponse.ok(updatePersonResponse)
+        } catch (e: PersonService.ItemNotFoundException) {
+            logger.debug { "Updating person $id failed: ${e.message}" }
+            HttpResponse.notFound()
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError()
+        }
+    }
+
+    /**
+     * Delete a person.
+     * @param id ID of the person
+     */
+    @Delete("/{id}")
+    fun deleteOnePerson(id: UUID): HttpResponse<Unit> {
+        logger.debug("Called deleteOnePerson($id)")
+        return try {
+            personService.delete(id)
+
+            HttpResponse.noContent()
+        } catch (e: PersonService.ItemNotFoundException) {
+            HttpResponse.notFound()
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError()
+        }
+    }
+
+    /**
+     * Delete all person.
+     */
+    @Delete("/")
+    fun deleteAllPersons(): HttpResponse<Unit> {
+        logger.debug("Called deleteAllPersons()")
+        return try {
+            personService.deleteAll()
+
+            HttpResponse.noContent()
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError()
         }
     }
 
@@ -69,85 +149,6 @@ class PersonController(private val personService: PersonService) {
     }
 
     /**
-     * Create a person.
-     * @return A person with their ID
-     */
-    @Post("/")
-    fun postOnePerson(addPersonRequest: AddPersonRequest): HttpResponse<*> {
-        logger.debug("Called postOnePerson($addPersonRequest)")
-
-        return try {
-            val person = addPersonRequest.toPerson()
-            val addedPerson = personService.add(person)
-
-            val addPersonResponse = AddPersonResponse(addedPerson)
-            HttpResponse.created(addPersonResponse)
-        } catch (e: Exception) {
-            logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.message}")
-        }
-    }
-
-    /**
-     * Update a person.
-     * @param id ID of the person
-     * @return The updated person
-     */
-    @Put("/{id}")
-    fun putOnePerson(id: UUID, updatePersonRequest: UpdatePersonRequest): HttpResponse<*> {
-        logger.debug("Called putOnePerson($id, $updatePersonRequest)")
-
-        return try {
-            val person = updatePersonRequest.toPerson()
-            val updatedPerson = personService.update(id, person)
-
-            val updatePersonResponse = UpdatePersonResponse(updatedPerson)
-            HttpResponse.ok(updatePersonResponse)
-        } catch (e: PersonService.EntityNotFoundException) {
-            logger.debug { "Updating person $id failed: ${e.message}" }
-            HttpResponse.notFound("Person $id does not exist.")
-        } catch (e: Exception) {
-            logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.message}")
-        }
-    }
-
-    /**
-     * Delete a person.
-     * @param id ID of the person
-     */
-    @Delete("/{id}")
-    fun deleteOnePerson(id: UUID): HttpResponse<*> {
-        logger.debug("Called deleteOnePerson($id)")
-        return try {
-            personService.delete(id)
-
-            HttpResponse.noContent<Any>()
-        } catch (e: PersonService.EntityNotFoundException) {
-            HttpResponse.notFound("Person $id not found.")
-        } catch (e: Exception) {
-            logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.message}")
-        }
-    }
-
-    /**
-     * Delete all person.
-     */
-    @Delete("/")
-    fun deleteAllPersons(): HttpResponse<*> {
-        logger.debug("Called deleteAllPersons()")
-        return try {
-            personService.deleteAll()
-
-            HttpResponse.noContent<Any>()
-        } catch (e: Exception) {
-            logger.error(e) { "Unhandled exception" }
-            HttpResponse.serverError("Unhandled exception: ${e.message}")
-        }
-    }
-
-    /**
      * Get all VIPs
      * @return All VIPs
      */
@@ -157,7 +158,7 @@ class PersonController(private val personService: PersonService) {
         logger.debug("Called getVIPs()")
         return setOf(
             GetPersonResponse(UUID.randomUUID(), "Harry Potter"),
-            GetPersonResponse(UUID.randomUUID(), "Hermoine Granger"),
+            GetPersonResponse(UUID.randomUUID(), "Hermione Granger"),
             GetPersonResponse(UUID.randomUUID(), "Ronald Weasley")
         )
     }

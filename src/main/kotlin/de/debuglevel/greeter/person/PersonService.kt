@@ -1,30 +1,59 @@
 package de.debuglevel.greeter.person
 
+import jakarta.inject.Singleton
 import mu.KotlinLogging
 import java.io.InputStream
 import java.io.PipedInputStream
 import java.io.PipedOutputStream
 import java.util.*
-import javax.inject.Singleton
 import kotlin.concurrent.thread
 
 @Singleton
 class PersonService(
     private val personRepository: PersonRepository,
     private val personGeneratorService: PersonGeneratorService,
+    private val personProperties: PersonProperties,
 ) {
     private val logger = KotlinLogging.logger {}
+
+    val count: Long
+        get() {
+            logger.debug { "Getting persons count..." }
+
+            val count = personRepository.count()
+
+            logger.debug { "Got persons count: $count" }
+            return count
+        }
+
+    fun exists(id: UUID): Boolean {
+        logger.debug { "Checking if person $id exists..." }
+
+        val isExisting = personRepository.existsById(id)
+
+        logger.debug { "Checked if person $id exists: $isExisting" }
+        return isExisting
+    }
 
     fun get(id: UUID): Person {
         logger.debug { "Getting person with ID '$id'..." }
 
         val person: Person = personRepository.findById(id).orElseThrow {
             logger.debug { "Getting person with ID '$id' failed" }
-            EntityNotFoundException(id)
+            ItemNotFoundException(id)
         }
 
         logger.debug { "Got person with ID '$id': $person" }
         return person
+    }
+
+    fun getAll(): Set<Person> {
+        logger.debug { "Getting all persons..." }
+
+        val persons = personRepository.findAll().toSet()
+
+        logger.debug { "Got ${persons.size} persons" }
+        return persons
     }
 
     fun add(person: Person): Person {
@@ -51,22 +80,13 @@ class PersonService(
         return updatedPerson
     }
 
-    fun list(): Set<Person> {
-        logger.debug { "Getting all persons ..." }
-
-        val persons = personRepository.findAll().toSet()
-
-        logger.debug { "Got all persons" }
-        return persons
-    }
-
     fun delete(id: UUID) {
         logger.debug { "Deleting person with ID '$id'..." }
 
         if (personRepository.existsById(id)) {
             personRepository.deleteById(id)
         } else {
-            throw EntityNotFoundException(id)
+            throw ItemNotFoundException(id)
         }
 
         logger.debug { "Deleted person with ID '$id'" }
@@ -116,5 +136,5 @@ class PersonService(
         return inputStream
     }
 
-    class EntityNotFoundException(criteria: Any) : Exception("Entity '$criteria' does not exist.")
+    class ItemNotFoundException(criteria: Any) : Exception("Item '$criteria' does not exist.")
 }

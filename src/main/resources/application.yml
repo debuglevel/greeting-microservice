@@ -2,6 +2,12 @@ app:
   greetings:
     default-language: "null" # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
     unknown-language: "unknown" # note that key should not be camelCase, as uppercase characters may lead to problems in configuration binding
+    persons:
+      some-duration: 42m
+      some-text: "foo"
+      some-integer: 12
+      some-double: 12.3
+
   security:
     configurable-credential-authentication:
       username: "SECRET_USERNAME"
@@ -60,9 +66,11 @@ consul:
 datasources:
   # H2
   default:
-    # replace "mem:developmentDatabase" by e.g. "file:/data/db" to store it in a file
     # for H2 in-memory behaviour and options see http://www.h2database.com/html/features.html#in_memory_databases
-    url: jdbc:h2:mem:developmentDatabase;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:developmentDatabase;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    # store H2 in a file "/db/developmentDatabase.mv.db"
+    #url: jdbc:h2:file:/db/developmentDatabase;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    #url: jdbc:h2:file:./developmentDatabase;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password: ""
@@ -95,6 +103,14 @@ datasources:
 #    password: password
 #    schema-generate: CREATE_DROP
 #    dialect: MariaDB103
+#  # PostgreSQL
+#  default:
+#    url: jdbc:postgresql://localhost:5432/db
+#    driver-class-name: org.postgresql.Driver
+#    username: user
+#    password: password
+#    schema-generate: CREATE_DROP
+#    dialect: PostgreSQL95
 
 jpa:
   default:
@@ -105,9 +121,20 @@ jpa:
         hbm2ddl:
           # See https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/tool/schema/Action.html
           # From https://www.baeldung.com/spring-boot-data-sql-and-schema-sql#controlling-database-creation-using-hibernate
-          # create      Hibernate first drops existing tables, then creates new tables
-          # update      the object model created based on the mappings (annotations or XML) is compared with the existing schema, and then Hibernate updates the schema according to the diff. It never deletes the existing tables or columns even if they are no more required by the application
-          # create-drop similar to create, with the addition that Hibernate will drop the database after all operations are completed. Typically used for unit testing
-          # validate    Hibernate only validates whether the tables and columns exist, otherwise it throws an exception
-          # none        this value effectively turns off the DDL generation
-          auto: update
+          # create      Hibernate first drops existing tables, then creates new tables.
+          # create-drop Similar to create, with the addition that Hibernate will drop the database after all operations
+          #              are completed. Typically used for unit testing.
+          # update      The object model created based on the mappings (defined by the annotations) is compared with the
+          #              existing schema, and then Hibernate updates the schema according to the diff.
+          #              It never deletes the existing tables or columns even if they are no more required by the
+          #              application.
+          # validate    Hibernate only validates whether the tables and columns exist, otherwise it throws an exception.
+          # none        This value effectively turns off the DDL generation.
+          # Set to "none" because Liquibase creates the database structure on first startup.
+          auto: none
+
+liquibase:
+  enabled: true
+  datasources:
+    default:
+      change-log: 'liquibase-changelogs/root.xml'
