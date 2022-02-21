@@ -3,6 +3,8 @@ ARG OPENJDK_MAJOR_VERSION=17
 ARG GRAALVM_MAJOR_VERSION=22.0.0.2
 
 ## Building stage
+#FROM azul/zulu-openjdk:${OPENJDK_VERSION} AS runtime # Ubuntu
+#FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION} AS runtime
 #FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
 FROM ghcr.io/graalvm/native-image:ol8-java${OPENJDK_MAJOR_VERSION}-${GRAALVM_MAJOR_VERSION} AS builder
 WORKDIR /src/
@@ -23,6 +25,7 @@ RUN ./gradlew nativeCompile
 
 ## Final image
 #FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
+#FROM azul/zulu-openjdk:${OPENJDK_VERSION}-jre AS runtime # Ubuntu
 FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION}-jre AS runtime
 
 # Add a group and a user with specified IDs
