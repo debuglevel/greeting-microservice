@@ -1,16 +1,13 @@
 ARG OPENJDK_VERSION=17.0.2
 
-## Building stage
-#FROM azul/zulu-openjdk:${OPENJDK_VERSION} AS runtime # Ubuntu
-#FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION} AS runtime
-FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
-WORKDIR /src/
 
-# Add glibc for gRPC protoc as Alpine uses musl instead
-ARG GLIBC_VERSION=2.34-r0
-RUN wget -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-$GLIBC_VERSION.apk && \
-  apk add glibc-$GLIBC_VERSION.apk
+## Building stage
+# "zulu-openjdk" is Ubuntu
+FROM azul/zulu-openjdk:${OPENJDK_VERSION} AS builder
+#FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION} AS runtime
+#FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
+
+WORKDIR /src/
 
 # Cache Gradle
 COPY gradle /src/gradle
@@ -24,8 +21,10 @@ RUN java -version
 RUN ./gradlew --version
 RUN ./gradlew build
 
+
 ## Final image
-#FROM azul/zulu-openjdk:${OPENJDK_VERSION}-jre AS runtime # Ubuntu
+# "zulu-openjdk" is Ubuntu
+#FROM azul/zulu-openjdk:${OPENJDK_VERSION}-jre AS runtime
 #FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION}-jre AS runtime
 FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
 
