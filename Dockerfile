@@ -18,8 +18,7 @@ RUN ./gradlew --version
 
 # Build source
 COPY . /src/
-#RUN ./gradlew build
-RUN ./gradlew assemble
+RUN ./gradlew build
 
 ## GraalVM native-image
 FROM debian as graalvm-builder
