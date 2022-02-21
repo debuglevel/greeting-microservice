@@ -21,7 +21,7 @@ COPY . /src/
 RUN ./gradlew build
 
 ## GraalVM native-image
-FROM debian as graalvm-builder
+FROM debian:11.2 AS graalvm-builder
 
 RUN apt-get update && apt-get install -y bash curl git zip gcc build-essential libz-dev zlib1g-dev && curl -s "https://get.sdkman.io" | bash
 RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk version"
