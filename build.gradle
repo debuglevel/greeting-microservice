@@ -79,8 +79,8 @@ dependencies {
 
     // Kotlin
     /// Provide kotlin-reflect although not used, as the jackson-kotlin module might provide its own, but maybe for an earlier Kotlin version, which would mess up things (or at least yield warnings).
-    //implementation "org.jetbrains.kotlin:kotlin-reflect"
-    //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
 
     // Tests
     /// JUnit
@@ -101,10 +101,6 @@ dependencies {
     runtimeOnly "com.mattbertolini:liquibase-slf4j:$liquibaseSlf4jVersion" // makes Liquibase use SLF4J instead of java.util.logging
     runtimeOnly "org.slf4j:jcl-over-slf4j:$jclOverSlf4jVersion" // redirect Jakarta/Apache Commons Logging to SLF4J
 
-    // GraalVM
-    //annotationProcessor "io.micronaut:micronaut-graal"
-    //kapt "io.micronaut:micronaut-graal"
-    compileOnly "org.graalvm.nativeimage:svm"
 
     // Micronaut Bill of Materials, which defines dependency versions
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
@@ -152,7 +148,7 @@ dependencies {
     //runtimeOnly "io.micronaut.sql:micronaut-jdbc-dbcp"
     /// Database drivers
     runtimeOnly "com.h2database:h2"
-    //runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
+    runtimeOnly "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
     //runtimeOnly "org.postgresql:postgresql:$postgresqlVersion"
     //runtimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
     //runtimeOnly "org.apache.derby:derby:$derbyVersion"
