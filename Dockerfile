@@ -52,7 +52,8 @@ EXPOSE 8080
 # Use a log appender with no timestamps as Docker logs the timestamp itself (`docker logs -t ID`)
 ENV LOG_APPENDER classic-stdout
 
-HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --fail http://localhost:8080/health || exit 1
+# CAVEAT: interval should not be too high, as some tools (e.g. traefik) wait for a healthy state.
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=60s CMD curl --fail http://localhost:8080/health || exit 1
 
 # "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" lets the JVM respect CPU and RAM limits inside a Docker container
 CMD ["java", \
