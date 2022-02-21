@@ -24,7 +24,7 @@ RUN ./gradlew build
 FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
 
 # Add a group and a user with specified IDs
-RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser 
+RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser
 #RUN groupadd -r -g 1111 appgroup && useradd -r -g appgroup -u 1111 --no-log-init appuser # if based on Debian/Ubuntu
 
 # Add curl for health check
