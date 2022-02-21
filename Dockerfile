@@ -21,6 +21,8 @@ COPY . /src/
 RUN ./gradlew build
 
 ## Final image
+#FROM azul/zulu-openjdk:${OPENJDK_VERSION}-jre AS runtime # Ubuntu
+#FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION}-jre AS runtime
 FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
 
 # Add a group and a user with specified IDs
