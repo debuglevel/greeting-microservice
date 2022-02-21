@@ -43,6 +43,9 @@ plugins {
 
     // List all licenses in "build/reports/dependency-license" with "./gradlew generateLicenseReport".
     id 'com.github.jk1.dependency-license-report'
+
+    // Support for GraalVM native-image with "./gradlew nativeCompile"
+    id "io.micronaut.graalvm" version "3.2.2"
 }
 // Enhance Hibernate entities (see configuration block below).
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
@@ -108,7 +111,7 @@ dependencies {
     implementation "io.micronaut:micronaut-runtime"
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
     implementation "javax.annotation:javax.annotation-api"
-    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion"
+    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
     implementation 'org.reactivestreams:reactive-streams' // seems to be needed in Micronaut 3.0.1
 
     // Micronaut Inversion of Control / Dependency Injection
