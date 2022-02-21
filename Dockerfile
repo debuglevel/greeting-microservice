@@ -1,14 +1,11 @@
 ARG OPENJDK_VERSION=17.0.2
+ARG OPENJDK_MAJOR_VERSION=17
+ARG GRAALVM_MAJOR_VERSION=22.0.0.2
 
 ## Building stage
-FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
+#FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
+FROM ghcr.io/graalvm/native-image:ol8-java${OPENJDK_MAJOR_VERSION}-${GRAALVM_MAJOR_VERSION} AS builder
 WORKDIR /src/
-
-# Add glibc for gRPC protoc as Alpine uses musl instead
-ARG GLIBC_VERSION=2.34-r0
-RUN wget -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-$GLIBC_VERSION.apk && \
-  apk add glibc-$GLIBC_VERSION.apk
 
 # Cache Gradle
 COPY gradle /src/gradle
@@ -16,57 +13,34 @@ COPY gradlew /src/
 # Run "gradle --version" to let gradle-wrapper download Gradle
 RUN ./gradlew --version
 
-# Build source
+# Copy source, show versions, build
 COPY . /src/
-RUN ./gradlew build
-
-## GraalVM native-image
-FROM debian:11.2 AS graalvm-builder
-
-RUN apt-get update && apt-get install -y bash curl git zip gcc build-essential libz-dev zlib1g-dev && curl -s "https://get.sdkman.io" | bash
-RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk version"
-
-WORKDIR /app
-RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 22.0.0.2.r17-grl"
-ENV JAVA_HOME="/root/.sdkman/candidates/java/current"
-ENV PATH="$JAVA_HOME/bin:$PATH"
-RUN bash -c "/root/.sdkman/candidates/java/current/bin/gu install native-image"
-
-
-COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
 RUN java -version
+RUN ./gradlew --version
 RUN native-image --version
-RUN native-image --no-fallback -J-Xmx6G -H:-DeadlockWatchdogExitOnTimeout -H:DeadlockWatchdogInterval=0 -jar /app/microservice.jar
-RUN ls -al /app
-#RUN native-image --no-fallback --class-path /app/microservice.jar
-RUN ls -al /app
+RUN ./gradlew build
+RUN ./gradlew nativeCompile
 
 ## Final image
-FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
+#FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
+FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION}-jre AS runtime
 
 # Add a group and a user with specified IDs
-RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser
-#RUN groupadd -r -g 1111 appgroup && useradd -r -g appgroup -u 1111 --no-log-init appuser # if based on Debian/Ubuntu
+#RUN addgroup -S -g 1111 appgroup && adduser -S -G appgroup -u 1111 appuser # if based on Alpine
+RUN groupadd -r -g 1111 appgroup && useradd -r -g appgroup -u 1111 --no-log-init appuser # if based on Debian/Ubuntu
 
 # Add curl for health check
-RUN apk add --no-cache curl
-#RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* # if based on Debian/Ubuntu
+#RUN apk add --no-cache curl # if based on Alpine
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* # if based on Debian/Ubuntu
 
 # Add /data directory with correct rights
 RUN mkdir /data && chown 1111:1111 /data
 
 WORKDIR /app
-COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
+COPY --from=builder /src/build/native/nativeCompile/greeter-microservice /app/microservice
 
 # Switch to unprivileged user for following commands
 USER appuser
-
-# add openjdk8 as the image above needs it as a fallback for now
-#RUN apk add openjdk8
-#ENV JAVA_HOME="/usr/lib/jvm/default-vm/"
-
-COPY --from=graalvm-builder /app/microservice .
-
 
 # Set the default port to 8080
 ENV MICRONAUT_SERVER_PORT 8080
