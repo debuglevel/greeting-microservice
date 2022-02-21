@@ -18,8 +18,10 @@ COPY gradlew /src/
 # Run "gradle --version" to let gradle-wrapper download Gradle
 RUN ./gradlew --version
 
-# Build source
+# Copy source, show versions, build
 COPY . /src/
+RUN java -version
+RUN ./gradlew --version
 RUN ./gradlew build
 
 ## Final image
