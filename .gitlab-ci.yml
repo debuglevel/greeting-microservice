@@ -11,7 +11,8 @@ variables:
 before_script:
   - JOB_TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
   - COMMIT_HASH_SHORT=${CI_COMMIT_SHA:0:8}
-  - COMMIT_BRANCH_OR_TAG=$CI_COMMIT_REF_SLUG
+  # Use git tag, but remove some invalid characters
+  - COMMIT_BRANCH_OR_TAG=$(echo $CI_COMMIT_REF_NAME | sed 's#[/.:() ]#-#g')
   - REGISTRY_HOST=$CI_REGISTRY
   - REGISTRY_USER=$CI_REGISTRY_USER
   - REGISTRY_PASSWORD=$CI_REGISTRY_PASSWORD
