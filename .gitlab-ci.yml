@@ -120,7 +120,7 @@ scan vulnerabilities (grype, docker):
   stage: scan
   image: ubuntu:20.04
   script:
-    - apt-get update && apt-get install -y curl
+    - apk add curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
     - grype sbom:./docker.sbom.syft.json -o json=docker.vulverabilities.grype.json -o table=docker.vulverabilities.grype.table -o table
   artifacts:
