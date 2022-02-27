@@ -111,8 +111,11 @@ scan vulnerabilities (grype, jar):
   script:
     - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
-    - grype sbom:./jar.sbom.syft.json -o json=jar.vulnerabilities.grype.json -o table=jar.vulnerabilities.grype.table -o table
-    - ls -al
+    # WORKAROUND: until https://github.com/anchore/grype/issues/648 is fixed
+    #- grype sbom:./jar.sbom.syft.json -o json=jar.vulnerabilities.grype.json -o table=jar.vulnerabilities.grype.table -o table
+    - grype sbom:./jar.sbom.syft.json -o json > jar.vulnerabilities.grype.json
+    - grype sbom:./jar.sbom.syft.json -o table > jar.vulnerabilities.grype.table
+    - grype sbom:./jar.sbom.syft.json -o table
   artifacts:
     paths:
       - "*vulnerabilities*"
@@ -123,8 +126,11 @@ scan vulnerabilities (grype, docker):
   script:
     - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
-    - grype sbom:./docker.sbom.syft.json -o json=docker.vulnerabilities.grype.json -o table=docker.vulnerabilities.grype.table -o table
-    - ls -al
+    # WORKAROUND: until https://github.com/anchore/grype/issues/648 is fixed
+    #- grype sbom:./docker.sbom.syft.json -o json=docker.vulnerabilities.grype.json -o table=docker.vulnerabilities.grype.table -o table
+    - grype sbom:./docker.sbom.syft.json -o json > docker.vulnerabilities.grype.json
+    - grype sbom:./docker.sbom.syft.json -o table > docker.vulnerabilities.grype.table
+    - grype sbom:./docker.sbom.syft.json -o table
   artifacts:
     paths:
       - "*vulnerabilities*"
