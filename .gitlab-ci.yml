@@ -44,12 +44,13 @@ build:
       # Reports (e.g. about failed tests)
       - "build/reports"
 
-sbom-syft-jar:
+collect SBOM using syft:
   stage: scan
   image: ubuntu:20.04
   script:
     - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+    - find build/distributions
     # This seems to give the most complete output. Not sure though how syft collects the SBOM.
     - syft file:$(find build/distributions | grep -v shadow | grep tar) -o json=sbom.syft.json -o table=sbom.syft.txt
   artifacts:
@@ -58,7 +59,7 @@ sbom-syft-jar:
 
 ## Build and push docker images
 # Build docker image and push it to the registry as "debuglevel/greeting-microservice:branch-97dd42c"
-build-docker-master:
+build docker image:
   stage: build
   image: docker:latest
   script:
@@ -68,7 +69,7 @@ build-docker-master:
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
 # Release (branch) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice:branch"
-release-docker:
+push docker image:
   stage: release
   image: docker:latest
   script:
@@ -78,7 +79,7 @@ release-docker:
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
 
 # Release (master) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice" (which automatically also becomes "debuglevel/greeting-microservice:latest")
-release-docker-master:
+push docker image on master as latest:
   stage: release
   image: docker:latest
   script:
