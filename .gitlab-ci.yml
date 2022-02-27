@@ -51,11 +51,13 @@ collect SBOM using syft:
     - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
     - find build/distributions
+    - find build/distributions | grep -v shadow | grep tar
+    - echo syft file:$(find build/distributions | grep -v shadow | grep tar) -o json=sbom.syft.json -o table=sbom.syft.txt
     # This seems to give the most complete output. Not sure though how syft collects the SBOM.
     - syft file:$(find build/distributions | grep -v shadow | grep tar) -o json=sbom.syft.json -o table=sbom.syft.txt
   artifacts:
     paths:
-      - sbom.*
+      - "sbom.*"
 
 ## Build and push docker images
 # Build docker image and push it to the registry as "debuglevel/greeting-microservice:branch-97dd42c"
