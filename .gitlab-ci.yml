@@ -97,7 +97,7 @@ collect SBOM (syft, docker):
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST
     - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
-    - apt-get update && apt-get install -y curl
+    - apk add curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
     # This seems to give the most complete output. Not sure though how syft collects the SBOM.
     - syft docker:"$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" -o json=docker.sbom.syft.json -o table=docker.sbom.syft.table -o table
@@ -120,7 +120,7 @@ scan vulnerabilities (grype, docker):
   stage: scan
   image: ubuntu:20.04
   script:
-    - apk add curl
+    - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
     - grype sbom:./docker.sbom.syft.json -o json=docker.vulverabilities.grype.json -o table=docker.vulverabilities.grype.table -o table
   artifacts:
