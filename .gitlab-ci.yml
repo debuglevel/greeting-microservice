@@ -92,7 +92,7 @@ collect SBOM (syft, jar):
 
 collect SBOM (syft, docker):
   stage: sbom
-  image: ubuntu:20.04
+  image: docker:latest
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST
     - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
