@@ -48,9 +48,10 @@ sbom-syft-jar:
   stage: scan
   image: ubuntu:20.04
   script:
+    - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-    # TODO: This might not yet list everything. The files in build/distributions have different output.
-    - syft build/libs/*-all.jar -o json=sbom.syft.json -o table=sbom.syft.txt
+    # This seems to give the most complete output. Not sure though how syft collects the SBOM.
+    - syft file:$(find build/distributions | grep -v shadow | grep tar) -o json=sbom.syft.json -o table=sbom.syft.txt
   artifacts:
     paths:
       - sbom.*
