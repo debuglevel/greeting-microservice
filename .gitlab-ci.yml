@@ -54,7 +54,7 @@ collect SBOM using syft:
     - find build/distributions | grep -v shadow | grep tar
     - echo syft file:$(find build/distributions | grep -v shadow | grep tar) -o json=sbom.syft.json -o table=sbom.syft.txt
     # This seems to give the most complete output. Not sure though how syft collects the SBOM.
-    - syft file:$(find build/distributions | grep -v shadow | grep tar) -o json=sbom.syft.json -o table=sbom.syft.txt
+    - syft file:"$(find build/distributions | grep -v shadow | grep tar)" -o json=sbom.syft.json -o table=sbom.syft.txt
   artifacts:
     paths:
       - "sbom.*"
