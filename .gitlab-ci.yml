@@ -112,6 +112,7 @@ scan vulnerabilities (grype, jar):
     - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
     - grype sbom:./jar.sbom.syft.json -o json=jar.vulnerabilities.grype.json -o table=jar.vulnerabilities.grype.table -o table
+    - ls -al
   artifacts:
     paths:
       - "*vulnerabilities*"
@@ -123,6 +124,7 @@ scan vulnerabilities (grype, docker):
     - apt-get update && apt-get install -y curl
     - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
     - grype sbom:./docker.sbom.syft.json -o json=docker.vulnerabilities.grype.json -o table=docker.vulnerabilities.grype.table -o table
+    - ls -al
   artifacts:
     paths:
       - "*vulnerabilities*"
