@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: ./gradlew build
-    #name: Gradle Build
+#name: Gradle Build
     command: ./gradlew run
     name: Application Server
 
@@ -12,6 +12,8 @@ ports:
 #onOpen: open-preview # do not open preview, because there is nothing served on /
 vscode:
   extensions:
-    - mathiasfrohlich.Kotlin@1.7.1
+    #- mathiasfrohlich.Kotlin@1.7.1 # Basic Kotlin extension
+    - fwcd.kotlin # Advanced Kotlin extension
     # code completion for application.yml (see: https://docs.micronaut.io/latest/guide/index.html#vsCodeSetup)
     - Pivotal.vscode-spring-boot@1.20.0
+    
