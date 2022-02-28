@@ -106,4 +106,4 @@ do
   echo -e >> $LOGFILE
 done
 
-cat $LOGFILE | column -t > $LOGFILE.columns
+cat $LOGFILE | column -t | tee $LOGFILE.columns
