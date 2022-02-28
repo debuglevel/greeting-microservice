@@ -21,6 +21,8 @@ before_script:
 stages:
   - build
   - release
+  - sbom
+  - scan
 
 # No explicit test stage is needed, as "gradle build" does already run the "test" task
 #test:
@@ -45,7 +47,7 @@ build:
 
 ## Build and push docker images
 # Build docker image and push it to the registry as "debuglevel/greeting-microservice:branch-97dd42c"
-build-docker-master:
+build docker image:
   stage: build
   image: docker:latest
   script:
@@ -55,7 +57,7 @@ build-docker-master:
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
 
 # Release (branch) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice:branch"
-release-docker:
+push docker image:
   stage: release
   image: docker:latest
   script:
@@ -65,7 +67,7 @@ release-docker:
     - docker push "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG" && echo "== Pushed docker image $REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG"
 
 # Release (master) docker image built above by pushing it to the registry as "debuglevel/greeting-microservice" (which automatically also becomes "debuglevel/greeting-microservice:latest")
-release-docker-master:
+push docker image on master as latest:
   stage: release
   image: docker:latest
   script:
@@ -75,3 +77,60 @@ release-docker-master:
     - docker push "$REGISTRY_IMAGE" && echo "== Pushed docker image $REGISTRY_IMAGE"
   only:
     - master
+
+collect SBOM (syft, jar):
+  stage: sbom
+  image: ubuntu:20.04
+  script:
+    - apt-get update && apt-get install -y curl
+    - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+    # This seems to give the most complete output. Not sure though how syft collects the SBOM.
+    - syft file:"$(find build/distributions | grep -v shadow | grep tar)" -o json=jar.sbom.syft.json -o table=jar.sbom.syft.table -o table
+  artifacts:
+    paths:
+      - "*sbom*"
+
+collect SBOM (syft, docker):
+  stage: sbom
+  image: docker:latest
+  script:
+    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_HOST
+    - docker pull "$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT"
+
+    - apk add curl
+    - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+    # This seems to give the most complete output. Not sure though how syft collects the SBOM.
+    - syft docker:"$REGISTRY_IMAGE:$COMMIT_BRANCH_OR_TAG-$COMMIT_HASH_SHORT" -o json=docker.sbom.syft.json -o table=docker.sbom.syft.table -o table
+  artifacts:
+    paths:
+      - "*sbom*"
+
+scan vulnerabilities (grype, jar):
+  stage: scan
+  image: ubuntu:20.04
+  script:
+    - apt-get update && apt-get install -y curl
+    - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+    # WORKAROUND: until https://github.com/anchore/grype/issues/648 is fixed
+    #- grype sbom:./jar.sbom.syft.json -o json=jar.vulnerabilities.grype.json -o table=jar.vulnerabilities.grype.table -o table
+    - grype sbom:./jar.sbom.syft.json -o json > jar.vulnerabilities.grype.json
+    - grype sbom:./jar.sbom.syft.json -o table > jar.vulnerabilities.grype.table
+    - grype sbom:./jar.sbom.syft.json -o table
+  artifacts:
+    paths:
+      - "*vulnerabilities*"
+
+scan vulnerabilities (grype, docker):
+  stage: scan
+  image: ubuntu:20.04
+  script:
+    - apt-get update && apt-get install -y curl
+    - curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+    # WORKAROUND: until https://github.com/anchore/grype/issues/648 is fixed
+    #- grype sbom:./docker.sbom.syft.json -o json=docker.vulnerabilities.grype.json -o table=docker.vulnerabilities.grype.table -o table
+    - grype sbom:./docker.sbom.syft.json -o json > docker.vulnerabilities.grype.json
+    - grype sbom:./docker.sbom.syft.json -o table > docker.vulnerabilities.grype.table
+    - grype sbom:./docker.sbom.syft.json -o table
+  artifacts:
+    paths:
+      - "*vulnerabilities*"
