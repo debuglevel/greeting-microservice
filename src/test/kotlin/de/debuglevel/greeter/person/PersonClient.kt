@@ -11,6 +11,7 @@ interface PersonClient {
     @Get("/{id}")
     fun get(@NotBlank id: UUID): Mono<GetPersonResponse>
 
+    // TODO: Should probably be a reactive Flux<> instead
     @Get("/")
     fun getAll(): List<GetPersonResponse>
 
