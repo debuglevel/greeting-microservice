@@ -1,5 +1,17 @@
 # Development notes
 
+## Use `person` as a template for new entities
+```bash
+export new_lower=animal
+export new_camelcase=Animal
+cp -a person $new_lower
+cd $new_lower
+sed -i "s/Person/$new_camelcase/g" *
+sed -i "s/person/$new_lower/g" *
+rename "s/Person/$new_camelcase/g" *
+cd ..
+```
+
 ## Update dependencies
 
 Run `./gradlew dependencyUpdates` to list all dependencies which have newer versions available.
