@@ -6,11 +6,13 @@ Hint: In `bash`, STRG+X STRG+E opens your `$EDITOR` to paste one or multiple com
 ```bash
 export new_camelcase=Animal
 export new_lower="${new_camelcase,,}"
-cp -a person $new_lower
+export old_camelcase=Person
+export old_lower="${old_camelcase,,}"
+cp -a $old_lower $new_lower
 cd $new_lower
-sed -i "s/Person/$new_camelcase/g" *
-sed -i "s/person/$new_lower/g" *
-rename "s/Person/$new_camelcase/g" *
+sed -i "s/$old_camelcase/$new_camelcase/g" *
+sed -i "s/$old_lower/$new_lower/g" *
+rename "s/$old_camelcase/$new_camelcase/g" *
 cd ..
 ```
 
