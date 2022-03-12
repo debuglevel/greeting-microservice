@@ -87,7 +87,7 @@ class PersonControllerTests {
     }
 
     @Test
-    fun `list persons`() {
+    fun `get all persons`() {
         // Arrange
         personProvider().forEach {
             personClient.add(AddPersonRequest(it)).block()
