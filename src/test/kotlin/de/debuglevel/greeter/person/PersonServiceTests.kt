@@ -17,39 +17,39 @@ class PersonServiceTests {
 
     @ParameterizedTest
     @MethodSource("personProvider")
-    fun `save person`(person: Person) {
+    fun `add person`(person: Person) {
         // Arrange
 
         // Act
-        val savedPerson = personService.add(person)
+        val addedPerson = personService.add(person)
 
         // Assert
-        assertThat(savedPerson).isEqualTo(person)
+        assertThat(addedPerson).isEqualTo(person)
     }
 
     @ParameterizedTest
     @MethodSource("personProvider")
-    fun `retrieve person`(person: Person) {
+    fun `get person`(person: Person) {
         // Arrange
         val savedPerson = personService.add(person)
 
         // Act
-        val retrievedPerson = personService.get(savedPerson.id!!)
+        val gotPerson = personService.get(savedPerson.id!!)
 
         // Assert
-        assertThat(retrievedPerson).isEqualTo(savedPerson)
+        assertThat(gotPerson).isEqualTo(savedPerson)
     }
 
     @Test
     fun `update person`() {
         // Arrange
         val person = Person(null, "Test")
-        val savedPerson = personService.add(person)
+        val addedPerson = personService.add(person)
 
         // Act
-        val retrievedPerson = personService.get(savedPerson.id!!)
-        retrievedPerson.name = "Test updated"
-        val updatedPerson = personService.update(retrievedPerson.id!!, retrievedPerson)
+        val gotPerson = personService.get(addedPerson.id!!)
+        gotPerson.name = "Test updated"
+        val updatedPerson = personService.update(gotPerson.id!!, gotPerson)
 
         // Assert
         assertThat(updatedPerson.name).isEqualTo("Test updated")
@@ -62,11 +62,11 @@ class PersonServiceTests {
     fun `update person with copy()`() {
         // Arrange
         val person = Person(null, "Test")
-        val savedPerson = personService.add(person)
+        val addedPerson = personService.add(person)
 
         // Act
-        val retrievedPerson = personService.get(savedPerson.id!!)
-        val updatePerson = retrievedPerson.copy(name = "Test updated")
+        val gotPerson = personService.get(addedPerson.id!!)
+        val updatePerson = gotPerson.copy(name = "Test updated")
         val updatedPerson = personService.update(updatePerson.id!!, updatePerson)
 
         // Assert
