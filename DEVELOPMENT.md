@@ -1,9 +1,11 @@
 # Development notes
 
 ## Use `person` as a template for new entities
+Hint: In `bash`, STRG+X STRG+E opens your `$EDITOR` to paste one or multiple commands.
+
 ```bash
-export new_lower=animal
 export new_camelcase=Animal
+export new_lower="${new_camelcase,,}"
 cp -a person $new_lower
 cd $new_lower
 sed -i "s/Person/$new_camelcase/g" *
