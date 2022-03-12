@@ -31,13 +31,44 @@ class PersonServiceTests {
     @MethodSource("personProvider")
     fun `get person`(person: Person) {
         // Arrange
-        val savedPerson = personService.add(person)
+        val addedPerson = personService.add(person)
 
         // Act
-        val gotPerson = personService.get(savedPerson.id!!)
+        val gotPerson = personService.get(addedPerson.id!!)
 
         // Assert
-        assertThat(gotPerson).isEqualTo(savedPerson)
+        assertThat(gotPerson).isEqualTo(addedPerson)
+    }
+
+    @ParameterizedTest
+    @MethodSource("personProvider")
+    fun `person exists`(person: Person) {
+        // Arrange
+        val addedPerson = personService.add(person)
+
+        // Act
+        val personExists = personService.exists(addedPerson.id!!)
+
+        // Assert
+        assertThat(personExists).isTrue
+    }
+
+    @Test
+    fun `count persons`() {
+        val persons = personProvider().toList()
+
+        val initialPersonCount = personService.count
+
+        persons.forEachIndexed { index, person ->
+            // Arrange
+            personService.add(person)
+
+            // Act
+            val personCount = personService.count
+
+            // Assert
+            assertThat(personCount).isEqualTo(initialPersonCount + index + 1)
+        }
     }
 
     @Test
@@ -71,6 +102,40 @@ class PersonServiceTests {
 
         // Assert
         assertThat(updatedPerson.name).isEqualTo("Test updated")
+    }
+
+    @Test
+    fun `delete person`() {
+        // Arrange
+        val person = Person(null, "Test")
+        val addedPerson = personService.add(person)
+        val personCount = personService.count
+
+        // Act
+        personService.delete(addedPerson.id!!)
+        val personExists = personService.exists(addedPerson.id!!)
+        val personCountAfterDeletion = personService.count
+
+        // Assert
+        assertThat(personExists).isFalse
+        assertThat(personCountAfterDeletion).isEqualTo(personCount - 1)
+    }
+
+    @Test
+    fun `delete all persons`() {
+        val persons = personProvider().toList()
+
+        // Arrange
+        for (person in persons) {
+            personService.add(person)
+        }
+
+        // Act
+        personService.deleteAll()
+        val personCountAfterDeletion = personService.count
+
+        // Assert
+        assertThat(personCountAfterDeletion).isEqualTo(0)
     }
 
     fun personProvider() = TestDataProvider.personProvider()
