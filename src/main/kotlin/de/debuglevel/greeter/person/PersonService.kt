@@ -68,7 +68,7 @@ class PersonService(
     fun update(id: UUID, person: Person): Person {
         logger.debug { "Updating person '$person' with ID '$id'..." }
 
-        // an object must be known to Hibernate (i.e. retrieved first) to get updated;
+        // An object must be known to Hibernate (i.e. retrieved first) to get updated;
         // it would be a "detached entity" otherwise.
         val updatePerson = this.get(id).apply {
             name = person.name
