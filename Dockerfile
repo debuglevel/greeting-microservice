@@ -1,4 +1,4 @@
-ARG OPENJDK_VERSION=17.0.2
+ARG OPENJDK_VERSION=17.0.3
 
 
 ## Building stage
