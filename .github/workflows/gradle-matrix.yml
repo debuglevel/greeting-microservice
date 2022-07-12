@@ -5,7 +5,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle (Matrix)
+name: Java CI (Matrix)
 
 on:
   push:
@@ -18,23 +18,23 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false  # Continue other jobs if one failed
       matrix:
         java-version: [ '17', '18' ]
-        java-distribution: [ 'zulu', 'temurin', 'corretto', 'liberica' ]
+        java-distribution: [ 'zulu', 'temurin', 'corretto', 'liberica' ]  # 2022-07-13: 'microsoft' does not yet provide JDK 18 and would break the matrix
         os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
-    name: Java ${{ matrix.java-distribution }} ${{ matrix.java-version }} sample on ${{ matrix.os }}
+    name: JDK ${{ matrix.java-version }} (${{ matrix.java-distribution }}) on ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
+    - name: Check out repository
+      uses: actions/checkout@v3
+    - name: Set up JDK
       uses: actions/setup-java@v3
       with:
         java-version: ${{ matrix.java-version }}
         distribution: ${{ matrix.java-distribution }}
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+    - name: Build
+      uses: gradle/gradle-build-action@v2
       with:
         arguments: build
