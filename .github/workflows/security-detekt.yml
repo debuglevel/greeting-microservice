@@ -83,14 +83,12 @@ jobs:
     - name: Setup Detekt
       run: |
         dest=$( mktemp -d )
-        echo $dest
         curl --request GET \
           --url ${{ steps.detekt_info.outputs.download_url }} \
           --silent \
           --location \
           --output $dest/detekt
         chmod a+x $dest/detekt
-        ls -al $dest/detekt
         echo $dest >> $GITHUB_PATH
 
     # Performs static analysis using Detekt
