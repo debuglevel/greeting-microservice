@@ -1,4 +1,4 @@
-name: "GHCR: Create and publish (also on PRs)"
+name: "Docker Registry: Create and publish (also on PRs)"
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
