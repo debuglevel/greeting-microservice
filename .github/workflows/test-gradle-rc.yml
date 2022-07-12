@@ -1,6 +1,6 @@
 # Not sure I really want this action; but it can provide fats feedback on upcoming changes.
 
-name: Test Gradle build configuration with latest Gradle RC
+name: "Upcoming: Test Gradle build configuration with latest Gradle RC"
 on:
   schedule:
     - cron: 0 0 * * *  # daily

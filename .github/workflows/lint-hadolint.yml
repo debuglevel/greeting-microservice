@@ -6,7 +6,7 @@
 # that helps you build best practice Docker images.
 # More details at https://github.com/hadolint/hadolint
 
-name: Hadolint
+name: "Lint: Hadolint (Dockerfile)"
 
 on:
   push:
