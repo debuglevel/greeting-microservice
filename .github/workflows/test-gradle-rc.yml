@@ -24,4 +24,5 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         gradle-version: release-candidate
-    - run: gradle build --dry-run  # Just test build configuration
+    - name: Gradle dry-run
+      run: gradle build --dry-run  # Just test build configuration
