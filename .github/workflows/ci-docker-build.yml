@@ -1,0 +1,26 @@
+name: "CI: Build Docker image"
+
+on:
+  push:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+  pull_request:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+
+jobs:
+  build-docker-image:
+    name: Build Docker image
+
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: false

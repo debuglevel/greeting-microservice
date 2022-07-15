@@ -1,0 +1,31 @@
+name: "CI: Build"
+
+on:
+  push:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+  pull_request:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build with Gradle
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
