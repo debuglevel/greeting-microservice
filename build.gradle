@@ -306,7 +306,12 @@ graalvmNative {
         main {
             // debug = true // Generate debug info
             // verbose = true
+
             // buildArgs.add("--trace-class-initialization=kotlin.jvm.internal.Reflection,kotlin.KotlinVersion")
+
+            // Workaround for failing build; see https://github.com/micronaut-projects/micronaut-core/issues/7107
+            // TODO: Might also be solved by using the micronaut-kotlin project.
+            buildArgs.add("--initialize-at-run-time=com.fasterxml.jackson.module.kotlin")
         }
     }
 }
