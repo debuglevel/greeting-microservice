@@ -29,6 +29,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
