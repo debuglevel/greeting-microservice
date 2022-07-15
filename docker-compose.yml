@@ -46,7 +46,7 @@ services:
 #  db:
 #    image: mariadb:10.5.8-focal
 ##    ports:
-##      - 3306:3306
+##      - "3306:3306"
 #    environment:
 #      - MYSQL_ROOT_PASSWORD=password
 #      # would not create a database if MYSQL_DATABASE is not set
@@ -58,7 +58,7 @@ services:
 #  postgres:
 #    image: postgres:13.2-alpine
 #    ports:
-#      - 5432:5432
+#      - "5432:5432"
 #    environment:
 #      # does not seem to work
 #      - POSTGRES_DATABASE=db
@@ -68,14 +68,14 @@ services:
 #  phpmyadmin:
 #    image: phpmyadmin:5.0.4
 #    ports:
-#      - 8090:80
+#      - "8090:80"
 #    environment:
 #      - PMA_HOST=db
 #      - UPLOAD_LIMIT=1024000
 #  adminer:
 #    image: adminer:4.7.8-standalone
 #    ports:
-#      - 8091:8080
+#      - "8091:8080"
 #    environment:
 #      - ADMINER_DEFAULT_SERVER=db
 

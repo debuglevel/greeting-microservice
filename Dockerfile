@@ -1,12 +1,14 @@
-ARG OPENJDK_VERSION=17.0.2
+ARG OPENJDK_VERSION=17.0.3
 ARG OPENJDK_MAJOR_VERSION=17
 ARG GRAALVM_MAJOR_VERSION=22.0.0.2
 
 ## Building stage
-#FROM azul/zulu-openjdk:${OPENJDK_VERSION} AS runtime # Ubuntu
+# "zulu-openjdk" is Ubuntu
+#FROM azul/zulu-openjdk:${OPENJDK_VERSION} AS builder
 #FROM azul/zulu-openjdk-debian:${OPENJDK_VERSION} AS runtime
 #FROM azul/zulu-openjdk-alpine:$OPENJDK_VERSION AS builder
 FROM ghcr.io/graalvm/native-image:ol8-java${OPENJDK_MAJOR_VERSION}-${GRAALVM_MAJOR_VERSION} AS builder
+
 WORKDIR /src/
 
 # Cache Gradle
@@ -22,6 +24,7 @@ RUN ./gradlew --version
 RUN native-image --version
 RUN ./gradlew build
 RUN ./gradlew nativeCompile
+
 
 ## Final image
 #FROM azul/zulu-openjdk-alpine:${OPENJDK_VERSION}-jre AS runtime
@@ -52,6 +55,7 @@ EXPOSE 8080
 # Use a log appender with no timestamps as Docker logs the timestamp itself (`docker logs -t ID`)
 ENV LOG_APPENDER classic-stdout
 
-HEALTHCHECK --interval=5m --timeout=5s --retries=3 --start-period=1m CMD curl --fail http://localhost:8080/health || exit 1
+# CAVEAT: interval should not be too high, as some tools (e.g. traefik) wait for a healthy state.
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=60s CMD curl --fail http://localhost:8080/health || exit 1
 
 CMD ["./microservice"]

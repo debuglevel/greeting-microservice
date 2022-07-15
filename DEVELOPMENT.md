@@ -1,8 +1,25 @@
 # Development notes
 
+## Use `person` as a template for new entities
+Hint: In `bash`, STRG+X STRG+E opens your `$EDITOR` to paste one or multiple commands.
+
+```bash
+export new_camelcase=Animal
+export new_lower="${new_camelcase,,}"
+export old_camelcase=Person
+export old_lower="${old_camelcase,,}"
+cp -a $old_lower $new_lower
+cd $new_lower
+sed -i "s/$old_camelcase/$new_camelcase/g" *
+sed -i "s/$old_lower/$new_lower/g" *
+rename "s/$old_camelcase/$new_camelcase/g" *
+cd ..
+```
+
 ## Update dependencies
 
 Run `./gradlew dependencyUpdates` to list all dependencies which have newer versions available.
+Run `./gradlew wrapper` to update `gradlew`.
 
 ## Report licenses
 

@@ -9,7 +9,6 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.*
-import kotlin.streams.toList
 
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -88,14 +87,14 @@ class PersonControllerTests {
     }
 
     @Test
-    fun `list persons`() {
+    fun `get all persons`() {
         // Arrange
         personProvider().forEach {
             personClient.add(AddPersonRequest(it)).block()
         }
 
         // Act
-        val getPersons = personClient.list()
+        val getPersons = personClient.getAll()
 
         // Assert
         Assertions.assertThat(getPersons).extracting<String> { x -> x.name }

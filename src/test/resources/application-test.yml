@@ -7,6 +7,8 @@ micronaut:
 #        urls: # environment variable list would be MICRONAUT_HTTP_SERVICES_FOO_URLS=http://prod1,http://prod2
 #          - http://foo1
 #          - http://foo2
+  security:
+    #enabled: false # Not sure if disabling security in tests is wise, because you probably should test security.
 
 # default values of consul section only apply if io.micronaut:micronaut-discovery-client is available
 consul:

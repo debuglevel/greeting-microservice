@@ -52,16 +52,6 @@ $ git tag -d $(git tag -l) && git fetch && git push origin --delete $(git tag -l
 
 If you use the "Use this template" on GitHub, this is not needed.
 
-### Updating dependencies
-
-The libraries used in this template might be out-of-date. To identify those dependencies,
-run `./gradlew dependencyUpdates`. Once in a while, `./gradlew wrapper` should be run.
-
-### List licenses of dependencies
-
-With `./gradlew generateLicenseReport` you can generate a list (at `build/reports/dependency-license`) of all licenses
-used in dependencies.
-
 ## HTTP API
 
 ### OpenAPI / Swagger
@@ -122,7 +112,7 @@ Implementing endpoints is quite simple and demonstrated in `GreetingEndpoint`.
 
 As gRPC server reflection is provided by the `ReflectionFactory`, `grpcurl` can list all available services:
 
-```
+```bash
 $ ./grpcurl -plaintext localhost:50051 list
 greeting.Greeting
 grpc.reflection.v1alpha.ServerReflection
@@ -132,7 +122,7 @@ grpc.reflection.v1alpha.ServerReflection
 
 A gRPC call can be made with:
 
-```
+```bash
 $ ./grpcurl -plaintext -d '{"name":"Hans", "locale":"de_DE"}' localhost:50051 greeting.Greeting/Greet
 {
   "message": "Grüß Gott, Hans"
