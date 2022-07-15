@@ -10,46 +10,16 @@ info:
     url: https://unlicense.org/
   version: "0.1"
 paths:
-  /greetings/{name}:
-    get:
-      tags:
-        - greetings
-      summary: "Get a greeting for a person. If given, the greeting is localized in\
-        \ a language."
-      description: "Get a greeting for a person. If given, the greeting is localized\
-        \ in a language."
-      operationId: getOneGreeting
-      parameters:
-        - name: name
-          in: path
-          description: Name of the person to greet
-          required: true
-          schema:
-            type: string
-        - name: language
-          in: query
-          description: The language to greet the person in
-          required: false
-          schema:
-            type: string
-            nullable: true
-      responses:
-        default:
-          description: A greeting for a person in a given language
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Greeting'
   /greetings:
     get:
       tags:
-        - greetings
+      - greetings
       summary: Gets some greetings.
       description: Gets some greetings.
       operationId: getAllGreetings
-      parameters: [ ]
+      parameters: []
       responses:
-        default:
+        "200":
           description: Some greetings
           content:
             application/json:
@@ -59,24 +29,56 @@ paths:
                   $ref: '#/components/schemas/Greeting'
     post:
       tags:
-        - greetings
+      - greetings
       summary: "Get a greeting for a person. If given, the greeting is localized in\
         \ a language."
       description: "Get a greeting for a person. If given, the greeting is localized\
         \ in a language."
       operationId: postOneGreeting
-      parameters: [ ]
+      parameters: []
       requestBody:
         content:
           application/json:
             schema:
+              required:
+              - greetingRequest
               type: object
               properties:
                 greetingRequest:
                   $ref: '#/components/schemas/GreetingRequest'
         required: true
       responses:
-        default:
+        "200":
+          description: A greeting for a person in a given language
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Greeting'
+  /greetings/{name}:
+    get:
+      tags:
+      - greetings
+      summary: "Get a greeting for a person. If given, the greeting is localized in\
+        \ a language."
+      description: "Get a greeting for a person. If given, the greeting is localized\
+        \ in a language."
+      operationId: getOneGreeting
+      parameters:
+      - name: name
+        in: path
+        description: Name of the person to greet
+        required: true
+        schema:
+          type: string
+      - name: language
+        in: query
+        description: The language to greet the person in
+        required: false
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
           description: A greeting for a person in a given language
           content:
             application/json:
@@ -85,13 +87,13 @@ paths:
   /persons:
     get:
       tags:
-        - persons
+      - persons
       summary: Get all persons
       description: Get all persons
       operationId: getAllPersons
-      parameters: [ ]
+      parameters: []
       responses:
-        default:
+        "200":
           description: All persons
           content:
             application/json:
@@ -101,22 +103,24 @@ paths:
                   $ref: '#/components/schemas/GetPersonResponse'
     post:
       tags:
-        - persons
+      - persons
       summary: Create a person.
       description: Create a person.
       operationId: postOnePerson
-      parameters: [ ]
+      parameters: []
       requestBody:
         content:
           application/json:
             schema:
+              required:
+              - addPersonRequest
               type: object
               properties:
                 addPersonRequest:
                   $ref: '#/components/schemas/AddPersonRequest'
         required: true
       responses:
-        default:
+        "200":
           description: A person with their ID
           content:
             application/json:
@@ -124,113 +128,27 @@ paths:
                 $ref: '#/components/schemas/AddPersonResponse'
     delete:
       tags:
-        - persons
+      - persons
       summary: Delete all person.
       description: Delete all person.
       operationId: deleteAllPersons
-      parameters: [ ]
+      parameters: []
       responses:
-        default:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unit'
-  /persons/{id}:
-    get:
-      tags:
-        - persons
-      summary: Get a person
-      description: Get a person
-      operationId: getOnePerson
-      parameters:
-        - name: id
-          in: path
-          description: ID of the person
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        default:
-          description: A person
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetPersonResponse'
-    put:
-      tags:
-        - persons
-      summary: Update a person.
-      description: Update a person.
-      operationId: putOnePerson
-      parameters:
-        - name: id
-          in: path
-          description: ID of the person
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                updatePersonRequest:
-                  $ref: '#/components/schemas/UpdatePersonRequest'
-        required: true
-      responses:
-        default:
-          description: The updated person
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdatePersonResponse'
-    delete:
-      tags:
-        - persons
-      summary: Delete a person.
-      description: Delete a person.
-      operationId: deleteOnePerson
-      parameters:
-        - name: id
-          in: path
-          description: ID of the person
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Unit'
-  /persons/endlessRandom:
-    get:
-      tags:
-        - persons
-      summary: Download a never ending file of random names
-      description: Download a never ending file of random names
-      operationId: downloadRandomEndless
-      parameters: [ ]
-      responses:
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StreamedFile'
   /persons/VIPs:
     get:
       tags:
-        - persons
+      - persons
       summary: Get all VIPs
       description: Get all VIPs
       operationId: getVIPs
-      parameters: [ ]
+      parameters: []
       responses:
-        default:
+        "200":
           description: All VIPs
           content:
             application/json:
@@ -238,15 +156,136 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GetPersonResponse'
+  /persons/endlessRandom:
+    get:
+      tags:
+      - persons
+      summary: Download a never ending file of random names
+      description: Download a never ending file of random names
+      operationId: downloadRandomEndless
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+  /persons/{id}:
+    get:
+      tags:
+      - persons
+      summary: Get a person
+      description: Get a person
+      operationId: getOnePerson
+      parameters:
+      - name: id
+        in: path
+        description: ID of the person
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: A person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPersonResponse'
+    put:
+      tags:
+      - persons
+      summary: Update a person.
+      description: Update a person.
+      operationId: putOnePerson
+      parameters:
+      - name: id
+        in: path
+        description: ID of the person
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - updatePersonRequest
+              type: object
+              properties:
+                updatePersonRequest:
+                  $ref: '#/components/schemas/UpdatePersonRequest'
+        required: true
+      responses:
+        "200":
+          description: The updated person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatePersonResponse'
+    delete:
+      tags:
+      - persons
+      summary: Delete a person.
+      description: Delete a person.
+      operationId: deleteOnePerson
+      parameters:
+      - name: id
+        in: path
+        description: ID of the person
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unit'
 components:
   schemas:
+    AddPersonRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+    AddPersonResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    GetPersonResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
     Greeting:
+      required:
+      - greeting
       type: object
       properties:
         greeting:
           type: string
-      description: A greeting
     GreetingRequest:
+      required:
+      - name
       type: object
       properties:
         name:
@@ -254,28 +293,19 @@ components:
         language:
           type: string
           nullable: true
-    GetPersonResponse:
+    Unit:
       type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    AddPersonResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    AddPersonRequest:
+    UpdatePersonRequest:
+      required:
+      - name
       type: object
       properties:
         name:
           type: string
     UpdatePersonResponse:
+      required:
+      - id
+      - name
       type: object
       properties:
         id:
@@ -283,61 +313,3 @@ components:
           format: uuid
         name:
           type: string
-    UpdatePersonRequest:
-      type: object
-      properties:
-        name:
-          type: string
-    Unit:
-      type: object
-    StreamedFile:
-      type: object
-      properties:
-        lastModified:
-          type: integer
-          format: int64
-        length:
-          type: integer
-          format: int64
-        mediaType:
-          $ref: '#/components/schemas/MediaType'
-        inputStream:
-          $ref: '#/components/schemas/InputStream'
-    MediaType:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        subtype:
-          type: string
-        extension:
-          type: string
-        parameters:
-          type: array
-          items:
-            type: string
-        quality:
-          type: string
-        qualityAsNumber:
-          type: number
-        version:
-          type: string
-        charset:
-          $ref: '#/components/schemas/Charset'
-        textBased:
-          type: boolean
-    Charset:
-      type: object
-      properties:
-        registered:
-          type: boolean
-        name:
-          type: string
-        aliases:
-          type: array
-          items:
-            type: string
-    InputStream:
-      type: object
