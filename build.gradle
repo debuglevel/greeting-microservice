@@ -301,6 +301,16 @@ protobuf {
     }
 }
 
+graalvmNative {
+    binaries {
+        main {
+            // debug = true // Generate debug info
+            // verbose = true
+            // buildArgs.add("--trace-class-initialization=kotlin.jvm.internal.Reflection,kotlin.KotlinVersion")
+        }
+    }
+}
+
 // Filter out beta versions et cetera on dependency update check.
 dependencyUpdates.resolutionStrategy {
     componentSelection { rules ->
