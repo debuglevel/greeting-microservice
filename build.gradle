@@ -45,7 +45,7 @@ plugins {
     id 'com.github.jk1.dependency-license-report'
 
     // Support for GraalVM native-image with "./gradlew nativeCompile"
-    id "io.micronaut.graalvm" version "3.2.2"
+    id "io.micronaut.graalvm" version "3.5.0"
 }
 // Enhance Hibernate entities (see configuration block below).
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
