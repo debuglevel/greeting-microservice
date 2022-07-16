@@ -20,6 +20,7 @@ cd ..
 
 Run `./gradlew dependencyUpdates` to list all dependencies which have newer versions available.
 Run `./gradlew wrapper` to update `gradlew`.
+Run `./gradlew dependencies` to list dependencies.
 
 ## Report licenses
 
