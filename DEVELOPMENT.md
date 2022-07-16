@@ -42,6 +42,30 @@ git {
 }
 ```
 
+## GraalVM
+
+Install `sdkman`:
+
+```bash
+sudo apt update
+sudo apt install unzip zip
+curl -s "https://get.sdkman.io" | bash
+source "~/.sdkman/bin/sdkman-init.sh"
+```
+
+Install GraalVM:
+
+```bash
+sdk install java 22.1.0.r17-grl
+gu install native-image
+```
+
+Build with `native-image`:
+
+```bash
+./gradlew nativeCompile
+```
+
 ## Liquibase
 
 Liquibase is a tool to migrate a service's database between releases. Often Hibernate creates or alters (if possible)
