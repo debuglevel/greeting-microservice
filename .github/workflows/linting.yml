@@ -1,4 +1,4 @@
-name: "Lint: Hadolint (Dockerfile)"
+name: "Linting"
 
 on:
   push:
@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   hadolint:
-    name: Run hadolint scanning
+    name: hadolint
     
     runs-on: ubuntu-latest
 
@@ -35,3 +35,22 @@ jobs:
         with:
           sarif_file: hadolint-results.sarif
           wait-for-processing: true
+
+  super-linter:
+    name: Super-Linter
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+
+      - name: Lint
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: "master"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

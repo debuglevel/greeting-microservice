@@ -1,4 +1,4 @@
-name: "CI: Build and publish Docker image"
+name: "Docker"
 
 on:
   push:
@@ -12,6 +12,24 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  build-docker-image:
+    name: Build Docker image
+
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: false
+
   build-and-publish-docker-image:
     name: Build and publish Docker image
 
