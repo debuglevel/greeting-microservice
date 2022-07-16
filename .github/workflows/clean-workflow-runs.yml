@@ -1,4 +1,4 @@
-name: Clean Workflow Logs
+name: "Clean: Workflow Logs"
 
 on:
   workflow_dispatch:
