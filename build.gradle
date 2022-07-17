@@ -362,3 +362,12 @@ task copyOpenAPI(dependsOn: ['kaptKotlin'], type: Copy) {
     rename ".*\\.yml", "openapi.yaml"
 }
 tasks.build.dependsOn copyOpenAPI
+
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("de.debuglevel.*")
+    }
+}
