@@ -312,6 +312,10 @@ protobuf {
 }
 
 graalvmNative {
+    // Gradle may not properly detect the correct toolchain.
+    // This will search in 1. GRAALVM_HOME and 2. JAVA_HOME for a GraalVM installation and use it.
+    toolchainDetection = false
+
     binaries {
         main {
             // debug = true // Generate debug info
@@ -326,7 +330,6 @@ graalvmNative {
         }
     }
 }
-graalvmNative.toolchainDetection = false
 
 // Filter out beta versions et cetera on dependency update check.
 dependencyUpdates.resolutionStrategy {
