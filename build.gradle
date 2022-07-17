@@ -316,7 +316,7 @@ graalvmNative {
             // Workaround for failing build; see https://github.com/micronaut-projects/micronaut-core/issues/7107
             // TODO: Might also be solved by using the micronaut-kotlin project. // we already use it.
             // TODO: untested
-            buildArgs.add("--initialize-at-build-time=kotlin.KotlinVersion,kotlin.jvm.internal.Reflection")
+            //buildArgs.add("--initialize-at-build-time=kotlin.KotlinVersion,kotlin.jvm.internal.Reflection")
         }
     }
 }
