@@ -320,6 +320,7 @@ graalvmNative {
         }
     }
 }
+graalvmNative.toolchainDetection = false
 
 // Filter out beta versions et cetera on dependency update check.
 dependencyUpdates.resolutionStrategy {
