@@ -42,8 +42,12 @@ plugins {
     id 'com.github.jk1.dependency-license-report'
 
     // Adds the following plugins (see https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/):
-    // io.micronaut.minimal.application (adds application)
-    //   Create start scripts; is executed on "build" task but not on e.g. "jar" task.
+    // io.micronaut.minimal.application
+    //   Adds application plugin
+    //     Adds java plugin
+    //     Adds distribution plugin
+    //     Run with "./gradlew run"
+    //     Generates start scripts; is executed on "build" task but not on e.g. "jar" task.
     // io.micronaut.graalvm
     //   Build GraalVM native-image with "./gradlew nativeCompile"
     //   Run with "./gradlew nativeRun"
@@ -62,9 +66,11 @@ ext {
     _title = applicationTitle
 }
 
-// Application plugin configuration
-applicationName = _title
-mainClassName = _mainClass
+// application plugin configuration
+application {
+    mainClass = _mainClass
+    applicationName = _title
+}
 
 repositories {
     mavenCentral()
