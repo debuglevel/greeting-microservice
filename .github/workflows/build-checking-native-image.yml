@@ -9,6 +9,7 @@ jobs:
   build-image:
     name: Build native image
     strategy:
+      fail-fast: false  # Continue other jobs if one failed
       matrix:
         os: [ 'ubuntu-latest' ]
         javaVersion: ['jdk17']
@@ -40,6 +41,7 @@ jobs:
     timeout-minutes: 90
 
     strategy:
+      fail-fast: false  # Continue other jobs if one failed
       matrix:
         os: [ 'ubuntu-latest' ]
         javaVersion: ['17']
