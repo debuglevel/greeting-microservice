@@ -1,0 +1,62 @@
+name: "Linting"
+
+on:
+  push:
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
+  pull_request:
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
+  schedule:
+    - cron: "0 0 * * *"  # daily
+
+permissions:
+  contents: read  # for actions/checkout to fetch code
+  security-events: write  # for github/codeql-action/upload-sarif to upload SARIF results
+
+jobs:
+  hadolint:
+    name: hadolint
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: ./Dockerfile
+          format: sarif
+          output-file: hadolint-results.sarif
+          no-fail: true
+
+      - name: Upload analysis results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: hadolint-results.sarif
+          wait-for-processing: true
+
+  super-linter:
+    name: Super-Linter
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+
+      - name: Lint
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: "master"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
