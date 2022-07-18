@@ -6,57 +6,59 @@ on:
       - feature-graalvm
 
 jobs:
-  build-linux-image:
-    name: 'Build Linux Image'
+  build-image:
+    name: Build native image
     strategy:
       matrix:
         os: [ 'ubuntu-latest' ]
-        extension: [ 'so' ]
-        include:
-          - os: 'ubuntu-latest'
-            label: 'linux'
+        javaVersion: ['jdk17']
+        graalVersion: ['22.1.0', 'latest', 'dev']
     runs-on: ${{matrix.os}}
 
     steps:
-      - name: 'Checkout'
+      - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Setup Graalvm
-        id: setup-graalvm
+      - name: Set up Graalvm
         uses: DeLaGuardo/setup-graalvm@5.0
         with:
-          graalvm: '22.1.0'
-          java: 'java17'
+          graalvm: ${{matrix.graalVersion}}
+          java: ${{matrix.javaVersion}}
           arch: 'amd64'
 
-      - name: 'Install Native Image Plugin'
-        run: |
-          gu install native-image
+      - name: Install native-image
+        run: gu install native-image
 
-      - run: java -version
+      - name: Show java version
+        run: java -version
 
-      - name: 'Build Native Image'
-        run: |
-          ./gradlew nativeCompile
+      - name: Build native image
+        run: ./gradlew nativeCompile
 
-  linux-image:
-    name: Linux
-    runs-on: ubuntu-latest
+  build-image-2:
+    name: Build native image
     timeout-minutes: 90
 
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest' ]
+        javaVersion: ['17']
+        graalVersion: ['22.1.0', 'latest', 'dev']
+    runs-on: ${{matrix.os}}
+
     steps:
-      - name: Environment
+      - name: Show environment
         run: env | sort
 
-      - name: Checkout
+      - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Setup Graalvm
+      - name: Set up GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
-          version: '22.1.0'
-          java-version: '17'
+          version: ${{matrix.graalVersion}}
+          java-version: ${{matrix.javaVersion}}
           components: 'native-image'
 
-      - name: Build Native Image
+      - name: Build native image
         run: ./gradlew nativeCompile
