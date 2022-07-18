@@ -16,6 +16,19 @@ rename "s/$old_camelcase/$new_camelcase/g" *
 cd ..
 ```
 
+## Format Markdown
+
+Format Markdown files:
+
+```bash
+sudo npm install -g markdownlint-cli
+markdownlint --fix .
+```
+
+```bash
+docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest --fix .
+```
+
 ## Update dependencies
 
 Run `./gradlew dependencyUpdates` to list all dependencies which have newer versions available.
