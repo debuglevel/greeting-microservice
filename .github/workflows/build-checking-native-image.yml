@@ -2,9 +2,15 @@ name: "Build checking GraalVM native-image"
 
 on:
   push:
-    branches: [ "master", "github-actions", "feature-graalvm" ]
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
   pull_request:
-    branches: [ "master", "github-actions", "feature-graalvm" ]
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
 
 permissions:
   contents: read
@@ -22,7 +28,7 @@ jobs:
     
     runs-on: ${{ matrix.os }}
 
-    timeout-minutes: 90
+    timeout-minutes: 360  # Maximum job execution time (as of 2022-07-18)
 
     steps:
       - name: Check out repository
