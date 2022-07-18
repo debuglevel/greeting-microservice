@@ -28,9 +28,6 @@ plugins {
     // Release version with "./gradlew release".
     id 'net.researchgate.release'
 
-    // Create start scripts; is executed on "build" task but not on e.g. "jar" task.
-    id 'application'
-
     // Bundle all dependencies into one fat shadowed jar.
     // (Gets automatically triggered when application plugin is present)
     id 'com.github.johnrengelman.shadow'
@@ -44,8 +41,19 @@ plugins {
     // List all licenses in "build/reports/dependency-license" with "./gradlew generateLicenseReport".
     id 'com.github.jk1.dependency-license-report'
 
-    // Support for GraalVM native-image with "./gradlew nativeCompile"
-    id "io.micronaut.graalvm" version "3.2.2"
+    // Adds the following plugins (see https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/):
+    // io.micronaut.minimal.application
+    //   Adds application plugin
+    //     Adds java plugin
+    //     Adds distribution plugin
+    //     Run with "./gradlew run"
+    //     Generates start scripts; is executed on "build" task but not on e.g. "jar" task.
+    // io.micronaut.graalvm
+    //   Build GraalVM native-image with "./gradlew nativeCompile"
+    //   Run with "./gradlew nativeRun"
+    //   Relies on https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
+    // io.micronaut.docker
+    id "io.micronaut.application" version "3.5.0"
 }
 // Enhance Hibernate entities (see configuration block below).
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
@@ -58,9 +66,11 @@ ext {
     _title = applicationTitle
 }
 
-// Application plugin configuration
-applicationName = _title
-mainClassName = _mainClass
+// application plugin configuration
+application {
+    mainClass = _mainClass
+    applicationName = _title
+}
 
 repositories {
     mavenCentral()
@@ -182,6 +192,16 @@ dependencies {
 
     // Debuglevel Microservice Commons
     //implementation "com.github.debuglevel:microservice-commons:f24dd3964f"
+}
+
+// Micronaut configuration
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations(_group + "." + _module + ".*")
+    }
 }
 
 // Java configuration
