@@ -1,0 +1,41 @@
+name: "Build checking (RC)"
+
+on:
+  push:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+  pull_request:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+  schedule:
+    - cron: "0 0 * * *"  # daily
+
+permissions:
+  contents: read
+
+jobs:
+  gradle-rc:
+    name: Build with Gradle ${{ matrix.gradle-version }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false  # Continue other jobs if one failed
+      matrix:
+        gradle-version: [ 'current', 'release-candidate' ]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: zulu
+      
+      - name: Build
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: ${{ matrix.gradle-version }}
+      
+      - name: Gradle dry-run
+        run: gradle build --dry-run  # Just test build configuration

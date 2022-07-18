@@ -1,0 +1,60 @@
+name: "Build checking"
+
+on:
+  push:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+  pull_request:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build with Gradle
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Build
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper  # 'wrapper' is the default; but make it explicit.
+          arguments: build
+
+  build-matrix:
+    name: Build with JDK ${{ matrix.java-version }} (${{ matrix.java-distribution }}) on ${{ matrix.os }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false  # Continue other jobs if one failed
+      matrix:
+        java-version: [ '17', '18' ]
+        java-distribution: [ 'zulu', 'temurin', 'corretto', 'liberica' ]  # 2022-07-13: 'microsoft' does not yet provide JDK 18 and would break the matrix
+        os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
+    
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ matrix.java-version }}
+        distribution: ${{ matrix.java-distribution }}
+        
+    - name: Build
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: wrapper  # 'wrapper' is the default; but make it explicit.
+        arguments: build
