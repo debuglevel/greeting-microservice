@@ -16,8 +16,9 @@ sed -i "s/$old_lower/$new_lower/g" *
 rename "s/$old_camelcase/$new_camelcase/g" *
 cd ..
 ```
+## Formatting
 
-## Format Markdown
+### Format Markdown
 
 Format Markdown files:
 
@@ -28,6 +29,17 @@ markdownlint --fix .
 
 ```bash
 docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest --fix .
+```
+
+### Format YAML
+
+Format YAML files:
+
+TODO: This is "opinionated" but seems not to be the opinion of some major tools (e.g. removes quotes around docker-compose.yml port definitions and some tools would warn about this.)
+
+```bash
+pip3 install yamlfix
+find \( -iname '*.yml' -or -iname '*.yaml' \) -exec yamlfix {} \;
 ```
 
 ## Update dependencies
