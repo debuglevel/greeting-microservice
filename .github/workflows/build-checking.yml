@@ -28,6 +28,7 @@ jobs:
       - name: Build
         uses: gradle/gradle-build-action@v2
         with:
+          gradle-version: wrapper  # 'wrapper' is the default; but make it explicit.
           arguments: build
 
   build-matrix:
@@ -55,4 +56,5 @@ jobs:
     - name: Build
       uses: gradle/gradle-build-action@v2
       with:
+        gradle-version: wrapper  # 'wrapper' is the default; but make it explicit.
         arguments: build
