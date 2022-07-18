@@ -312,6 +312,19 @@ shadowJar {
     mergeServiceFiles()
 }
 
+graalvmNative {
+    binaries {
+        main {
+            // debug = true // Generate debug info
+            // verbose = true
+
+            // buildArgs.add("--trace-class-initialization=kotlin.KotlinVersion,kotlin.jvm.internal.Reflection")
+
+            // buildArgs.add("-Ob") // TODO: Quick build; but there is probably an option for this.
+        }
+    }
+}
+
 // Deactivate zip generations in distributions folder as they are not very useful and take relatively much build time.
 tasks.distZip.enabled = false
 tasks.shadowDistZip.enabled = false
