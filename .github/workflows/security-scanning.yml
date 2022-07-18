@@ -2,9 +2,15 @@ name: "Security scanning"
 
 on:
   push:
-    branches: [ "master", "github-actions", "feature-graalvm" ]
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
   pull_request:
-    branches: [ "master", "github-actions", "feature-graalvm" ]
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
   schedule:
     - cron: '0 0 * * *'
 

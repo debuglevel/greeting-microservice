@@ -2,9 +2,15 @@ name: "Docker"
 
 on:
   push:
-    branches: [ "master", "github-actions", "feature-graalvm" ]
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
   pull_request:
-    branches: [ "master", "github-actions", "feature-graalvm" ]
+    branches:
+      - "master"
+      - "github-actions"
+      - "feature-graalvm"
 
 env:
   REGISTRY: ghcr.io
