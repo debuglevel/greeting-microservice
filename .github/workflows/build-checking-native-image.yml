@@ -12,7 +12,7 @@ jobs:
       fail-fast: false  # Continue other jobs if one failed
       matrix:
         os: [ 'ubuntu-latest', 'windows-latest' ]
-        javaVersion: ['jdk17']
+        javaVersion: ['java17']
         graalVersion: ['22.1.0', 'latest', 'dev']
     runs-on: ${{matrix.os}}
 
