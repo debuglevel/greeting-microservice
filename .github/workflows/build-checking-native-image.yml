@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-image:
-    name: Build native image
+    name: Build native image (DeLaGuardo/setup-graalvm@5.0)
     strategy:
       fail-fast: false  # Continue other jobs if one failed
       matrix:
@@ -37,7 +37,7 @@ jobs:
         run: ./gradlew nativeCompile
 
   build-image-2:
-    name: Build native image
+    name: Build native image (graalvm/setup-graalvm@v1)
     timeout-minutes: 90
 
     strategy:
