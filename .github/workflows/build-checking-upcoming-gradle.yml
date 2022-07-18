@@ -1,4 +1,4 @@
-name: "Build checking (RC)"
+name: "Build checking (upcoming Gradle versions)"
 
 on:
   push:
