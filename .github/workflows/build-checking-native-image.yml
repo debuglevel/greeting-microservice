@@ -1,0 +1,62 @@
+name: "Build check: native-image"
+on:
+  push:
+    branches:
+      - master
+      - feature-graalvm
+
+jobs:
+  build-linux-image:
+    name: 'Build Linux Image'
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest' ]
+        extension: [ 'so' ]
+        include:
+          - os: 'ubuntu-latest'
+            label: 'linux'
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: Setup Graalvm
+        id: setup-graalvm
+        uses: DeLaGuardo/setup-graalvm@5.0
+        with:
+          graalvm: '22.1.0'
+          java: 'java17'
+          arch: 'amd64'
+
+      - name: 'Install Native Image Plugin'
+        run: |
+          gu install native-image
+
+      - run: java -version
+
+      - name: 'Build Native Image'
+        run: |
+          ./gradlew nativeCompile
+
+  linux-image:
+    name: Linux
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Environment
+        run: env | sort
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Graalvm
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.1.0'
+          java-version: '17'
+          components: 'native-image'
+
+      - name: Build Native Image
+        run: ./gradlew nativeCompile
