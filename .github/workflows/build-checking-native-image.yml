@@ -1,65 +1,38 @@
-name: "Build check: native-image"
+name: "Build checking GraalVM native-image"
+
 on:
   push:
-    branches:
-      - master
-      - feature-graalvm
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+  pull_request:
+    branches: [ "master", "github-actions", "feature-graalvm" ]
+
+permissions:
+  contents: read
 
 jobs:
-  build-image:
-    name: Build native image (DeLaGuardo/setup-graalvm@5.0)
+  build:
+    name: Build native image with GraalVM
+
     strategy:
       fail-fast: false  # Continue other jobs if one failed
       matrix:
-        os: [ 'ubuntu-latest', 'windows-latest' ]
-        javaVersion: ['java17']
-        graalVersion: ['22.1.0', 'latest', 'dev']
-    runs-on: ${{matrix.os}}
+        os: [ 'ubuntu-latest' ]  # 'windows-latest' fails
+        java-version: [ '17' ]
+        graal-version: [ '22.1.0', 'latest', 'dev' ]
+    
+    runs-on: ${{ matrix.os }}
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
-      - name: Set up Graalvm
-        uses: DeLaGuardo/setup-graalvm@5.0
-        with:
-          graalvm: ${{matrix.graalVersion}}
-          java: ${{matrix.javaVersion}}
-          arch: 'amd64'
-
-      - name: Install native-image
-        run: gu install native-image
-
-      - name: Show java version
-        run: java -version
-
-      - name: Build native image
-        run: ./gradlew nativeCompile
-
-  build-image-2:
-    name: Build native image (graalvm/setup-graalvm@v1)
     timeout-minutes: 90
 
-    strategy:
-      fail-fast: false  # Continue other jobs if one failed
-      matrix:
-        os: [ 'ubuntu-latest', 'windows-latest' ]
-        javaVersion: ['17']
-        graalVersion: ['22.1.0', 'latest', 'dev']
-    runs-on: ${{matrix.os}}
-
     steps:
-      - name: Show environment
-        run: env | sort
-
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{matrix.graalVersion}}
-          java-version: ${{matrix.javaVersion}}
+          version: ${{ matrix.graal-version }}
+          java-version: ${{ matrix.java-version }}
           components: 'native-image'
 
       - name: Build native image
