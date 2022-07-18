@@ -327,7 +327,6 @@ graalvmNative {
             // TODO: Might also be solved by using the micronaut-kotlin project. // we already use it.
             // TODO: untested
             //buildArgs.add("--initialize-at-build-time=kotlin.KotlinVersion,kotlin.jvm.internal.Reflection")
-            buildArgs.add("--initialize-at-build-time=net.logstash.logback.encoder.LogstashEncoder")
 
             // Disable timeout by watchdog
             buildArgs.add("-H:-DeadlockWatchdogExitOnTimeout")
