@@ -1,6 +1,7 @@
 # Development notes
 
 ## Use `person` as a template for new entities
+
 Hint: In `bash`, STRG+X STRG+E opens your `$EDITOR` to paste one or multiple commands.
 
 ```bash
@@ -59,8 +60,8 @@ git {
 
 Liquibase is a tool to migrate a service's database between releases. Often Hibernate creates or alters (if possible)
 the database structure on startup (usually via `jpa.default.properties.hibernate.hbm2ddl.auto=update`).
-See https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/tool/schema/Action.html
-and https://www.baeldung.com/spring-boot-data-sql-and-schema-sql#controlling-database-creation-using-hibernate on the
+See <https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/tool/schema/Action.html>
+and <https://www.baeldung.com/spring-boot-data-sql-and-schema-sql#controlling-database-creation-using-hibernate> on the
 Hibernate feature.
 
 With Liquibase, this Hibernate feature is deactivated (`jpa.default.properties.hibernate.hbm2ddl.auto=none`) and
