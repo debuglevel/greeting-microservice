@@ -321,6 +321,9 @@ graalvmNative {
             // buildArgs.add("--trace-class-initialization=kotlin.KotlinVersion,kotlin.jvm.internal.Reflection")
 
             // buildArgs.add("-Ob") // TODO: Quick build; but there is probably an option for this.
+
+            // Set watchdog interval to 60 minutes
+            buildArgs.add("-H:DeadlockWatchdogInterval=60")
         }
     }
 }
