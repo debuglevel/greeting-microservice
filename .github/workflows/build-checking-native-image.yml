@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build:
-    name: Build native image with GraalVM
+    name: Build
 
     strategy:
       fail-fast: false  # Continue other jobs if one failed
@@ -43,3 +43,31 @@ jobs:
 
       - name: Build native image
         run: ./gradlew nativeCompile
+
+  test:
+    name: Test
+
+    strategy:
+      fail-fast: false  # Continue other jobs if one failed
+      matrix:
+        os: [ 'ubuntu-latest' ]  # 'windows-latest' fails
+        java-version: [ '17' ]
+        graal-version: [ '22.1.0', 'latest', 'dev' ]
+    
+    runs-on: ${{ matrix.os }}
+
+    timeout-minutes: 360  # Maximum job execution time (as of 2022-07-18)
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: ${{ matrix.graal-version }}
+          java-version: ${{ matrix.java-version }}
+          components: 'native-image'
+
+      - name: Test native image
+        run: ./gradlew nativeTest
