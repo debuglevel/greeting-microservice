@@ -31,6 +31,9 @@ jobs:
     timeout-minutes: 360  # Maximum job execution time (as of 2022-07-18)
 
     steps:
+      - name: Collect Workflow Telemetry
+        uses: runforesight/workflow-telemetry-action@v1
+        
       - name: free -m
         run: free -m
 
@@ -71,6 +74,9 @@ jobs:
     timeout-minutes: 360  # Maximum job execution time (as of 2022-07-18)
 
     steps:
+      - name: Collect Workflow Telemetry
+        uses: runforesight/workflow-telemetry-action@v1
+
       - name: free -m
         run: free -m
 
