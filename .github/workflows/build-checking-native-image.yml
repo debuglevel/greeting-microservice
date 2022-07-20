@@ -31,8 +31,14 @@ jobs:
     timeout-minutes: 360  # Maximum job execution time (as of 2022-07-18)
 
     steps:
+      - name: free -m
+        run: free -m
+
       - name: Check out repository
         uses: actions/checkout@v3
+
+      - name: free -m
+        run: free -m
 
       - name: Set up GraalVM
         uses: graalvm/setup-graalvm@v1
@@ -41,8 +47,14 @@ jobs:
           java-version: ${{ matrix.java-version }}
           components: 'native-image'
 
+      - name: free -m
+        run: free -m
+
       - name: Build native image
         run: ./gradlew nativeCompile
+
+      - name: free -m
+        run: free -m
 
   test:
     name: Test
@@ -59,8 +71,14 @@ jobs:
     timeout-minutes: 360  # Maximum job execution time (as of 2022-07-18)
 
     steps:
+      - name: free -m
+        run: free -m
+
       - name: Check out repository
         uses: actions/checkout@v3
+
+      - name: free -m
+        run: free -m
 
       - name: Set up GraalVM
         uses: graalvm/setup-graalvm@v1
@@ -69,5 +87,11 @@ jobs:
           java-version: ${{ matrix.java-version }}
           components: 'native-image'
 
+      - name: free -m
+        run: free -m
+
       - name: Test native image
         run: ./gradlew nativeTest
+
+      - name: free -m
+        run: free -m
