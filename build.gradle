@@ -327,7 +327,7 @@ graalvmNative {
             // Show trace of class initialization
             // buildArgs.add("--trace-class-initialization=kotlin.KotlinVersion,kotlin.jvm.internal.Reflection")
 
-            buildArgs.add("-H:DeadlockWatchdogInterval=180") // Set watchdog interval to 60 minutes
+            buildArgs.add("-H:DeadlockWatchdogInterval=340") // Set watchdog interval to 60 minutes
         }
     }
 }
