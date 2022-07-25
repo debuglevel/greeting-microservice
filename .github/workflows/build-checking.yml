@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build:
-    name: Build with Gradle
+    name: Build with main configuration (Zulu JDK 17)
 
     runs-on: ubuntu-latest
 
@@ -38,7 +38,7 @@ jobs:
           arguments: build
 
   build-matrix:
-    name: Build with JDK ${{ matrix.java-version }} (${{ matrix.java-distribution }}) on ${{ matrix.os }}
+    name: Build with alternative JDK ${{ matrix.java-version }} (${{ matrix.java-distribution }}) on ${{ matrix.os }}
 
     runs-on: ubuntu-latest
 
