@@ -6,6 +6,8 @@ on:
       - "master"
       - "github-actions"
       - "feature-graalvm"
+    tags:
+      - '*'
   pull_request:
     branches:
       - "master"
