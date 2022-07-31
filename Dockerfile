@@ -24,6 +24,7 @@ RUN ./gradlew --version
 RUN native-image --version
 RUN ./gradlew build
 RUN ./gradlew nativeCompile
+RUN ./gradlew nativeTest
 
 
 ## Final image
