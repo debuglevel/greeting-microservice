@@ -31,8 +31,8 @@ jobs:
           - '22.0.0.2'  # Usually builds
           - '22.1.0'    # Usually build runs out of memory
           - '22.2.0'    # Build fails due to Micronaut issue
-          - 'latest'
-          - 'dev'
+          # - 'latest'  # No such docker image
+          # - 'dev'     # No such docker image
 
     runs-on: ubuntu-latest
     
