@@ -53,8 +53,13 @@ jobs:
       - name: free -m
         run: free -m
 
-      - name: Build native image
-        run: ./gradlew nativeCompile
+      - name: Build native image (with retry)
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 30  # As of 2022-07-31 it takes around 20 minutes if passing.
+          max_attempts: 11  # (30+1)*11=341 which is just below the 360 minutes timeout of GitHub Actions
+          retry_wait_seconds: 60  # Wait 60 seconds to have a nicer workflow-telemetry generated
+          command: ./gradlew nativeCompile
 
       - name: free -m
         run: free -m
