@@ -22,9 +22,17 @@ jobs:
     strategy:
       fail-fast: false  # Continue other jobs if one failed
       matrix:
-        os: [ 'ubuntu-latest' ]  # 'windows-latest' fails
-        java-version: [ '17' ]
-        graal-version: [ '21.3.3', '22.0.0.2', '22.1.0', '22.2.0', 'latest', 'dev' ]
+        os:
+          - 'ubuntu-latest'  # 'windows-latest' fails
+        java-version:
+          - '17'
+        graal-version:
+          - '21.3.3'
+          - '22.0.0.2'
+          - '22.1.0'
+          - '22.2.0'
+          - 'latest'
+          - 'dev'
     
     runs-on: ${{ matrix.os }}
 
@@ -70,9 +78,17 @@ jobs:
     strategy:
       fail-fast: false  # Continue other jobs if one failed
       matrix:
-        os: [ 'ubuntu-latest' ]  # 'windows-latest' fails
-        java-version: [ '17' ]
-        graal-version: [ '21.3.3', '22.0.0.2', '22.1.0', '22.2.0', 'latest', 'dev' ]
+        os:
+          - 'ubuntu-latest'  # 'windows-latest' fails
+        java-version:
+          - '17'
+        graal-version:
+          - '21.3.3'
+          - '22.0.0.2'
+          - '22.1.0'
+          - '22.2.0'
+          - 'latest'
+          - 'dev'
     
     runs-on: ${{ matrix.os }}
 
