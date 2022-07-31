@@ -25,8 +25,8 @@ jobs:
       fail-fast: false  # Continue other jobs if one failed
       matrix:
         graal-version:
-          - '19.3.6'    # No Java 17 support
-          - '20.3.6'    # No Java 17 support
+          # - '19.3.6'  # No Java 17 support
+          # - '20.3.6'  # No Java 17 support
           - '21.3.3'    # Usually builds
           - '22.0.0.2'  # Usually builds
           - '22.1.0'    # Usually build runs out of memory
