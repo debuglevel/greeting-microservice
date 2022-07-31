@@ -49,7 +49,7 @@ jobs:
           context: .
           push: false
           build-args: |
-            GRAALVM_MAJOR_VERSION=${{ graal-version }}
+            GRAALVM_MAJOR_VERSION=${{ matrix.graal-version }}
 
   build-and-publish-docker-image:
     name: Build and publish Docker image
