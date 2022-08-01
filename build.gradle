@@ -53,7 +53,7 @@ plugins {
     //   Run with "./gradlew nativeRun"
     //   Relies on https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
     // io.micronaut.docker
-    id "io.micronaut.application" version "3.5.0"
+    id "io.micronaut.application" version "3.5.1"
 }
 // Enhance Hibernate entities (see configuration block below).
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
