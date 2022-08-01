@@ -1,8 +1,11 @@
 # Helm
+
 ## Install helm
+
 Install `helm` via `snap install helm` or `brew install brew`.
 
 ## Install chart
+
 Use the following command from the project root to install the chart (residing in the `helm` directory, hence the third argument is `helm`; you could also use `.` inside this directory) with instance name `testing` in the `greeting` namespace (which is created if not existing). Override the default `values.yaml` with your values defined in `helm/values-override.yaml`. Authorization to Kubernetes is given by referencing `/var/lib/rancher/k3s/server/cred/admin.kubeconfig`.
 
 Use `--dry-run` to just render the templates which would be installed.

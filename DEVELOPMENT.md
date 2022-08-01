@@ -1,6 +1,7 @@
 # Development notes
 
 ## Use `person` as a template for new entities
+
 Hint: In `bash`, STRG+X STRG+E opens your `$EDITOR` to paste one or multiple commands.
 
 ```bash
@@ -14,6 +15,31 @@ sed -i "s/$old_camelcase/$new_camelcase/g" *
 sed -i "s/$old_lower/$new_lower/g" *
 rename "s/$old_camelcase/$new_camelcase/g" *
 cd ..
+```
+## Formatting
+
+### Format Markdown
+
+Format Markdown files:
+
+```bash
+sudo npm install -g markdownlint-cli
+markdownlint --fix .
+```
+
+```bash
+docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest --fix .
+```
+
+### Format YAML
+
+Format YAML files:
+
+TODO: This is "opinionated" but seems not to be the opinion of some major tools (e.g. removes quotes around docker-compose.yml port definitions and some tools would warn about this.)
+
+```bash
+pip3 install yamlfix
+find \( -iname '*.yml' -or -iname '*.yaml' \) -exec yamlfix {} \;
 ```
 
 ## Update dependencies
@@ -71,8 +97,8 @@ Build with `native-image`:
 
 Liquibase is a tool to migrate a service's database between releases. Often Hibernate creates or alters (if possible)
 the database structure on startup (usually via `jpa.default.properties.hibernate.hbm2ddl.auto=update`).
-See https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/tool/schema/Action.html
-and https://www.baeldung.com/spring-boot-data-sql-and-schema-sql#controlling-database-creation-using-hibernate on the
+See <https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/tool/schema/Action.html>
+and <https://www.baeldung.com/spring-boot-data-sql-and-schema-sql#controlling-database-creation-using-hibernate> on the
 Hibernate feature.
 
 With Liquibase, this Hibernate feature is deactivated (`jpa.default.properties.hibernate.hbm2ddl.auto=none`) and

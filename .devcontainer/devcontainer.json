@@ -21,7 +21,7 @@
 		"docker-in-docker": "latest",
 		"docker-from-docker": "latest",
 		"kubectl-helm-minikube": "1.23",
-		"homebrew": "latest",
+		// "homebrew": "latest",
 		"java": "17"
 	},
 	"customizations": {

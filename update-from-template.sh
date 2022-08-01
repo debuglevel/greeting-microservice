@@ -20,6 +20,10 @@ files=(
     .dockerignore
     Dockerfile
     Procfile
+    .devcontainer/devcontainer.json
+    .devcontainer/Dockerfile
+    .github/workflows/build-checking.yml
+    .github/workflows/docker.yml
 
     # might need some merges
     settings.gradle
