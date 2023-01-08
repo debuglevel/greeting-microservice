@@ -27,9 +27,11 @@
 	"onCreateCommand": "echo '🐧 onCreateCommand' && date",
 	"updateContentCommand": "echo '🐧 updateContentCommand' && date",
 	"postCreateCommand": "echo '🐧 postCreateCommand' && date",
-	"postStartCommand": "echo '🐧 Building...' && date && ./gradlew build && echo '🐧 Built! You may now run ./gradlew run' && date",
+	"postStartCommand": "echo '🐧 postStartCommand' && date",
+	//"postStartCommand": "echo '🐧 Building...' && date && ./gradlew build && echo '🐧 Built! You may now run ./gradlew run' && date",
 	//"postStartCommand": "echo '🐧 Building and running...' && ./gradlew run",
-	"postAttachCommand": "echo '🐧 postAttachCommand' && date",
+	//"postAttachCommand": "echo '🐧 postAttachCommand' && date",
+	"postAttachCommand": "date && echo '🐧 Building and running...' && ./gradlew run",
 
 	// See https://containers.dev/implementors/json_reference/#min-host-reqs
 	// TODO: Unclear what this actually does on GitHub Codespaces
