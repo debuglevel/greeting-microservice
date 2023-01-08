@@ -51,6 +51,7 @@
 		"docker-from-docker": "latest",
 		"kubectl-helm-minikube": "1.23",
 		// "homebrew": "latest",
+		// "ghcr.io/devcontainers/features/node": "18",
 		"java": "17"
 	},
 
