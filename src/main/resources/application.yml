@@ -133,8 +133,9 @@ jpa:
           # Set to "none" because Liquibase creates the database structure on first startup.
           auto: none
 
+# TODO: Seems to fail as of the updates applied on 2023-01-08
 liquibase:
-  enabled: true
+  enabled: false
   datasources:
     default:
       change-log: 'liquibase-changelogs/root.xml'
