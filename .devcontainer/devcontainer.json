@@ -15,9 +15,9 @@
 
 	// See https://containers.dev/implementors/json_reference/#port-attributes
 	"portsAttributes": {
-		"3000": {
-			"label": "REST",
-			"onAutoForward": "openPreview"
+		"8080": {
+			"label": "backend",
+			"onAutoForward": "ignore"  // As at best it shows 404 at the root path
 			}
 		},
 
@@ -31,7 +31,11 @@
 	//"postStartCommand": "echo '🐧 Building...' && date && ./gradlew build && echo '🐧 Built! You may now run ./gradlew run' && date",
 	//"postStartCommand": "echo '🐧 Building and running...' && ./gradlew run",
 	//"postAttachCommand": "echo '🐧 postAttachCommand' && date",
-	"postAttachCommand": "date && echo '🐧 Building and running...' && ./gradlew run",
+	//"postAttachCommand": "date && echo '🐧 Building and running...' && ./gradlew run",
+	"postAttachCommand": {
+		"backend": "date && echo '🐧 Building and running backend...' && ./gradlew run"
+		//"db": ["mysql", "-u", "root", "-p", "my database"]
+	},
 
 	// See https://containers.dev/implementors/json_reference/#min-host-reqs
 	// TODO: Unclear what this actually does on GitHub Codespaces
