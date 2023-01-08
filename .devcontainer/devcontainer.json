@@ -23,13 +23,13 @@
 
 
 	// See https://containers.dev/implementors/json_reference/#lifecycle-scripts
-	"initializeCommand": "echo '🐧 initializeCommand'",
-	"onCreateCommand": "echo '🐧 onCreateCommand'",
-	"updateContentCommand": "echo '🐧 updateContentCommand'",
-	"postCreateCommand": "echo '🐧 postCreateCommand'",
-	"postStartCommand": "echo '🐧 Building...' && ./gradlew build && echo '🐧 Built! You may now run ./gradlew run'",
+	"initializeCommand": "echo '🐧 initializeCommand' && date",
+	"onCreateCommand": "echo '🐧 onCreateCommand' && date",
+	"updateContentCommand": "echo '🐧 updateContentCommand' && date",
+	"postCreateCommand": "echo '🐧 postCreateCommand' && date",
+	"postStartCommand": "echo '🐧 Building...' && date && ./gradlew build && echo '🐧 Built! You may now run ./gradlew run' && date",
 	//"postStartCommand": "echo '🐧 Building and running...' && ./gradlew run",
-	"postAttachCommand": "echo '🐧 postAttachCommand'",
+	"postAttachCommand": "echo '🐧 postAttachCommand' && date",
 
 	// See https://containers.dev/implementors/json_reference/#min-host-reqs
 	// TODO: Unclear what this actually does on GitHub Codespaces
