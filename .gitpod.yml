@@ -2,10 +2,15 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: ./gradlew build
-    #name: Gradle Build
-    command: ./gradlew run
-    name: Application Server
+  - name: Application Server
+    init: |
+      echo 🐧 GitPod Tasks -> Backend -> Init
+      ./gradlew build
+      echo 🐧 GitPod Tasks -> Backend -> Init done
+    command: |
+      echo 🐧 GitPod Tasks -> Backend -> Command
+      ./gradlew run
+      echo 🐧 GitPod Tasks -> Backend -> Command done
 
 ports:
   - port: 8080
