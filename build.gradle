@@ -301,7 +301,7 @@ jar {
     // Add Manifest to jar
     manifest {
         attributes 'Implementation-Title': applicationTitle,
-                'Implementation-Version': version,
+                'Implementation-Version': archiveVersion,
                 'Main-Class': _mainClass
     }
 }
