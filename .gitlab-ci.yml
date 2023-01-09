@@ -3,9 +3,10 @@ services:
     command: ["/bin/sh", "-c", "[[ -z $CERTIFICATE_URL ]] && ( echo Injecting no certificate && dockerd-entrypoint.sh || exit ) || ( echo Injecting certificate $CERTIFICATE_URL && wget $CERTIFICATE_URL -O /usr/local/share/ca-certificates/cert.crt && update-ca-certificates && dockerd-entrypoint.sh || exit )"]
 
 variables:
-## Uncomment this to inject a self-signed certificate into the docker:dind service
+## Uncomment this to inject a self-signed certificate into the docker:dind service.
 #  CERTIFICATE_URL: http://my_server/my_corp.crt
-#  # Disable TLS; see: https://gitlab.com/gitlab-org/gitlab-runner/issues/1350#note_199840999 and https://about.gitlab.com/2019/07/31/docker-in-docker-with-docker-19-dot-03/
+## Uncomment this to use an insecure docker registry.
+## See: https://gitlab.com/gitlab-org/gitlab-runner/issues/1350#note_199840999 and https://about.gitlab.com/2019/07/31/docker-in-docker-with-docker-19-dot-03/
 #  DOCKER_TLS_CERTDIR: ""
 
 before_script:
