@@ -50,6 +50,9 @@ jobs:
         java-version:
           - '17'
           - '18'
+          - '19'
+          - '20'
+          - '21'
         java-distribution:
           - 'zulu'
           - 'temurin'
