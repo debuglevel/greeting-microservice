@@ -294,6 +294,7 @@ tasks.register('copyOpenAPI', Copy) {
     into "."
     include "*.yml"
     rename ".*\\.yml", "openapi.yaml"
+    doNotTrackState("No idea, failed without this statement (at least on Windows).")
 }
 compileJava.dependsOn tasks.named("copyOpenAPI")
 compileKotlin.dependsOn tasks.named("copyOpenAPI")

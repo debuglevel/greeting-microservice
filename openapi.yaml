@@ -17,7 +17,6 @@ paths:
       summary: Gets some greetings.
       description: Gets some greetings.
       operationId: getAllGreetings
-      parameters: []
       responses:
         "200":
           description: Some greetings
@@ -30,12 +29,10 @@ paths:
     post:
       tags:
       - greetings
-      summary: "Get a greeting for a person. If given, the greeting is localized in\
-        \ a language."
+      summary: Get a greeting for a person.
       description: "Get a greeting for a person. If given, the greeting is localized\
         \ in a language."
       operationId: postOneGreeting
-      parameters: []
       requestBody:
         content:
           application/json:
@@ -58,8 +55,7 @@ paths:
     get:
       tags:
       - greetings
-      summary: "Get a greeting for a person. If given, the greeting is localized in\
-        \ a language."
+      summary: Get a greeting for a person.
       description: "Get a greeting for a person. If given, the greeting is localized\
         \ in a language."
       operationId: getOneGreeting
@@ -73,7 +69,6 @@ paths:
       - name: language
         in: query
         description: The language to greet the person in
-        required: false
         schema:
           type: string
           nullable: true
@@ -91,7 +86,6 @@ paths:
       summary: Get all persons
       description: Get all persons
       operationId: getAllPersons
-      parameters: []
       responses:
         "200":
           description: All persons
@@ -107,7 +101,6 @@ paths:
       summary: Create a person.
       description: Create a person.
       operationId: postOnePerson
-      parameters: []
       requestBody:
         content:
           application/json:
@@ -132,9 +125,9 @@ paths:
       summary: Delete all person.
       description: Delete all person.
       operationId: deleteAllPersons
-      parameters: []
       responses:
         "200":
+          description: deleteAllPersons 200 response
           content:
             application/json:
               schema:
@@ -146,7 +139,6 @@ paths:
       summary: Get all VIPs
       description: Get all VIPs
       operationId: getVIPs
-      parameters: []
       responses:
         "200":
           description: All VIPs
@@ -163,9 +155,9 @@ paths:
       summary: Download a never ending file of random names
       description: Download a never ending file of random names
       operationId: downloadRandomEndless
-      parameters: []
       responses:
         "200":
+          description: downloadRandomEndless 200 response
           content:
             application/json:
               schema:
@@ -241,6 +233,7 @@ paths:
           format: uuid
       responses:
         "200":
+          description: deleteOnePerson 200 response
           content:
             application/json:
               schema:
@@ -283,6 +276,8 @@ components:
       properties:
         greeting:
           type: string
+          description: Greeting for the given person
+      description: A greeting
     GreetingRequest:
       required:
       - name
