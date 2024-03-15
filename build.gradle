@@ -388,7 +388,3 @@ tasks.withType(JavaExec) {
         )
     }
 }
-
-// Heroku: Create a "stage" task which simply executes "build"
-task stage(dependsOn: ['clean', 'build'])
-tasks.build.mustRunAfter clean
